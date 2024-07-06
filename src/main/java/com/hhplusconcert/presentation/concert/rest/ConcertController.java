@@ -2,7 +2,7 @@ package com.hhplusconcert.presentation.concert.rest;
 
 import com.hhplusconcert.application.concert.dto.ConcertInfo;
 import com.hhplusconcert.application.concert.dto.ConcertSeriesInfo;
-import com.hhplusconcert.application.concert.dto.ConcertSheetInfo;
+import com.hhplusconcert.application.concert.dto.ConcertSeatInfo;
 import com.hhplusconcert.presentation.concert.command.CreateConcertCommand;
 import com.hhplusconcert.presentation.concert.command.CreateConcertSeriesCommand;
 import jdk.jfr.Description;
@@ -46,10 +46,10 @@ public class ConcertController {
         return ResponseEntity.ok(List.of(ConcertSeriesInfo.sample()));
     }
 
-    @GetMapping("/sheet/{seriesId}")
+    @GetMapping("/seat/{seriesId}")
     @Description("콘서트 자리 조회")
-    public ResponseEntity<List<ConcertSheetInfo>> loadConcertSheets(@PathVariable String seriesId) {
+    public ResponseEntity<List<ConcertSeatInfo>> loadConcertSheets(@PathVariable String seriesId) {
         //
-        return ResponseEntity.ok(List.of(ConcertSheetInfo.sample()));
+        return ResponseEntity.ok(List.of(ConcertSeatInfo.sample()));
     }
 }

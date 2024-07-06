@@ -18,7 +18,7 @@ public class ReservationInfo {
     private String concertId;
     private String seriesId;
     private String paymentId;
-    private String sheetId;
+    private String seatId;
 
     /**
      * 추가 데이터들 - 이때 반정규화 데이터 확인

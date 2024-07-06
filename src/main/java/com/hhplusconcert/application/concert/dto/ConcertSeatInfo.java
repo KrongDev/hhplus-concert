@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ConcertSheetInfo {
+public class ConcertSeatInfo {
     private String sheetId;
     private String concertId;
     private String seriesId;
@@ -18,8 +18,8 @@ public class ConcertSheetInfo {
     private int price;
     private boolean reserved;
 
-    public static ConcertSheetInfo sample() {
-        return new ConcertSheetInfo(
+    public static ConcertSeatInfo sample() {
+        return new ConcertSeatInfo(
                 "",
                 "",
                 "",

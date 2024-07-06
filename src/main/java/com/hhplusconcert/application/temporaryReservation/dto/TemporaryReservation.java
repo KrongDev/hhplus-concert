@@ -16,7 +16,7 @@ public class TemporaryReservation {
     private String userId;
     private String concertId;
     private String seriesId;
-    private String sheetId;
+    private String seatId;
     private LocalDateTime createAt;
     private LocalDateTime deleteAt;
 
