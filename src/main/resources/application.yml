@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: hhplus-concert
+  config:
+    activate:
+      on-profile: default
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.hhplusconcert: info
