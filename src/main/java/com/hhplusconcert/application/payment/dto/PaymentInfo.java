@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ public class PaymentInfo {
     private String userId;
     private int amount;
     private PaymentEnum status;
-    private LocalDateTime createAt;
+    private Long createAt;
 
     public enum PaymentEnum {
         COMPLETE
@@ -28,7 +28,7 @@ public class PaymentInfo {
           "",
           10000,
           PaymentEnum.COMPLETE,
-          LocalDateTime.now()
+          System.currentTimeMillis()
         );
     }
 }

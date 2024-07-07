@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -18,7 +18,7 @@ public class PointHistoryInfo {
     private String userId;
     private int amount;
     private PointHistoryEnum status;
-    private LocalDateTime createAt;
+    private Long createAt;
 
     public enum PointHistoryEnum {
         CHARGE,
@@ -33,7 +33,7 @@ public class PointHistoryInfo {
                 "",
                 10000,
                 PointHistoryEnum.CHARGE,
-                LocalDateTime.now()
+                System.currentTimeMillis()
         );
     }
 }

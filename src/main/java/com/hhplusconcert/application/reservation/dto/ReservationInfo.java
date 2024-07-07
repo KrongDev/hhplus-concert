@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -24,7 +24,7 @@ public class ReservationInfo {
      * 추가 데이터들 - 이때 반정규화 데이터 확인
      */
 
-    private LocalDateTime createAt;
+    private Long createAt;
 
     public static ReservationInfo sample() {
         return new ReservationInfo(
@@ -34,7 +34,7 @@ public class ReservationInfo {
             "",
             "",
             "",
-                LocalDateTime.now()
+                System.currentTimeMillis()
         );
     }
 }

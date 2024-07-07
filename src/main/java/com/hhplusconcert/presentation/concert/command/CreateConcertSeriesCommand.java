@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.util.Assert;
 
-import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -15,15 +15,19 @@ import java.time.LocalDateTime;
 public class CreateConcertSeriesCommand {
     //
     private String concertId;
-    private LocalDateTime startAt;
-    private LocalDateTime endAt;
-    private LocalDateTime reserveStartAt;
-    private LocalDateTime reserveEndAt;
+    private Long startAt;
+    private Long endAt;
+    private Long reserveStartAt;
+    private Long reserveEndAt;
+    private int maxRow;
+    private int maxSeat;
 
     public void validation() {
-        LocalDateTime now = LocalDateTime.now();
+        long now = System.currentTimeMillis();
         Assert.hasText(concertId, "concertId is required");
-        Assert.isTrue(now.isBefore(reserveEndAt), "reserveEndAt is invalid");
-        Assert.isTrue(now.isBefore(endAt), "endAt is invalid");
+        Assert.isTrue(now < reserveEndAt, "reserveEndAt is invalid");
+        Assert.isTrue(now < endAt, "endAt is invalid");
+        Assert.isTrue(maxRow > 0, "maxRow is invalid");
+        Assert.isTrue(maxSeat > 0 && maxSeat > maxRow, "maxSeat is invalid");
     }
 }

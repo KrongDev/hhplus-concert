@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -17,8 +17,8 @@ public class TemporaryReservation {
     private String concertId;
     private String seriesId;
     private String seatId;
-    private LocalDateTime createAt;
-    private LocalDateTime deleteAt;
+    private Long createAt;
+    private Long deleteAt;
 
     public static TemporaryReservation sample() {
         return new TemporaryReservation(
@@ -27,7 +27,7 @@ public class TemporaryReservation {
                 "",
                 "",
                 "",
-                LocalDateTime.now(),
+                System.currentTimeMillis(),
                 null
         );
     }
