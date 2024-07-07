@@ -1,10 +1,13 @@
 package com.hhplusconcert.presentation.point.rest;
 
-import com.hhplusconcert.application.point.dto.PointHistoryInfo;
-import com.hhplusconcert.application.point.dto.PointInfo;
+import com.hhplusconcert.application.point.facade.PointFlowFacade;
+import com.hhplusconcert.application.point.facade.PointSeekFacade;
+import com.hhplusconcert.domain.point.model.Point;
+import com.hhplusconcert.domain.point.model.PointHistory;
 import com.hhplusconcert.presentation.point.command.ChargePointCommand;
 import com.hhplusconcert.presentation.point.command.UsePointCommand;
 import jdk.jfr.Description;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,20 +15,24 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/point")
+@RequiredArgsConstructor
 public class PointController {
+
+    private final PointFlowFacade pointFlowFacade;
+    private final PointSeekFacade pointSeekFacade;
 
     @GetMapping("/{userId}")
     @Description("포인트 조회")
-    public ResponseEntity<PointInfo> loadPoint(@PathVariable String userId){
+    public ResponseEntity<Point> loadPoint(@PathVariable String userId){
         //
-        return ResponseEntity.ok(PointInfo.sample());
+        return ResponseEntity.ok(this.pointSeekFacade.loadPoint(userId));
     }
 
     @GetMapping("/history/{userId}")
     @Description("포인트 사용 내역 조회")
-    public ResponseEntity<List<PointHistoryInfo>> loadPointHistories(@PathVariable String userId){
+    public ResponseEntity<List<PointHistory>> loadPointHistories(@PathVariable String userId){
         //
-        return ResponseEntity.ok(List.of(PointHistoryInfo.sample()));
+        return ResponseEntity.ok(this.pointSeekFacade.loadPointHistoryByPointId(userId));
     }
 
     @PatchMapping("/charge")
@@ -33,6 +40,9 @@ public class PointController {
     public void chargePoint (@RequestBody ChargePointCommand command) {
         //
         command.validate();
+        String userId = command.getUserId();
+        int amount = command.getAmount();
+        this.pointFlowFacade.chargePoint(userId, amount);
     }
 
     @PatchMapping("/use")
@@ -40,5 +50,9 @@ public class PointController {
     public void usePoint (@RequestBody UsePointCommand command) {
         //
         command.validate();
+        String userId = command.getUserId();
+        String paymentId = command.getPaymentId();
+        int amount = command.getAmount();
+        this.pointFlowFacade.usePoint(userId, amount, paymentId);
     }
 }
