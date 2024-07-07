@@ -22,7 +22,7 @@ public class ConcertSeriesService {
             Long reserveEndAt
     ) {
             //
-        ConcertSeries concertSeries = ConcertSeries.of(
+        ConcertSeries concertSeries = ConcertSeries.newInstance(
                 concertId,
                 startAt,
                 endAt,

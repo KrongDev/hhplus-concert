@@ -20,7 +20,7 @@ public class ConcertSeries {
     private ConcertSeriesStatus status;
     private Long createAt;
 
-    public static ConcertSeries of(
+    public static ConcertSeries newInstance(
             String concertId,
             Long startAt,
             Long endAt,

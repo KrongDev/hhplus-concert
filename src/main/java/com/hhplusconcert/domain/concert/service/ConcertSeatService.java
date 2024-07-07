@@ -28,7 +28,7 @@ public class ConcertSeatService {
         for(int i = 0; i < maxRow; i++) {
             for(int j = 0; j < oneRowCol; j++) {
                 newSeatList.add(
-                    ConcertSeat.of(
+                    ConcertSeat.newInstance(
                         seriesId,
                         i,
                         j,

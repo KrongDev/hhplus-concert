@@ -15,7 +15,7 @@ public class ConcertService {
 
     public String create(String userId, String title) {
         //
-        Concert concert = Concert.of(userId, title);
+        Concert concert = Concert.newInstance(userId, title);
         this.concertRepository.save(concert);
         return concert.getConcertId();
     }

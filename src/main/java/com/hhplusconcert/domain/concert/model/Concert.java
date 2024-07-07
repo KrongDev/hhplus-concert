@@ -17,7 +17,7 @@ public class Concert {
     private String creator;
     private Long createAt;
 
-    public static Concert of(String creator, String title) {
+    public static Concert newInstance(String creator, String title) {
         String concertId = UUID.randomUUID().toString();
         Long createAt = System.currentTimeMillis();
         return Concert.builder()

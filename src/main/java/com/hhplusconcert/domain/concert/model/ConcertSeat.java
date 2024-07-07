@@ -16,7 +16,7 @@ public class ConcertSeat {
     private int price;
     private boolean reserved;
 
-    public static ConcertSeat of(
+    public static ConcertSeat newInstance(
             String seriesId,
             int row,
             int col,
