@@ -33,4 +33,10 @@ public class ConcertSeatRepositoryImpl implements ConcertSeatRepository {
         List<ConcertSeatJpo> jpos = this.concertSeatJpoRepository.findAllBySeatIdSeriesId(seriesId);
         return jpos.stream().map(ConcertSeatJpo::toDomain).toList();
     }
+
+    @Override
+    public ConcertSeat findByIdWithThrow(String seriesId, int row, int col) {
+        ConcertSeatJpo jpo = this.concertSeatJpoRepository.findById(new ConcertSeatJpo.SeatKey(seriesId, row, col)).orElseThrow();
+        return jpo.toDomain();
+    }
 }

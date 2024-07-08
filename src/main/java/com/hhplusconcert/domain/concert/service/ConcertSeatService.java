@@ -46,4 +46,16 @@ public class ConcertSeatService {
         seatList = seatList.stream().sorted(Comparator.comparing(ConcertSeat::getSeatIndex)).toList();
         return seatList;
     }
+
+    public ConcertSeat loadConcertSeatById(String seriesId, int row, int col) {
+        //
+        return this.concertSeatRepository.findByIdWithThrow(seriesId, row, col);
+    }
+
+    public void reserveSeat(String seriesId, int row, int col) {
+        //
+        ConcertSeat seat = this.loadConcertSeatById(seriesId, row, col);
+        seat.reserve();
+        this.concertSeatRepository.save(seat);
+    }
 }

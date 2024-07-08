@@ -31,4 +31,9 @@ public class ConcertSeat {
                 .price(price)
                 .build();
     }
+
+    public void reserve() {
+        //
+        this.reserved = true;
+    }
 }

@@ -43,4 +43,9 @@ public class ConcertSeries {
                 .createAt(now)
                 .build();
     }
+
+    public boolean  isReservationAvailable () {
+        long now = System.currentTimeMillis();
+        return now >= reserveStartAt && now < reserveEndAt;
+    }
 }
