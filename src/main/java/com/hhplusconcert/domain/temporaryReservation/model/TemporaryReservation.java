@@ -37,6 +37,7 @@ public class TemporaryReservation {
                 .seatRow(seatRow)
                 .seatCol(seatCol)
                 .createAt(System.currentTimeMillis())
+                .deleteAt(0L)
                 .build();
     }
 }

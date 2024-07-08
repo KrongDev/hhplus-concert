@@ -11,10 +11,26 @@ spring:
     password: concert1234
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+
 server:
   port: 8080
 
 logging:
   level:
     com.hhplusconcert: info
+---
+spring:
+  application:
+    name: hhplus-concert
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/concert_test
+    username: concert_test
+    password: concert_test1234
+  jpa:
+    hibernate:
+      ddl-auto: create-drop

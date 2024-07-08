@@ -46,4 +46,8 @@ public class TemporaryReservationJpo implements JpoEntity<TemporaryReservation> 
                 .deleteAt(deleteAt)
                 .build();
     }
+
+    public static void main(String[] args) {
+        System.out.println(System.currentTimeMillis());
+    }
 }

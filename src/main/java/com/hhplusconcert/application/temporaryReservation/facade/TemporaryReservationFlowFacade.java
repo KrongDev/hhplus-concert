@@ -29,7 +29,7 @@ public class TemporaryReservationFlowFacade {
             throw new IllegalAccessException("신청가능 시간이 아닙니다.");
         // 콘서트 좌석 조회
         ConcertSeat concertSeat = this.concertSeatService.loadConcertSeatById(seriesId, seatRow, seatCol);
-        if(!concertSeat.isReserved())
+        if(concertSeat.isReserved())
             throw new IllegalAccessException("신청가능한 좌석이 아닙니다.");
         // 좌석 예약
         this.concertSeatService.reserveSeat(seriesId, seatRow, seatCol);

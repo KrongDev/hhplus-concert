@@ -5,7 +5,6 @@ import com.hhplusconcert.application.temporaryReservation.facade.TemporaryReserv
 import com.hhplusconcert.application.temporaryReservation.facade.TemporaryReservationSeekFacade;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.presentation.temporaryReservation.command.CreateTemporaryReservationCommand;
-import com.hhplusconcert.presentation.temporaryReservation.query.TemporaryReservationsQuery;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -43,10 +42,8 @@ public class TemporaryReservationController {
 
     @GetMapping()
     @Description("임시 예약 목록 조회")
-    public ResponseEntity<List<TemporaryReservation>> loadTemporaryReservations(@RequestBody TemporaryReservationsQuery query) {
+    public ResponseEntity<List<TemporaryReservation>> loadTemporaryReservations(@RequestParam String userId) {
         //
-        query.validate();
-        String userId = query.userId();
         return ResponseEntity.ok(this.temporaryReservationSeekFacade.loadTemporaryReservations(userId));
     }
 
