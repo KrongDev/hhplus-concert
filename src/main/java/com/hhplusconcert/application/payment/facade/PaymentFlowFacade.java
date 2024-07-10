@@ -1,0 +1,53 @@
+package com.hhplusconcert.application.payment.facade;
+
+import com.hhplusconcert.domain.payment.service.PaymentService;
+import com.hhplusconcert.domain.point.model.vo.PointHistoryStatus;
+import com.hhplusconcert.domain.point.service.PointHistoryService;
+import com.hhplusconcert.domain.point.service.PointService;
+import com.hhplusconcert.domain.reservation.service.ReservationService;
+import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
+import com.hhplusconcert.domain.temporaryReservation.service.TemporaryReservationService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class PaymentFlowFacade {
+    //
+    private final TemporaryReservationService temporaryReservationService;
+    private final ReservationService reservationService;
+    private final PaymentService paymentService;
+    private final PointService pointService;
+    private final PointHistoryService pointHistoryService;
+
+    @Transactional
+    public String processTemporaryReservationPayment(
+            String temporaryReservationId,
+            String userId
+    ) {
+        TemporaryReservation temporaryReservation = this.temporaryReservationService.loadTemporaryReservation(temporaryReservationId);
+        int price = temporaryReservation.getPrice();
+        // 예약 테이블로 옮김
+        String reservationId = this.reservationService.create(
+                userId,
+                temporaryReservation.getConcertId(),
+                temporaryReservation.getTitle(),
+                temporaryReservation.getSeriesId(),
+                temporaryReservation.getSeatRow(),
+                temporaryReservation.getSeatCol(),
+                price
+        );
+        // 결제 처리
+        String paymentId = this.paymentService.create(reservationId, userId, price);
+        //포인트 사용
+        this.pointService.charge(userId, price);
+        this.pointHistoryService.createPointHistory(userId, price, PointHistoryStatus.USE, paymentId);
+        //결제 완료 처리
+        this.temporaryReservationService.payReservation(temporaryReservationId);
+
+        //TODO 대기열 토큰 만료 처리
+
+        return paymentId;
+    }
+}

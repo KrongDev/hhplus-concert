@@ -29,6 +29,12 @@ public class TemporaryReservationRepositoryImpl implements TemporaryReservationR
     }
 
     @Override
+    public TemporaryReservation findByIdAndNotPaidWithException(String temporaryReservationId) {
+        TemporaryReservationJpo jpo = this.temporaryReservationJpoRepository.findByTemporaryReservationIdAndPaid(temporaryReservationId, false).orElseThrow();
+        return jpo.toDomain();
+    }
+
+    @Override
     public TemporaryReservation findByIdWithException(String temporaryReservationId) {
         TemporaryReservationJpo jpo = this.temporaryReservationJpoRepository.findById(temporaryReservationId).orElseThrow();
         return jpo.toDomain();

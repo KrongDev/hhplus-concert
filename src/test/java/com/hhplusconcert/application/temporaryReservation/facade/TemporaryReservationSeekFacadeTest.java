@@ -45,7 +45,7 @@ class TemporaryReservationSeekFacadeTest {
     @DisplayName("임시 예약 정보 조회 테스트")
     void loadTemporaryReservation() {
         //GIVEN
-        when(this.temporaryReservationService.loadTemporaryReservation(temporaryReservationId)).thenReturn(new TemporaryReservation(temporaryReservationId, userId, concertId, seriesId, seatRow, seatCol, 0L, 0L));
+        when(this.temporaryReservationService.loadTemporaryReservation(temporaryReservationId)).thenReturn(new TemporaryReservation(temporaryReservationId,0, userId, concertId, title, seriesId, seatRow, seatCol, 10000, 0L, 0L, false));
         when(this.concertService.loadConcert(concertId)).thenReturn(new Concert(concertId, title, userId, System.currentTimeMillis()));
         when(this.concertSeriesService.loadConcertSeries(seriesId)).thenReturn(new ConcertSeries(seriesId, concertId, startAt, endAt, startAt, endAt, ConcertSeriesStatus.READY, startAt));
 

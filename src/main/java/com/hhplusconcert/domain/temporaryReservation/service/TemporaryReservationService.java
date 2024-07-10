@@ -4,6 +4,7 @@ import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.domain.temporaryReservation.repository.TemporaryReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,14 +14,17 @@ public class TemporaryReservationService {
     //
     private final TemporaryReservationRepository temporaryReservationRepository;
 
+    @Transactional
     public String create(
             String userId,
             String concertId,
+            String title,
             String seriesId,
             int seatRow,
-            int seatCol
+            int seatCol,
+            int price
     ) {
-        TemporaryReservation temporaryReservation = TemporaryReservation.newInstance(userId, concertId, seriesId, seatRow, seatCol);
+        TemporaryReservation temporaryReservation = TemporaryReservation.newInstance(userId, concertId, title, seriesId, seatRow, seatCol, price);
         this.temporaryReservationRepository.save(temporaryReservation);
         return temporaryReservation.getTemporaryReservationId();
     }
@@ -33,5 +37,13 @@ public class TemporaryReservationService {
     public TemporaryReservation loadTemporaryReservation(String temporaryReservationId) {
         //
         return this.temporaryReservationRepository.findByIdWithException(temporaryReservationId);
+    }
+
+    @Transactional
+    public void payReservation(String temporaryReservationId) {
+        //
+        TemporaryReservation temporaryReservation = this.temporaryReservationRepository.findByIdAndNotPaidWithException(temporaryReservationId);
+        temporaryReservation.pay();
+        this.temporaryReservationRepository.save(temporaryReservation);
     }
 }

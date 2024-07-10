@@ -4,6 +4,7 @@ import com.hhplusconcert.domain.reservation.model.Reservation;
 import com.hhplusconcert.domain.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class ReservationService {
     //
     private final ReservationRepository reservationRepository;
 
+    @Transactional
     public String create(
             String userId,
             String concertId,

@@ -7,5 +7,6 @@ import java.util.List;
 public interface TemporaryReservationRepository {
     void save(TemporaryReservation temporaryReservation);
     List<TemporaryReservation> findByUserId(String userId);
+    TemporaryReservation findByIdAndNotPaidWithException(String temporaryReservationId);
     TemporaryReservation findByIdWithException(String temporaryReservationId);
 }

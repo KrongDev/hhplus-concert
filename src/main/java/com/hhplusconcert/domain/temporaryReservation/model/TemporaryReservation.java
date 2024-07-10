@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Calendar;
 import java.util.UUID;
 
 @Getter
@@ -13,31 +14,46 @@ import java.util.UUID;
 @NoArgsConstructor
 public class TemporaryReservation {
     private String temporaryReservationId;
+    private int entityVersion;
     private String userId;
     private String concertId;
+    private String title;
     private String seriesId;
     private int seatRow;
     private int seatCol;
+    private int price;
     private Long createAt;
     private Long deleteAt;
+    private boolean paid;
 
     public static TemporaryReservation newInstance(
         String userId,
         String concertId,
+        String title,
         String seriesId,
         int seatRow,
-        int seatCol
+        int seatCol,
+        int price
     ) {
+        Calendar calendar = Calendar.getInstance();
+        long now = calendar.getTimeInMillis();
+        calendar.add(Calendar.MINUTE, 5);
         String newId = UUID.randomUUID().toString();
         return TemporaryReservation.builder()
                 .temporaryReservationId(newId)
                 .userId(userId)
                 .concertId(concertId)
+                .title(title)
                 .seriesId(seriesId)
                 .seatRow(seatRow)
                 .seatCol(seatCol)
-                .createAt(System.currentTimeMillis())
-                .deleteAt(0L)
+                .price(price)
+                .createAt(now)
+                .deleteAt(calendar.getTimeInMillis())
                 .build();
+    }
+
+    public void pay() {
+        this.paid = true;
     }
 }
