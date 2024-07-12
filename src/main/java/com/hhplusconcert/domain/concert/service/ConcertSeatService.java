@@ -47,15 +47,27 @@ public class ConcertSeatService {
         return seatList;
     }
 
-    public ConcertSeat loadConcertSeatById(String seriesId, int row, int col) {
+    public List<ConcertSeat> loadConcertSeatsBySeries(List<String> seriesIds) {
         //
-        return this.concertSeatRepository.findByIdWithThrow(seriesId, row, col);
+        List<ConcertSeat> seatList = this.concertSeatRepository.findAllBySeriesIds(seriesIds);
+        seatList = seatList.stream().sorted(Comparator.comparing(ConcertSeat::getSeatIndex)).toList();
+        return seatList;
     }
 
-    public void reserveSeat(String seriesId, int row, int col) {
+    public ConcertSeat loadConcertSeatById(String seatId) {
         //
-        ConcertSeat seat = this.loadConcertSeatById(seriesId, row, col);
+        return this.concertSeatRepository.findByIdWithThrow(seatId);
+    }
+
+    public void reserveSeat(String seatId) {
+        //
+        ConcertSeat seat = this.loadConcertSeatById(seatId);
         seat.reserve();
         this.concertSeatRepository.save(seat);
+    }
+
+    public void updateAll(List<ConcertSeat> seatList) {
+        //
+        this.concertSeatRepository.saveAll(seatList);
     }
 }

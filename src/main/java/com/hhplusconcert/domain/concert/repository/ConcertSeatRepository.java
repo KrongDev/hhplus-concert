@@ -8,5 +8,6 @@ public interface ConcertSeatRepository {
     void save(ConcertSeat concertSeat);
     void saveAll(List<ConcertSeat> concertSeatList);
     List<ConcertSeat> findAllBySeriesId(String seriesId);
-    ConcertSeat findByIdWithThrow(String seriesId, int row, int col);
+    List<ConcertSeat> findAllBySeriesIds(List<String> seriesIds);
+    ConcertSeat findByIdWithThrow(String seatId);
 }

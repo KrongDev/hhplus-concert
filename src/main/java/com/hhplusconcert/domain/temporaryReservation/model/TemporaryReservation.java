@@ -19,6 +19,7 @@ public class TemporaryReservation {
     private String concertId;
     private String title;
     private String seriesId;
+    private String seatId;
     private int seatRow;
     private int seatCol;
     private int price;
@@ -31,6 +32,7 @@ public class TemporaryReservation {
         String concertId,
         String title,
         String seriesId,
+        String seatId,
         int seatRow,
         int seatCol,
         int price
@@ -45,6 +47,7 @@ public class TemporaryReservation {
                 .concertId(concertId)
                 .title(title)
                 .seriesId(seriesId)
+                .seatId(seatId)
                 .seatRow(seatRow)
                 .seatCol(seatCol)
                 .price(price)

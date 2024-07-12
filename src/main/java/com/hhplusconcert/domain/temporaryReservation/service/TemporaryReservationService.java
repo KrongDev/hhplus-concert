@@ -20,11 +20,12 @@ public class TemporaryReservationService {
             String concertId,
             String title,
             String seriesId,
+            String seatId,
             int seatRow,
             int seatCol,
             int price
     ) {
-        TemporaryReservation temporaryReservation = TemporaryReservation.newInstance(userId, concertId, title, seriesId, seatRow, seatCol, price);
+        TemporaryReservation temporaryReservation = TemporaryReservation.newInstance(userId, concertId, title, seriesId, seatId, seatRow, seatCol, price);
         this.temporaryReservationRepository.save(temporaryReservation);
         return temporaryReservation.getTemporaryReservationId();
     }
@@ -32,6 +33,12 @@ public class TemporaryReservationService {
     public List<TemporaryReservation> loadTemporaryReservations(String userId) {
         //
         return this.temporaryReservationRepository.findByUserId(userId);
+    }
+
+    public List<TemporaryReservation> loadExpiredTemporaryReservations() {
+        //
+        long now = System.currentTimeMillis();
+        return this.temporaryReservationRepository.findAllByDeleteAt(now);
     }
 
     public TemporaryReservation loadTemporaryReservation(String temporaryReservationId) {
@@ -45,5 +52,11 @@ public class TemporaryReservationService {
         TemporaryReservation temporaryReservation = this.temporaryReservationRepository.findByIdAndNotPaidWithException(temporaryReservationId);
         temporaryReservation.pay();
         this.temporaryReservationRepository.save(temporaryReservation);
+    }
+
+    @Transactional
+    public void deleteIds(List<String> temporaryReservationIds) {
+        //
+        this.temporaryReservationRepository.deleteByIds(temporaryReservationIds);
     }
 }

@@ -7,6 +7,10 @@ import com.hhplusconcert.domain.point.service.PointService;
 import com.hhplusconcert.domain.reservation.service.ReservationService;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.domain.temporaryReservation.service.TemporaryReservationService;
+import com.hhplusconcert.domain.waitingQueue.model.WaitingQueue;
+import com.hhplusconcert.domain.waitingQueue.service.WaitingQueueService;
+import com.hhplusconcert.domain.watingToken.model.WaitingToken;
+import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +24,8 @@ public class PaymentFlowFacade {
     private final PaymentService paymentService;
     private final PointService pointService;
     private final PointHistoryService pointHistoryService;
+    private final WaitingTokenService waitingTokenService;
+    private final WaitingQueueService waitingQueueService;
 
     @Transactional
     public String processTemporaryReservationPayment(
@@ -34,6 +40,7 @@ public class PaymentFlowFacade {
                 temporaryReservation.getConcertId(),
                 temporaryReservation.getTitle(),
                 temporaryReservation.getSeriesId(),
+                temporaryReservation.getSeatId(),
                 temporaryReservation.getSeatRow(),
                 temporaryReservation.getSeatCol(),
                 price
@@ -46,7 +53,12 @@ public class PaymentFlowFacade {
         //결제 완료 처리
         this.temporaryReservationService.payReservation(temporaryReservationId);
 
-        //TODO 대기열 토큰 만료 처리
+        WaitingToken token = this.waitingTokenService.loadWaitingToken(userId, temporaryReservation.getSeriesId());
+        // 대기열 토큰 만료 처리
+        this.waitingTokenService.deleteWaitingToken(token.getTokenId());
+        WaitingQueue queue = this.waitingQueueService.loadWaitingQueue(token.getTokenId());
+        queue.ended();
+        this.waitingQueueService.update(queue);
 
         return paymentId;
     }

@@ -27,6 +27,7 @@ public class TemporaryReservationJpo implements JpoEntity<TemporaryReservation> 
     private String concertId;
     private String title;
     private String seriesId;
+    private String seatId;
     private int seatRow;
     private int seatCol;
     private int price;
@@ -48,6 +49,7 @@ public class TemporaryReservationJpo implements JpoEntity<TemporaryReservation> 
                 .concertId(concertId)
                 .title(title)
                 .seriesId(seriesId)
+                .seatId(seatId)
                 .seatRow(seatRow)
                 .seatCol(seatCol)
                 .price(price)

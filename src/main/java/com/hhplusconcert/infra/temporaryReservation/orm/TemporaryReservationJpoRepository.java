@@ -11,4 +11,5 @@ public interface TemporaryReservationJpoRepository extends JpaRepository<Tempora
     //
     Optional<TemporaryReservationJpo> findByTemporaryReservationIdAndPaid(String temporaryReservationId, boolean paid);
     List<TemporaryReservationJpo> findAllByUserId(String userId);
+    List<TemporaryReservationJpo> findAllByDeleteAtLessThanEqualAndPaidFalse(long deleteAt);
 }

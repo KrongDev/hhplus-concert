@@ -23,21 +23,20 @@ public class TemporaryReservationFlowFacade {
             String userId,
             String concertId,
             String seriesId,
-            int seatRow,
-            int seatCol
+            String seatId
     ) throws IllegalAccessException {
         // 콘서트 리스트 조회
         ConcertSeries concertSeries = this.concertSeriesService.loadConcertSeries(seriesId);
         if(!concertSeries.isReservationAvailable())
             throw new IllegalAccessException("신청가능 시간이 아닙니다.");
         // 콘서트 좌석 조회
-        ConcertSeat concertSeat = this.concertSeatService.loadConcertSeatById(seriesId, seatRow, seatCol);
+        ConcertSeat concertSeat = this.concertSeatService.loadConcertSeatById(seatId);
         if(concertSeat.isReserved())
             throw new IllegalAccessException("신청가능한 좌석이 아닙니다.");
         Concert concert = this.concertService.loadConcert(concertId);
         // 좌석 예약
-        this.concertSeatService.reserveSeat(seriesId, seatRow, seatCol);
+        this.concertSeatService.reserveSeat(concertSeat.getSeatId());
         // 임시 예약 생성
-        return this.temporaryReservationService.create(userId, concertId, concert.getTitle() , seriesId, seatRow, seatCol, concertSeat.getPrice());
+        return this.temporaryReservationService.create(userId, concertId, concert.getTitle() , seriesId, concertSeat.getSeatId(), concertSeat.getSeatRow(), concertSeat.getSeatCol(), concertSeat.getPrice());
     }
 }

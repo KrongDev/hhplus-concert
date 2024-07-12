@@ -2,7 +2,6 @@ package com.hhplusconcert.infra.reservation.orm.jpo;
 
 import com.hhplusconcert.domain.reservation.model.Reservation;
 import com.hhplusconcert.infra.common.JpoEntity;
-import com.hhplusconcert.infra.reservation.orm.ReservationJpoRepository;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -26,6 +25,7 @@ public class ReservationJpo implements JpoEntity<Reservation> {
     private String concertId;
     private String title;
     private String seriesId;
+    private String seatId;
     private int seatRow;
     private int seatCol;
     private int price;
@@ -44,6 +44,7 @@ public class ReservationJpo implements JpoEntity<Reservation> {
                 .concertId(concertId)
                 .title(title)
                 .seriesId(seriesId)
+                .seatId(seatId)
                 .seatRow(seatRow)
                 .seatCol(seatCol)
                 .price(price)

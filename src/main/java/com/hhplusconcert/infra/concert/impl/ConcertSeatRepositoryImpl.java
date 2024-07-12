@@ -30,13 +30,19 @@ public class ConcertSeatRepositoryImpl implements ConcertSeatRepository {
 
     @Override
     public List<ConcertSeat> findAllBySeriesId(String seriesId) {
-        List<ConcertSeatJpo> jpos = this.concertSeatJpoRepository.findAllBySeatIdSeriesId(seriesId);
+        List<ConcertSeatJpo> jpos = this.concertSeatJpoRepository.findAllBySeriesId(seriesId);
         return jpos.stream().map(ConcertSeatJpo::toDomain).toList();
     }
 
     @Override
-    public ConcertSeat findByIdWithThrow(String seriesId, int row, int col) {
-        ConcertSeatJpo jpo = this.concertSeatJpoRepository.findById(new ConcertSeatJpo.SeatKey(seriesId, row, col)).orElseThrow();
+    public List<ConcertSeat> findAllBySeriesIds(List<String> seriesIds) {
+        List<ConcertSeatJpo> jpos = this.concertSeatJpoRepository.findAllBySeatIdIn(seriesIds);
+        return jpos.stream().map(ConcertSeatJpo::toDomain).toList();
+    }
+
+    @Override
+    public ConcertSeat findByIdWithThrow(String seatId) {
+        ConcertSeatJpo jpo = this.concertSeatJpoRepository.findById(seatId).orElseThrow();
         return jpo.toDomain();
     }
 }

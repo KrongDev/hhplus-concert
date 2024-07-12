@@ -12,6 +12,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+concert:
+  limit:
+    processCount: 50
+
 
 server:
   port: 8080

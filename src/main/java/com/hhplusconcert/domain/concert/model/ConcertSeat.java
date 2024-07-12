@@ -2,12 +2,15 @@ package com.hhplusconcert.domain.concert.model;
 
 import lombok.*;
 
+import java.util.UUID;
+
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConcertSeat {
     //
+    private String seatId;
     private String seriesId;
     private int seatRow;
     private int seatCol;
@@ -23,7 +26,9 @@ public class ConcertSeat {
             int index,
             int price
     ) {
+        String newId = UUID.randomUUID().toString();
         return ConcertSeat.builder()
+                .seatId(newId)
                 .seriesId(seriesId)
                 .seatRow(row)
                 .seatCol(col)
@@ -35,5 +40,10 @@ public class ConcertSeat {
     public void reserve() {
         //
         this.reserved = true;
+    }
+
+    public void unreserve() {
+        //
+        this.reserved = false;
     }
 }

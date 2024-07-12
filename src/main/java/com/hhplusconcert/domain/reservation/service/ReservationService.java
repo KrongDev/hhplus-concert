@@ -20,12 +20,13 @@ public class ReservationService {
             String concertId,
             String title,
             String seriesId,
+            String seatId,
             int seatRow,
             int seatCol,
             int price
     ) {
         //
-        Reservation reservation = Reservation.newInstance(userId, concertId, title, seriesId, seatRow, seatCol, price);
+        Reservation reservation = Reservation.newInstance(userId, concertId, title, seriesId, seatId, seatRow, seatCol, price);
         reservationRepository.save(reservation);
         return reservation.getReservationId();
     }

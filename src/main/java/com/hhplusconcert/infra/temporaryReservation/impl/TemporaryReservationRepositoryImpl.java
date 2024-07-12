@@ -39,4 +39,15 @@ public class TemporaryReservationRepositoryImpl implements TemporaryReservationR
         TemporaryReservationJpo jpo = this.temporaryReservationJpoRepository.findById(temporaryReservationId).orElseThrow();
         return jpo.toDomain();
     }
+
+    @Override
+    public void deleteByIds(List<String> temporaryReservationId) {
+        this.temporaryReservationJpoRepository.deleteAllById(temporaryReservationId);
+    }
+
+    @Override
+    public List<TemporaryReservation> findAllByDeleteAt(long deletedAt) {
+        List<TemporaryReservationJpo> jpos = this.temporaryReservationJpoRepository.findAllByDeleteAtLessThanEqualAndPaidFalse(deletedAt);
+        return jpos.stream().map(TemporaryReservationJpo::toDomain).toList();
+    }
 }

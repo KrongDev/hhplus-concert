@@ -1,4 +1,4 @@
-package com.hhplusconcert.presentation.concertToken.command;
+package com.hhplusconcert.presentation.waitingToken.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GenTokenCommand {
+public class CreateWaitingTokenCommand {
     //
     private String userId;
     private String seriesId;

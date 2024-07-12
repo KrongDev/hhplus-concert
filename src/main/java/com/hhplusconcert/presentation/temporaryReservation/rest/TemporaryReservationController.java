@@ -28,15 +28,13 @@ public class TemporaryReservationController {
         String userId = command.userId();
         String concertId = command.concertId();
         String seriesId = command.seriesId();
-        int seatRow = command.seatRow();
-        int seatCol = command.seatCol();
+        String seatId = command.seatId();
 
         return ResponseEntity.ok(this.temporaryReservationFlowFacade.createTemporaryReservation(
                 userId,
                 concertId,
                 seriesId,
-                seatRow,
-                seatCol
+                seatId
         ));
     }
 
