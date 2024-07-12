@@ -665,3 +665,7 @@ API 호출시 필요한 토큰입니다.
   }
 ]  
 ```
+
+## Swagger 적용
+### [Swagger 바로가기](http://localhost:8080/swagger-ui/index.html#/)
+![swagger.png](./images/swagger.png)
