@@ -131,8 +131,4 @@ class ConcertControllerTest {
                 .andExpect(status().is5xxServerError())
         ;
     }
-
-    public static void main(String[] args) {
-        System.out.println(System.currentTimeMillis());
-    }
 }
