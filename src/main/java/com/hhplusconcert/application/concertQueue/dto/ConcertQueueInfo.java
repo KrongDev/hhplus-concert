@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ public class ConcertQueueInfo {
     private String tokenId;
     private int count; // 순번
     private QueueStatus status;
-    private LocalDateTime createAt;
+    private Long createAt;
 
     public enum QueueStatus {
         READY,
@@ -30,7 +30,7 @@ public class ConcertQueueInfo {
                 "",
                 1,
                 QueueStatus.PROCESSING,
-                LocalDateTime.now()
+                System.currentTimeMillis()
         );
     }
 }

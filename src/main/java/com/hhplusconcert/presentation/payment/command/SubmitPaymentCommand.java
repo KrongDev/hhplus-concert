@@ -11,12 +11,12 @@ import org.springframework.util.Assert;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubmitPaymentCommand {
+    private String temporaryReservationId;
     private String userId;
-    private int amount;
 
     public void validation() {
         //
+        Assert.hasText(temporaryReservationId, "temporaryReservationId is required");
         Assert.hasText(userId, "userId is required");
-        Assert.isTrue(amount > 0, "amount must be greater than 0");
     }
 }
