@@ -23,6 +23,7 @@ class TemporaryReservationControllerTest {
 
     private final String concertId = "test_concertId";
     private final String seriesId = "test_seriesId";
+    private final String seatId = "test_seatId";
     private final String userId = "test_user";
     private final String title = "test_title";
     private final String basicUrl = "/temporary-reservation";
@@ -36,8 +37,7 @@ class TemporaryReservationControllerTest {
                 userId,
                 concertId,
                 seriesId,
-                0,
-                0
+                seatId
         );
         //WHEN-THEN
         mockMvc.perform(
