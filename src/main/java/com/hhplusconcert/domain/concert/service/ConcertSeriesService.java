@@ -37,7 +37,7 @@ public class ConcertSeriesService {
 
     public ConcertSeries loadConcertSeries(String seriesId) {
         //
-        return this.concertSeriesRepository.findById(seriesId);
+        return this.concertSeriesRepository.findByIdWithThrow(seriesId);
     }
 
     public List<ConcertSeries> loadConcertSeriesByConcertIdAndNowReserving(String concertId) {

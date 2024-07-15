@@ -49,8 +49,8 @@ public class TemporaryReservationService {
     @Transactional
     public void payReservation(String temporaryReservationId) {
         //
-        TemporaryReservation temporaryReservation = this.temporaryReservationRepository.findByIdAndNotPaidWithException(temporaryReservationId);
-        temporaryReservation.pay();
+        TemporaryReservation temporaryReservation = this.temporaryReservationRepository.findByIdAndNotPaidWithThrow(temporaryReservationId);
+        temporaryReservation.finalizeConcertReservation();
         this.temporaryReservationRepository.save(temporaryReservation);
     }
 

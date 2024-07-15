@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface WaitingQueueRepository {
     Long save(WaitingQueue waitingQueue);
     void saveAll(List<WaitingQueue> waitingQueues);
-    WaitingQueue findByTokenId(String tokenId);
+    WaitingQueue findByTokenIdWithThrow(String tokenId);
     Optional<WaitingQueue> findPrevQueue(WaitingQueueStatus status);
     List<WaitingQueue> findAllWithExpired();
     List<WaitingQueue> findAllByStatusAndOffsetLimit(WaitingQueueStatus status, int limit);

@@ -1,5 +1,7 @@
 package com.hhplusconcert.infra.payment.impl;
 
+import com.hhplusconcert.domain.common.exception.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.ErrorType;
 import com.hhplusconcert.domain.payment.model.Payment;
 import com.hhplusconcert.domain.payment.repository.PaymentRepository;
 import com.hhplusconcert.infra.payment.orm.PaymentJpoRepository;
@@ -8,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -22,8 +25,10 @@ public class PaymentRepositoryImpl implements PaymentRepository {
 
     public Payment loadPaymentWithThrow(String paymentId) {
         //
-        PaymentJpo jpo = this.paymentJpoRepository.findById(paymentId).orElseThrow();
-        return jpo.toDomain();
+        Optional<PaymentJpo> jpo = this.paymentJpoRepository.findById(paymentId);
+        if(jpo.isEmpty())
+            throw new CustomGlobalException(ErrorType.PAYMENT_NOT_FOUND);
+        return jpo.get().toDomain();
     }
 
     public List<Payment> loadPaymentsByUserId(String userId) {

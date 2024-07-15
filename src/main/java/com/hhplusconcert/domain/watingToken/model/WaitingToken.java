@@ -1,9 +1,10 @@
 package com.hhplusconcert.domain.watingToken.model;
 
+import com.hhplusconcert.domain.common.exception.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.ErrorType;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Getter
@@ -30,6 +31,6 @@ public class WaitingToken {
         //
         long now = System.currentTimeMillis();
         if(now > expiredAt)
-            throw new NoSuchElementException("this token is expired");
+            throw new CustomGlobalException(ErrorType.TOKEN_EXPIRED);
     }
 }

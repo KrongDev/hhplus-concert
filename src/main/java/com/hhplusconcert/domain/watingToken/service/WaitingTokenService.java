@@ -24,7 +24,7 @@ public class WaitingTokenService {
 
     public WaitingToken loadWaitingToken(String tokenId) {
         //
-        return this.waitingTokenRepository.findById(tokenId);
+        return this.waitingTokenRepository.findByIdWithThrow(tokenId);
     }
 
     public WaitingToken loadWaitingToken(String userId, String seriesId) {

@@ -8,7 +8,7 @@ public interface TemporaryReservationRepository {
     void save(TemporaryReservation temporaryReservation);
     List<TemporaryReservation> findByUserId(String userId);
     List<TemporaryReservation> findAllByDeleteAt(long deletedAt);
-    TemporaryReservation findByIdAndNotPaidWithException(String temporaryReservationId);
+    TemporaryReservation findByIdAndNotPaidWithThrow(String temporaryReservationId);
     TemporaryReservation findByIdWithException(String temporaryReservationId);
     void deleteByIds(List<String> temporaryReservationId);
 }

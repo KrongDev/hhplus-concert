@@ -1,5 +1,7 @@
 package com.hhplusconcert.domain.temporaryReservation.model;
 
+import com.hhplusconcert.domain.common.exception.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.ErrorType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -56,7 +58,18 @@ public class TemporaryReservation {
                 .build();
     }
 
-    public void pay() {
+    public boolean isDeleted() {
+        //
+        long now = System.currentTimeMillis();
+        return !this.paid && this.deleteAt < now;
+    }
+
+    public void finalizeConcertReservation() {
+        //
+        if(this.paid)
+            throw new CustomGlobalException(ErrorType.TEMPORARY_RESERVATION_ALREADY_PURCHASED);
+        if(this.isDeleted())
+            throw new CustomGlobalException(ErrorType.PAYMENT_NOT_ALLOWED_FOR_TEMPORARY_RESERVATION);
         this.paid = true;
     }
 }

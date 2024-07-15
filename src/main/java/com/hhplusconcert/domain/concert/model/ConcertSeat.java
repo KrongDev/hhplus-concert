@@ -1,5 +1,7 @@
 package com.hhplusconcert.domain.concert.model;
 
+import com.hhplusconcert.domain.common.exception.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.ErrorType;
 import lombok.*;
 
 import java.util.UUID;
@@ -42,8 +44,13 @@ public class ConcertSeat {
         this.reserved = true;
     }
 
-    public void unreserve() {
+    public void unReserve() {
         //
         this.reserved = false;
+    }
+
+    public void validateReservation() {
+        if(this.reserved)
+            throw new CustomGlobalException(ErrorType.SEAT_ALREADY_RESERVED);
     }
 }

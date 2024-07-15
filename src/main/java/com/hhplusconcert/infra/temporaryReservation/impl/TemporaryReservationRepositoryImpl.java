@@ -1,5 +1,7 @@
 package com.hhplusconcert.infra.temporaryReservation.impl;
 
+import com.hhplusconcert.domain.common.exception.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.ErrorType;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.domain.temporaryReservation.repository.TemporaryReservationRepository;
 import com.hhplusconcert.infra.temporaryReservation.orm.TemporaryReservationJpoRepository;
@@ -8,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -29,15 +32,19 @@ public class TemporaryReservationRepositoryImpl implements TemporaryReservationR
     }
 
     @Override
-    public TemporaryReservation findByIdAndNotPaidWithException(String temporaryReservationId) {
-        TemporaryReservationJpo jpo = this.temporaryReservationJpoRepository.findByTemporaryReservationIdAndPaid(temporaryReservationId, false).orElseThrow();
-        return jpo.toDomain();
+    public TemporaryReservation findByIdAndNotPaidWithThrow(String temporaryReservationId) {
+        Optional<TemporaryReservationJpo> jpo = this.temporaryReservationJpoRepository.findByTemporaryReservationIdAndPaid(temporaryReservationId, false);
+        if(jpo.isEmpty())
+            throw new CustomGlobalException(ErrorType.TEMPORARY_RESERVATION_NOT_FOUND);
+        return jpo.get().toDomain();
     }
 
     @Override
     public TemporaryReservation findByIdWithException(String temporaryReservationId) {
-        TemporaryReservationJpo jpo = this.temporaryReservationJpoRepository.findById(temporaryReservationId).orElseThrow();
-        return jpo.toDomain();
+        Optional<TemporaryReservationJpo> jpo = this.temporaryReservationJpoRepository.findById(temporaryReservationId);
+        if(jpo.isEmpty())
+            throw new CustomGlobalException(ErrorType.TEMPORARY_RESERVATION_NOT_FOUND);
+        return jpo.get().toDomain();
     }
 
     @Override

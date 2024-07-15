@@ -1,5 +1,7 @@
 package com.hhplusconcert.infra.waitingQueue.impl;
 
+import com.hhplusconcert.domain.common.exception.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.ErrorType;
 import com.hhplusconcert.domain.waitingQueue.model.WaitingQueue;
 import com.hhplusconcert.domain.waitingQueue.model.vo.WaitingQueueStatus;
 import com.hhplusconcert.domain.waitingQueue.repository.WaitingQueueRepository;
@@ -37,10 +39,12 @@ public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
     }
 
     @Override
-    public WaitingQueue findByTokenId(String tokenId) {
+    public WaitingQueue findByTokenIdWithThrow(String tokenId) {
         //
-        WaitingQueueJpo jpo = this.waitingQueueJpoRepository.findByTokenId(tokenId).orElseThrow();
-        return jpo.toDomain();
+        Optional<WaitingQueueJpo> jpo = this.waitingQueueJpoRepository.findByTokenId(tokenId);
+        if(jpo.isEmpty())
+            throw new CustomGlobalException(ErrorType.WAITING_QUEUE_NOT_FOUND);
+        return jpo.get().toDomain();
     }
 
     // 이전 대기열 토큰 조회

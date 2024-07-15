@@ -1,5 +1,7 @@
 package com.hhplusconcert.infra.concert.impl;
 
+import com.hhplusconcert.domain.common.exception.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.ErrorType;
 import com.hhplusconcert.domain.concert.model.ConcertSeat;
 import com.hhplusconcert.domain.concert.repository.ConcertSeatRepository;
 import com.hhplusconcert.infra.concert.orm.ConcertSeatJpoRepository;
@@ -8,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -42,7 +45,9 @@ public class ConcertSeatRepositoryImpl implements ConcertSeatRepository {
 
     @Override
     public ConcertSeat findByIdWithThrow(String seatId) {
-        ConcertSeatJpo jpo = this.concertSeatJpoRepository.findById(seatId).orElseThrow();
-        return jpo.toDomain();
+        Optional<ConcertSeatJpo> jpo = this.concertSeatJpoRepository.findById(seatId);
+        if(jpo.isEmpty())
+            throw new CustomGlobalException(ErrorType.CONCERT_SEAT_NOT_FOUND);
+        return jpo.get().toDomain();
     }
 }

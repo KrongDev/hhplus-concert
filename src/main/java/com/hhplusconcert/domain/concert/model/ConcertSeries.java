@@ -1,5 +1,7 @@
 package com.hhplusconcert.domain.concert.model;
 
+import com.hhplusconcert.domain.common.exception.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.ErrorType;
 import com.hhplusconcert.domain.concert.model.vo.ConcertSeriesStatus;
 import lombok.*;
 
@@ -47,5 +49,10 @@ public class ConcertSeries {
     public boolean  isReservationAvailable () {
         long now = System.currentTimeMillis();
         return now >= reserveStartAt && now < reserveEndAt;
+    }
+
+    public void validateReservationAvailable() {
+        if(!this.isReservationAvailable())
+            throw new CustomGlobalException(ErrorType.BOOKING_NOT_AVAILABLE);
     }
 }

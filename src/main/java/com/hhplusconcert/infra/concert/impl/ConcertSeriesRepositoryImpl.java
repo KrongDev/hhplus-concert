@@ -1,5 +1,7 @@
 package com.hhplusconcert.infra.concert.impl;
 
+import com.hhplusconcert.domain.common.exception.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.ErrorType;
 import com.hhplusconcert.domain.concert.model.ConcertSeries;
 import com.hhplusconcert.domain.concert.repository.ConcertSeriesRepository;
 import com.hhplusconcert.infra.concert.orm.ConcertSeriesJpoRepository;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -24,9 +27,11 @@ public class ConcertSeriesRepositoryImpl implements ConcertSeriesRepository {
     }
 
     @Override
-    public ConcertSeries findById(String seriesId) {
-        ConcertSeriesJpo jpo = this.concertSeriesJpoRepository.findById(seriesId).orElseThrow();
-        return jpo.toDomain();
+    public ConcertSeries findByIdWithThrow(String seriesId) {
+        Optional<ConcertSeriesJpo> jpo = this.concertSeriesJpoRepository.findById(seriesId);
+        if(jpo.isEmpty())
+            throw new CustomGlobalException(ErrorType.CONCERT_SERIES_NOT_FOUND);
+        return jpo.get().toDomain();
     }
 
     @Override

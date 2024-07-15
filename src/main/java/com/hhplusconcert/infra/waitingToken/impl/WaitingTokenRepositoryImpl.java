@@ -1,5 +1,7 @@
 package com.hhplusconcert.infra.waitingToken.impl;
 
+import com.hhplusconcert.domain.common.exception.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.ErrorType;
 import com.hhplusconcert.domain.watingToken.model.WaitingToken;
 import com.hhplusconcert.domain.watingToken.repository.WaitingTokenRepository;
 import com.hhplusconcert.infra.waitingToken.orm.WaitingTokenJpoRepository;
@@ -8,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -22,9 +25,11 @@ public class WaitingTokenRepositoryImpl implements WaitingTokenRepository {
     }
 
     @Override
-    public WaitingToken findById(String tokenId) {
-        WaitingTokenJpo jpo = this.waitingTokenJpoRepository.findById(tokenId).orElseThrow();
-        return jpo.toDomain();
+    public WaitingToken findByIdWithThrow(String tokenId) {
+        Optional<WaitingTokenJpo> jpo = this.waitingTokenJpoRepository.findById(tokenId);
+        if(jpo.isEmpty())
+            throw new CustomGlobalException(ErrorType.TOKEN_NOT_FOUND);
+        return jpo.get().toDomain();
     }
 
     @Override

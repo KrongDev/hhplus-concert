@@ -24,7 +24,7 @@ public class WaitingQueueService {
 
     public WaitingQueue loadWaitingQueue(String tokenId) {
         //
-        return this.waitingQueueRepository.findByTokenId(tokenId);
+        return this.waitingQueueRepository.findByTokenIdWithThrow(tokenId);
     }
 
     public WaitingQueue loadPrevWaitingQueue(WaitingQueueStatus status) {

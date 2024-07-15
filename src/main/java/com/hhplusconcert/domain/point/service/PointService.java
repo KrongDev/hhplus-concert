@@ -20,14 +20,15 @@ public class PointService {
         this.pointRepository.save(Point.newInstance(userId, 0));
     }
 
+    @Transactional
     public Point loadPoint(String userId) {
         //
         try {
-            return this.pointRepository.findById(userId);
+            return this.pointRepository.findByIdWithThrow(userId);
         }catch (NoSuchElementException e) {
             this.create(userId);
         }
-        return this.pointRepository.findById(userId);
+        return this.pointRepository.findByIdWithThrow(userId);
     }
 
     @Transactional

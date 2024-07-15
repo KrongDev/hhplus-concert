@@ -29,15 +29,13 @@ public class TemporaryReservationFlowFacade {
             String concertId,
             String seriesId,
             String seatId
-    ) throws IllegalAccessException {
+    ) {
         // 콘서트 리스트 조회
         ConcertSeries concertSeries = this.concertSeriesService.loadConcertSeries(seriesId);
-        if(!concertSeries.isReservationAvailable())
-            throw new IllegalAccessException("신청가능 시간이 아닙니다.");
+        concertSeries.validateReservationAvailable();
         // 콘서트 좌석 조회
         ConcertSeat concertSeat = this.concertSeatService.loadConcertSeatById(seatId);
-        if(concertSeat.isReserved())
-            throw new IllegalAccessException("신청가능한 좌석이 아닙니다.");
+        concertSeat.validateReservation();
         Concert concert = this.concertService.loadConcert(concertId);
         // 좌석 예약
         this.concertSeatService.reserveSeat(concertSeat.getSeatId());
@@ -53,7 +51,7 @@ public class TemporaryReservationFlowFacade {
         this.temporaryReservationService.deleteIds(temporaryReservationIds);
         List<String> concertSeatIds = temporaryReservations.stream().map(TemporaryReservation::getSeatId).toList();
         List<ConcertSeat> seats = this.concertSeatService.loadConcertSeatsBySeries(concertSeatIds);
-        seats.forEach(ConcertSeat::unreserve);
+        seats.forEach(ConcertSeat::unReserve);
         this.concertSeatService.updateAll(seats);
     }
 }
