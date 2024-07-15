@@ -1,8 +1,8 @@
 package com.hhplusconcert.presentation.concert.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hhplusconcert.presentation.concert.command.CreateConcertCommand;
-import com.hhplusconcert.presentation.concert.command.CreateConcertSeriesCommand;
+import com.hhplusconcert.interfaces.controller.concert.command.CreateConcertCommand;
+import com.hhplusconcert.interfaces.controller.concert.command.CreateConcertSeriesCommand;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

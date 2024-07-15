@@ -4,6 +4,7 @@ import com.hhplusconcert.domain.concert.model.ConcertSeries;
 import com.hhplusconcert.domain.concert.repository.ConcertSeriesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class ConcertSeriesService {
     //
     private final ConcertSeriesRepository concertSeriesRepository;
 
+    @Transactional
     public String create(
             String concertId,
             Long startAt,

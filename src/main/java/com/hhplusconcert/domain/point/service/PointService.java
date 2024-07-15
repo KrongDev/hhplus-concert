@@ -14,6 +14,7 @@ public class PointService {
     //
     private final PointRepository pointRepository;
 
+    @Transactional
     public void create(String userId) {
         //
         this.pointRepository.save(Point.newInstance(userId, 0));

@@ -4,6 +4,7 @@ import com.hhplusconcert.domain.concert.model.Concert;
 import com.hhplusconcert.domain.concert.repository.ConcertRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class ConcertService {
     //
     private final ConcertRepository concertRepository;
 
+    @Transactional
     public String create(String userId, String title) {
         //
         Concert concert = Concert.newInstance(userId, title);

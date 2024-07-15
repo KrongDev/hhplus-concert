@@ -1,7 +1,7 @@
 package com.hhplusconcert.presentation.temporaryReservation.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hhplusconcert.presentation.temporaryReservation.command.CreateTemporaryReservationCommand;
+import com.hhplusconcert.interfaces.controller.temporaryReservation.command.CreateTemporaryReservationCommand;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

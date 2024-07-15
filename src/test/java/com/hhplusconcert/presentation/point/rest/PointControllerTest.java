@@ -1,8 +1,8 @@
 package com.hhplusconcert.presentation.point.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hhplusconcert.presentation.point.command.ChargePointCommand;
-import com.hhplusconcert.presentation.point.command.UsePointCommand;
+import com.hhplusconcert.interfaces.controller.point.command.ChargePointCommand;
+import com.hhplusconcert.interfaces.controller.point.command.UsePointCommand;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

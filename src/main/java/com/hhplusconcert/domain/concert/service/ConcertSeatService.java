@@ -4,6 +4,7 @@ import com.hhplusconcert.domain.concert.model.ConcertSeat;
 import com.hhplusconcert.domain.concert.repository.ConcertSeatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,7 +16,7 @@ public class ConcertSeatService {
     //
     private final ConcertSeatRepository concertSeatRepository;
 
-
+    @Transactional
     public void createAll(String seriesId, int maxRow, int maxSeat) {
         List<ConcertSeat> concertSeatList = genSeatWithSeries(seriesId, maxRow, maxSeat);
         this.concertSeatRepository.saveAll(concertSeatList);
@@ -59,6 +60,7 @@ public class ConcertSeatService {
         return this.concertSeatRepository.findByIdWithThrow(seatId);
     }
 
+    @Transactional
     public void reserveSeat(String seatId) {
         //
         ConcertSeat seat = this.loadConcertSeatById(seatId);
@@ -66,6 +68,7 @@ public class ConcertSeatService {
         this.concertSeatRepository.save(seat);
     }
 
+    @Transactional
     public void updateAll(List<ConcertSeat> seatList) {
         //
         this.concertSeatRepository.saveAll(seatList);

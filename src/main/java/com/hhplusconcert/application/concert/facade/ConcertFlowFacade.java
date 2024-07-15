@@ -5,7 +5,7 @@ import com.hhplusconcert.domain.concert.service.ConcertSeriesService;
 import com.hhplusconcert.domain.concert.service.ConcertService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -16,11 +16,13 @@ public class ConcertFlowFacade {
     private final ConcertSeriesService concertSeriesService;
     private final ConcertSeatService concertSeatService;
 
+    @Transactional
     public String createConcert( String userId, String title ) {
         //
         return this.concertService.create(userId, title);
     }
 
+    @Transactional
     public String createConcertSeries(
             String concertId,
             Long startAt,
