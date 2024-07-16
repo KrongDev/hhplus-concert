@@ -41,16 +41,13 @@ public class ConcertSeat {
 
     public void reserve() {
         //
+        if(this.reserved)
+            throw new CustomGlobalException(ErrorType.SEAT_ALREADY_RESERVED);
         this.reserved = true;
     }
 
     public void unReserve() {
         //
         this.reserved = false;
-    }
-
-    public void validateReservation() {
-        if(this.reserved)
-            throw new CustomGlobalException(ErrorType.SEAT_ALREADY_RESERVED);
     }
 }

@@ -31,16 +31,14 @@ public class TemporaryReservationFlowFacade {
             String seatId
     ) {
         // 콘서트 리스트 조회
-        ConcertSeries concertSeries = this.concertSeriesService.loadConcertSeries(seriesId);
-        concertSeries.validateReservationAvailable();
+        ConcertSeries concertSeries = this.concertSeriesService.loadConcertSeriesReservationAvailable(seriesId);
         // 콘서트 좌석 조회
         ConcertSeat concertSeat = this.concertSeatService.loadConcertSeatById(seatId);
-        concertSeat.validateReservation();
         Concert concert = this.concertService.loadConcert(concertId);
         // 좌석 예약
         this.concertSeatService.reserveSeat(concertSeat.getSeatId());
         // 임시 예약 생성
-        return this.temporaryReservationService.create(userId, concertId, concert.getTitle() , seriesId, concertSeat.getSeatId(), concertSeat.getSeatRow(), concertSeat.getSeatCol(), concertSeat.getPrice());
+        return this.temporaryReservationService.create(userId, concert.getConcertId(), concert.getTitle() , concertSeries.getSeriesId(), concertSeat.getSeatId(), concertSeat.getSeatRow(), concertSeat.getSeatCol(), concertSeat.getPrice());
     }
 
     @Transactional

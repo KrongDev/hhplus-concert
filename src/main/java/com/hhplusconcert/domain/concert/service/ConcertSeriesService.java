@@ -40,6 +40,13 @@ public class ConcertSeriesService {
         return this.concertSeriesRepository.findByIdWithThrow(seriesId);
     }
 
+    public ConcertSeries loadConcertSeriesReservationAvailable(String seriesId) {
+        //
+        ConcertSeries concertSeries = this.concertSeriesRepository.findByIdWithThrow(seriesId);
+        concertSeries.validateReservationAvailable();
+        return concertSeries;
+    }
+
     public List<ConcertSeries> loadConcertSeriesByConcertIdAndNowReserving(String concertId) {
         //
         Long now = System.currentTimeMillis();

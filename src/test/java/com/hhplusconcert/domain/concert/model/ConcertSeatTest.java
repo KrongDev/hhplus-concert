@@ -25,7 +25,7 @@ class ConcertSeatTest {
                 .reserved(true)
                 .build();
         // WHEN
-        CustomGlobalException exception = assertThrows(CustomGlobalException.class, seat::validateReservation);
+        CustomGlobalException exception = assertThrows(CustomGlobalException.class, seat::reserve);
         // THEN
         assertEquals(ErrorType.SEAT_ALREADY_RESERVED, exception.getErrorType());
     }
