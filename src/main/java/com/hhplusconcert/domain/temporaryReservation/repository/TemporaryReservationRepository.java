@@ -10,5 +10,5 @@ public interface TemporaryReservationRepository {
     List<TemporaryReservation> findAllByDeleteAt(long deletedAt);
     TemporaryReservation findByIdAndNotPaidWithThrow(String temporaryReservationId);
     TemporaryReservation findByIdWithException(String temporaryReservationId);
-    void deleteByIds(List<String> temporaryReservationId);
+    void deleteByIds(List<String> temporaryReservationIds);
 }

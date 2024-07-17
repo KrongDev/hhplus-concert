@@ -1,7 +1,7 @@
 package com.hhplusconcert.infra.concert.impl;
 
-import com.hhplusconcert.domain.common.exception.CustomGlobalException;
-import com.hhplusconcert.domain.common.exception.ErrorType;
+import com.hhplusconcert.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.concert.model.Concert;
 import com.hhplusconcert.domain.concert.repository.ConcertRepository;
 import com.hhplusconcert.infra.concert.orm.ConcertJpoRepository;
@@ -25,7 +25,7 @@ public class ConcertRepositoryImpl implements ConcertRepository {
     }
 
     @Override
-    public Concert findById(String concertId) {
+    public Concert findByIdWithThrow(String concertId) {
         Optional<ConcertJpo> jpo = this.concertJpoRepository.findById(concertId);
         if(jpo.isEmpty())
             throw new CustomGlobalException(ErrorType.CONCERT_NOT_FOUND);

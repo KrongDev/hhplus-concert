@@ -1,7 +1,7 @@
 package com.hhplusconcert.infra.waitingToken.impl;
 
-import com.hhplusconcert.domain.common.exception.CustomGlobalException;
-import com.hhplusconcert.domain.common.exception.ErrorType;
+import com.hhplusconcert.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.watingToken.model.WaitingToken;
 import com.hhplusconcert.domain.watingToken.repository.WaitingTokenRepository;
 import com.hhplusconcert.infra.waitingToken.orm.WaitingTokenJpoRepository;

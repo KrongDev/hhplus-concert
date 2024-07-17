@@ -1,5 +1,6 @@
-package com.hhplusconcert.domain.common.exception;
+package com.hhplusconcert.common.exception.model;
 
+import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import lombok.Getter;
 
 @Getter
@@ -7,6 +8,7 @@ public class CustomGlobalException extends RuntimeException {
     private final ErrorType errorType;
 
     public CustomGlobalException(ErrorType errorType) {
+        super(errorType.getReasonPhrase());
         this.errorType = errorType;
     }
 }

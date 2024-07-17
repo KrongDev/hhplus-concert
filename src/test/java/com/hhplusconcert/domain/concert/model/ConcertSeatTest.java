@@ -1,7 +1,7 @@
 package com.hhplusconcert.domain.concert.model;
 
-import com.hhplusconcert.domain.common.exception.CustomGlobalException;
-import com.hhplusconcert.domain.common.exception.ErrorType;
+import com.hhplusconcert.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

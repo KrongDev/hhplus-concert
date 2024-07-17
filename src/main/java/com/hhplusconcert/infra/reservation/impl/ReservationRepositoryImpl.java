@@ -1,7 +1,7 @@
 package com.hhplusconcert.infra.reservation.impl;
 
-import com.hhplusconcert.domain.common.exception.CustomGlobalException;
-import com.hhplusconcert.domain.common.exception.ErrorType;
+import com.hhplusconcert.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.reservation.model.Reservation;
 import com.hhplusconcert.domain.reservation.repository.ReservationRepository;
 import com.hhplusconcert.infra.reservation.orm.ReservationJpoRepository;

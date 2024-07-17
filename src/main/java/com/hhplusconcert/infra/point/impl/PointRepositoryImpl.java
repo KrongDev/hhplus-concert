@@ -1,7 +1,7 @@
 package com.hhplusconcert.infra.point.impl;
 
-import com.hhplusconcert.domain.common.exception.CustomGlobalException;
-import com.hhplusconcert.domain.common.exception.ErrorType;
+import com.hhplusconcert.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.point.model.Point;
 import com.hhplusconcert.domain.point.repository.PointRepository;
 import com.hhplusconcert.infra.point.orm.PointJpoRepository;

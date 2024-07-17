@@ -10,12 +10,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
+import java.util.Calendar;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="waiting-queue")
+@Table(name="waiting_queue")
 public class WaitingQueueJpo implements JpoEntity<WaitingQueue> {
     //
     @Id

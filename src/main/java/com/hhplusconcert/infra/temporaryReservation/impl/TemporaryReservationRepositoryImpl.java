@@ -1,7 +1,7 @@
 package com.hhplusconcert.infra.temporaryReservation.impl;
 
-import com.hhplusconcert.domain.common.exception.CustomGlobalException;
-import com.hhplusconcert.domain.common.exception.ErrorType;
+import com.hhplusconcert.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.domain.temporaryReservation.repository.TemporaryReservationRepository;
 import com.hhplusconcert.infra.temporaryReservation.orm.TemporaryReservationJpoRepository;
@@ -48,8 +48,8 @@ public class TemporaryReservationRepositoryImpl implements TemporaryReservationR
     }
 
     @Override
-    public void deleteByIds(List<String> temporaryReservationId) {
-        this.temporaryReservationJpoRepository.deleteAllById(temporaryReservationId);
+    public void deleteByIds(List<String> temporaryReservationIds) {
+        this.temporaryReservationJpoRepository.deleteAllById(temporaryReservationIds);
     }
 
     @Override

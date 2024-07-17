@@ -48,11 +48,10 @@ public class PaymentFlowFacade {
         // 결제 처리
         String paymentId = this.paymentService.create(reservationId, userId, price);
         //포인트 사용
-        this.pointService.charge(userId, price);
+        this.pointService.use(userId, price);
         this.pointHistoryService.createPointHistory(userId, price, PointHistoryStatus.USE, paymentId);
-        //결제 완료 처리
+        //결제 완료
         this.temporaryReservationService.payReservation(temporaryReservationId);
-
         WaitingToken token = this.waitingTokenService.loadWaitingToken(userId, temporaryReservation.getSeriesId());
         // 대기열 토큰 만료 처리
         this.waitingTokenService.deleteWaitingToken(token.getTokenId());

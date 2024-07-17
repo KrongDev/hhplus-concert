@@ -24,7 +24,7 @@ public class ConcertService {
 
     public Concert loadConcert(String concertId) {
         //
-        return this.concertRepository.findById(concertId);
+        return this.concertRepository.findByIdWithThrow(concertId);
     }
 
     public List<Concert> loadConcerts() {

@@ -9,11 +9,13 @@ import com.hhplusconcert.domain.concert.service.ConcertService;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.domain.temporaryReservation.service.TemporaryReservationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TemporaryReservationFlowFacade {
@@ -30,15 +32,24 @@ public class TemporaryReservationFlowFacade {
             String seriesId,
             String seatId
     ) {
-        // 콘서트 리스트 조회
+        Concert concert = this.concertService.loadConcert(concertId);
+        // 콘서트 시리즈 조회
         ConcertSeries concertSeries = this.concertSeriesService.loadConcertSeriesReservationAvailable(seriesId);
         // 콘서트 좌석 조회
         ConcertSeat concertSeat = this.concertSeatService.loadConcertSeatById(seatId);
-        Concert concert = this.concertService.loadConcert(concertId);
         // 좌석 예약
         this.concertSeatService.reserveSeat(concertSeat.getSeatId());
         // 임시 예약 생성
-        return this.temporaryReservationService.create(userId, concert.getConcertId(), concert.getTitle() , concertSeries.getSeriesId(), concertSeat.getSeatId(), concertSeat.getSeatRow(), concertSeat.getSeatCol(), concertSeat.getPrice());
+        return this.temporaryReservationService.create(
+                userId,
+                concert.getConcertId(),
+                concert.getTitle(),
+                concertSeries.getSeriesId(),
+                concertSeat.getSeatId(),
+                concertSeat.getSeatRow(),
+                concertSeat.getSeatCol(),
+                concertSeat.getPrice()
+        );
     }
 
     @Transactional

@@ -1,12 +1,12 @@
 package com.hhplusconcert.domain.point.service;
 
+import com.hhplusconcert.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.point.model.Point;
 import com.hhplusconcert.domain.point.repository.PointRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +25,9 @@ public class PointService {
         //
         try {
             return this.pointRepository.findByIdWithThrow(userId);
-        }catch (NoSuchElementException e) {
-            this.create(userId);
+        }catch (CustomGlobalException e) {
+            if(ErrorType.POINT_NOT_FOUND.equals(e.getErrorType()))
+                this.create(userId);
         }
         return this.pointRepository.findByIdWithThrow(userId);
     }

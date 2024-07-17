@@ -1,7 +1,7 @@
 package com.hhplusconcert.domain.temporaryReservation.model;
 
-import com.hhplusconcert.domain.common.exception.CustomGlobalException;
-import com.hhplusconcert.domain.common.exception.ErrorType;
+import com.hhplusconcert.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

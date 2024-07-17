@@ -1,4 +1,4 @@
-package com.hhplusconcert.interfaces.schedule;
+package com.hhplusconcert.scheduler;
 
 import com.hhplusconcert.application.waitingQueue.facade.WaitingQueueFlowFacade;
 import lombok.RequiredArgsConstructor;

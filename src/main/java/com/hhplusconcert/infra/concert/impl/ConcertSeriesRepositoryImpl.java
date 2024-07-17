@@ -1,7 +1,7 @@
 package com.hhplusconcert.infra.concert.impl;
 
-import com.hhplusconcert.domain.common.exception.CustomGlobalException;
-import com.hhplusconcert.domain.common.exception.ErrorType;
+import com.hhplusconcert.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.concert.model.ConcertSeries;
 import com.hhplusconcert.domain.concert.repository.ConcertSeriesRepository;
 import com.hhplusconcert.infra.concert.orm.ConcertSeriesJpoRepository;

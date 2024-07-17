@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ConcertRepository {
     void save(Concert concert);
-    Concert findById(String concertId);
+    Concert findByIdWithThrow(String concertId);
     List<Concert> findAll();
 }

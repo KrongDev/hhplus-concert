@@ -1,5 +1,6 @@
 package com.hhplusconcert.application.concert.facade;
 
+import com.hhplusconcert.domain.concert.model.Concert;
 import com.hhplusconcert.domain.concert.service.ConcertSeatService;
 import com.hhplusconcert.domain.concert.service.ConcertSeriesService;
 import com.hhplusconcert.domain.concert.service.ConcertService;
@@ -32,7 +33,8 @@ public class ConcertFlowFacade {
             int maxRow,
             int maxSeat
     ) {
-        String seriesId = this.concertSeriesService.create(concertId, startAt, endAt, reserveStartAt, reserveEndAt);
+        Concert concert = this.concertService.loadConcert(concertId);
+        String seriesId = this.concertSeriesService.create(concert.getConcertId(), startAt, endAt, reserveStartAt, reserveEndAt);
         this.concertSeatService.createAll(seriesId, maxRow, maxSeat);
         return seriesId;
     }

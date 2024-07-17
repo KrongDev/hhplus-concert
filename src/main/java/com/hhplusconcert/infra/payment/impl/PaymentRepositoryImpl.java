@@ -1,7 +1,7 @@
 package com.hhplusconcert.infra.payment.impl;
 
-import com.hhplusconcert.domain.common.exception.CustomGlobalException;
-import com.hhplusconcert.domain.common.exception.ErrorType;
+import com.hhplusconcert.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.payment.model.Payment;
 import com.hhplusconcert.domain.payment.repository.PaymentRepository;
 import com.hhplusconcert.infra.payment.orm.PaymentJpoRepository;

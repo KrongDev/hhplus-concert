@@ -4,6 +4,7 @@ import com.hhplusconcert.application.concert.dto.ConcertDetail;
 import com.hhplusconcert.application.concert.dto.ConcertSchedule;
 import com.hhplusconcert.application.concert.facade.ConcertFlowFacade;
 import com.hhplusconcert.application.concert.facade.ConcertSeekFacade;
+import com.hhplusconcert.common.annotation.QueueCheckAnnotation;
 import com.hhplusconcert.domain.concert.model.Concert;
 import com.hhplusconcert.interfaces.controller.concert.command.CreateConcertCommand;
 import com.hhplusconcert.interfaces.controller.concert.command.CreateConcertSeriesCommand;
@@ -25,6 +26,7 @@ public class ConcertController {
 
     @PostMapping
     @Description("콘서트 생성")
+    @QueueCheckAnnotation
     public ResponseEntity<String> createConcert(@RequestBody CreateConcertCommand command) {
         //
         command.validation();

@@ -1,7 +1,7 @@
 package com.hhplusconcert.infra.waitingQueue.impl;
 
-import com.hhplusconcert.domain.common.exception.CustomGlobalException;
-import com.hhplusconcert.domain.common.exception.ErrorType;
+import com.hhplusconcert.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.waitingQueue.model.WaitingQueue;
 import com.hhplusconcert.domain.waitingQueue.model.vo.WaitingQueueStatus;
 import com.hhplusconcert.domain.waitingQueue.repository.WaitingQueueRepository;
