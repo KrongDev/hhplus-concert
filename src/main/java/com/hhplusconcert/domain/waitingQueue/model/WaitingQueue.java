@@ -22,9 +22,14 @@ public class WaitingQueue {
     public static WaitingQueue newInstance(
             String tokenId
     ) {
+        Calendar calendar = Calendar.getInstance();
+        Long now = calendar.getTimeInMillis();
+        calendar.add(Calendar.MINUTE, 1);
+        Long expireAt = calendar.getTimeInMillis();
         return WaitingQueue.builder()
                 .tokenId(tokenId)
-                .createAt(System.currentTimeMillis())
+                .createAt(now)
+                .expiredAt(expireAt)
                 .status(WaitingQueueStatus.READY)
                 .build();
     }
@@ -40,13 +45,18 @@ public class WaitingQueue {
         this.updateAt = calendar.getTimeInMillis();
     }
 
-    public void expired() {
-        this.status = WaitingQueueStatus.EXPIRED;
-        this.updateAt = System.currentTimeMillis();
-    }
-
     public void ended() {
         this.status = WaitingQueueStatus.END;
         this.updateAt = System.currentTimeMillis();
+    }
+
+    public boolean isEnded() {
+        //
+        return this.status == WaitingQueueStatus.END;
+    }
+
+    public boolean isProcess() {
+        //
+        return this.status == WaitingQueueStatus.PROCESS;
     }
 }

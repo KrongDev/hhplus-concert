@@ -10,8 +10,11 @@ public enum ErrorType {
     // CONCERT_TOKEN
     TOKEN_EXPIRED(401, "Token is expired"),
     TOKEN_NOT_FOUND(404, "Token not found"),
+    TOKEN_ALREADY_EXIST(409, "Token already exist"),
     // WAITING_QUEUE
+    WAITING_QUEUE_EXPIRED(401, "Queue is expired"),
     WAITING_QUEUE_NOT_FOUND(404, "Queue not found"),
+    WAITING_QUEUE_PROCESSING(409, "Queue is processing"),
     // CONCERT
     CONCERT_NOT_FOUND(404, "Concert Not Found"),
     // CONCERT_SERIES

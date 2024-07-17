@@ -5,6 +5,7 @@ import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.Calendar;
 import java.util.UUID;
 
 @Getter
@@ -19,11 +20,15 @@ public class WaitingToken {
     public static WaitingToken newInstance(String userId, String seriesId) {
         //
         String newId = UUID.randomUUID().toString();
+        Calendar calendar = Calendar.getInstance();
+        Long now = calendar.getTimeInMillis();
+        calendar.add(Calendar.MINUTE, 5);
         return WaitingToken.builder()
                 .tokenId(newId)
                 .userId(userId)
                 .seriesId(seriesId)
-                .createAt(System.currentTimeMillis())
+                .createAt(now)
+                .expiredAt(calendar.getTimeInMillis())
                 .build();
     }
 

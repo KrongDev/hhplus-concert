@@ -56,8 +56,8 @@ public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
     }
 
     @Override
-    public List<WaitingQueue> findAllWithExpired() {
-        List<WaitingQueueJpo> jpos = this.waitingQueueJpoRepository.findAllByExpiredAtGreaterThanEqual(System.currentTimeMillis());
+    public List<WaitingQueue> findAllWithExpired(long expiredAt) {
+        List<WaitingQueueJpo> jpos = this.waitingQueueJpoRepository.findAllByStatusIsNotAndExpiredAtLessThanEqual(WaitingQueueStatus.END,expiredAt);
         return jpos.stream().map(WaitingQueueJpo::toDomain).toList();
     }
 
@@ -65,6 +65,12 @@ public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
     public List<WaitingQueue> findAllByStatusAndOffsetLimit(WaitingQueueStatus status, int limit) {
         Pageable pageable = PageRequest.of(0, limit, Sort.by(ASC, "createAt"));
         List<WaitingQueueJpo> jpos = this.waitingQueueJpoRepository.findAllByStatus(status, pageable);
+        return jpos.stream().map(WaitingQueueJpo::toDomain).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WaitingQueue> findAllByTokenIds(List<String> tokenIds) {
+        List<WaitingQueueJpo> jpos = this.waitingQueueJpoRepository.findAllByTokenIdIn(tokenIds);
         return jpos.stream().map(WaitingQueueJpo::toDomain).collect(Collectors.toList());
     }
 

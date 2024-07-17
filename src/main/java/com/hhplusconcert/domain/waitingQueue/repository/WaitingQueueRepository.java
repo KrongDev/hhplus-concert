@@ -11,7 +11,8 @@ public interface WaitingQueueRepository {
     void saveAll(List<WaitingQueue> waitingQueues);
     WaitingQueue findByTokenIdWithThrow(String tokenId);
     Optional<WaitingQueue> findPrevQueue(WaitingQueueStatus status);
-    List<WaitingQueue> findAllWithExpired();
+    List<WaitingQueue> findAllWithExpired(long expiredAt);
     List<WaitingQueue> findAllByStatusAndOffsetLimit(WaitingQueueStatus status, int limit);
+    List<WaitingQueue> findAllByTokenIds(List<String> tokenIds);
     Long countByStatus(WaitingQueueStatus status);
 }

@@ -12,6 +12,7 @@ public interface WaitingQueueJpoRepository extends JpaRepository<WaitingQueueJpo
     Optional<WaitingQueueJpo> findByTokenId(String tokenId);
     Optional<WaitingQueueJpo> findFirstByStatusOrderByCreateAt(WaitingQueueStatus status);
     List<WaitingQueueJpo> findAllByStatus(WaitingQueueStatus status, Pageable pageable);
-    List<WaitingQueueJpo> findAllByExpiredAtGreaterThanEqual(long expiredAt);
+    List<WaitingQueueJpo> findAllByStatusIsNotAndExpiredAtLessThanEqual(WaitingQueueStatus status, Long expiredAt);
+    List<WaitingQueueJpo> findAllByTokenIdIn(List<String> tokenIds);
     Long countByStatus(WaitingQueueStatus status);
 }

@@ -53,7 +53,7 @@ public class WaitingQueueFlowFacade {
     @Transactional
     public void expiredQueue() {
         List<WaitingQueue> waitingQueues = this.waitingQueueService.loadExpiredQueue();
-        waitingQueues.forEach(WaitingQueue::expired);
+        waitingQueues.forEach(WaitingQueue::ended);
         this.waitingQueueService.updateAll(waitingQueues);
 
         List<String> tokenIds = waitingQueues.stream().map(WaitingQueue::getTokenId).toList();

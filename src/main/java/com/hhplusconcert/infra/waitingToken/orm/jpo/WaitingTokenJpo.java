@@ -8,11 +8,11 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
 
 @Getter
-@Service
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -38,6 +38,7 @@ public class WaitingTokenJpo implements JpoEntity<WaitingToken> {
                 .userId(userId)
                 .seriesId(seriesId)
                 .createAt(createAt)
+                .expiredAt(expiredAt)
                 .build();
     }
 }

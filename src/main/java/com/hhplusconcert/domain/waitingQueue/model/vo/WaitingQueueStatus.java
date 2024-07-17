@@ -5,5 +5,4 @@ public enum WaitingQueueStatus {
         PROCESS,
         END,
         //얘가 필요한가?
-        EXPIRED
     }

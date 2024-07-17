@@ -34,7 +34,7 @@ public class WaitingQueueService {
 
     public List<WaitingQueue> loadExpiredQueue() {
         //
-        return this.waitingQueueRepository.findAllWithExpired();
+        return this.waitingQueueRepository.findAllWithExpired(System.currentTimeMillis());
     }
 
     public List<WaitingQueue> loadWaitingQueueByStatusAndLimit(WaitingQueueStatus status, int offsetLimit) {
@@ -45,6 +45,13 @@ public class WaitingQueueService {
     public Long countWaitingQueueByStatus(WaitingQueueStatus status) {
         //
         return this.waitingQueueRepository.countByStatus(status);
+    }
+
+    @Transactional
+    public void queuesExpiredByTokens(List<String> tokenIds) {
+        List<WaitingQueue> queues = this.waitingQueueRepository.findAllByTokenIds(tokenIds);
+        queues.forEach(WaitingQueue::ended);
+        this.updateAll(queues);
     }
 
     @Transactional

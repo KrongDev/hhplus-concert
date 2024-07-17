@@ -35,8 +35,16 @@ public class WaitingTokenRepositoryImpl implements WaitingTokenRepository {
     @Override
     public WaitingToken findByUserIdAndSeriesId(String userId, String seriesId) {
         //
-        WaitingTokenJpo jpo = this.waitingTokenJpoRepository.findByUserIdAndSeriesId(userId, seriesId).orElseThrow();
-        return jpo.toDomain();
+        Optional<WaitingTokenJpo> jpo = this.waitingTokenJpoRepository.findByUserIdAndSeriesId(userId, seriesId);
+        if(jpo.isEmpty())
+            throw new CustomGlobalException(ErrorType.TOKEN_NOT_FOUND);
+        return jpo.get().toDomain();
+    }
+
+    @Override
+    public List<WaitingToken> findAllByExpired(long expiredTime) {
+        List<WaitingTokenJpo> jpos = this.waitingTokenJpoRepository.findAllByExpiredAtLessThanEqual(expiredTime);
+        return jpos.stream().map(WaitingTokenJpo::toDomain).toList();
     }
 
     @Override
@@ -49,5 +57,12 @@ public class WaitingTokenRepositoryImpl implements WaitingTokenRepository {
     public void deleteAllByIds(List<String> tokenIds) {
         //
         this.waitingTokenJpoRepository.deleteAllById(tokenIds);
+    }
+
+    @Override
+    public boolean existsByUserIdAndSeriesId(String userId, String seriesId) {
+        //
+        Optional<WaitingTokenJpo> jpo = this.waitingTokenJpoRepository.findFirstByUserIdAndSeriesId(userId, seriesId);
+        return jpo.isPresent();
     }
 }
