@@ -24,7 +24,7 @@ public class WaitingQueue {
     ) {
         Calendar calendar = Calendar.getInstance();
         Long now = calendar.getTimeInMillis();
-        calendar.add(Calendar.MINUTE, 1);
+        calendar.add(Calendar.MINUTE, 30);
         Long expireAt = calendar.getTimeInMillis();
         return WaitingQueue.builder()
                 .tokenId(tokenId)
