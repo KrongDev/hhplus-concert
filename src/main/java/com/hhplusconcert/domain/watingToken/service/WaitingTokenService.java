@@ -42,6 +42,14 @@ public class WaitingTokenService {
     }
 
     @Transactional
+    public void healthCheck(String tokenId) {
+        //
+        WaitingToken waitingQueue = this.waitingTokenRepository.findByIdWithThrow(tokenId);
+        waitingQueue.healthCheck();
+        this.waitingTokenRepository.save(waitingQueue);
+    }
+
+    @Transactional
     public void deleteWaitingToken(String tokenId) {
         //
         this.waitingTokenRepository.deleteById(tokenId);

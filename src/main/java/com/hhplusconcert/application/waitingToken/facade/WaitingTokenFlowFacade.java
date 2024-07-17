@@ -23,9 +23,14 @@ public class WaitingTokenFlowFacade {
 
     @Transactional
     public void expiredToken() {
-        List<WaitingToken> tokens = waitingTokenService.loadWaitingTokensByExpired();
+        List<WaitingToken> tokens = this.waitingTokenService.loadWaitingTokensByExpired();
         List<String> tokenIds = tokens.stream().map(WaitingToken::getTokenId).toList();
-        waitingTokenService.deleteWaitingTokens(tokenIds);
-        waitingQueueService.queuesExpiredByTokens(tokenIds);
+        this.waitingTokenService.deleteWaitingTokens(tokenIds);
+        this.waitingQueueService.queuesExpiredByTokens(tokenIds);
+    }
+
+    @Transactional
+    public void healthCheck(String tokenId) {
+        this.waitingTokenService.healthCheck(tokenId);
     }
 }

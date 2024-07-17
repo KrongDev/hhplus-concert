@@ -35,4 +35,11 @@ public class WaitingTokenController {
         //
         return ResponseEntity.ok(this.waitingTokenSeekFacade.loadWaitingToken(tokenId));
     }
+
+    @PatchMapping("/{tokenId}")
+    @Description("토큰 정보 조회")
+    public void healthCheck(@PathVariable String tokenId) {
+        //
+        this.waitingTokenFlowFacade.healthCheck(tokenId);
+    }
 }

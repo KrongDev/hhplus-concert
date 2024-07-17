@@ -32,6 +32,13 @@ public class WaitingToken {
                 .build();
     }
 
+    public void healthCheck() {
+        this.validateExpired();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MINUTE, 5);
+        this.expiredAt = calendar.getTimeInMillis();
+    }
+
     public void validateExpired() {
         //
         long now = System.currentTimeMillis();
