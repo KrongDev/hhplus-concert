@@ -24,8 +24,8 @@ public class WaitingTokenController {
     public ResponseEntity<String> genToken(@RequestBody CreateWaitingTokenCommand command) {
         //
         command.validation();
-        String userId = command.getUserId();
-        String seriesId = command.getSeriesId();
+        String userId = command.userId();
+        String seriesId = command.seriesId();
         return ResponseEntity.ok(this.waitingTokenFlowFacade.createWaitingToken(userId, seriesId));
     }
 

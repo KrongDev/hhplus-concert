@@ -40,8 +40,8 @@ public class PointController {
     public void chargePoint (@RequestBody ChargePointCommand command) {
         //
         command.validate();
-        String userId = command.getUserId();
-        int amount = command.getAmount();
+        String userId = command.userId();
+        int amount = command.amount();
         this.pointFlowFacade.chargePoint(userId, amount);
     }
 
@@ -50,9 +50,9 @@ public class PointController {
     public void usePoint (@RequestBody UsePointCommand command) {
         //
         command.validate();
-        String userId = command.getUserId();
-        String paymentId = command.getPaymentId();
-        int amount = command.getAmount();
+        String userId = command.userId();
+        String paymentId = command.paymentId();
+        int amount = command.amount();
         this.pointFlowFacade.usePoint(userId, amount, paymentId);
     }
 }

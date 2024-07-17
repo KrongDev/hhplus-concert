@@ -1,26 +1,18 @@
 package com.hhplusconcert.interfaces.controller.concert.command;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.util.Assert;
 
 
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class CreateConcertSeriesCommand {
-    //
-    private String concertId;
-    private Long startAt;
-    private Long endAt;
-    private Long reserveStartAt;
-    private Long reserveEndAt;
-    private int maxRow;
-    private int maxSeat;
+public record CreateConcertSeriesCommand (
+        String concertId,
+        Long startAt,
+        Long endAt,
+        Long reserveStartAt,
+        Long reserveEndAt,
+        int maxRow,
+        int maxSeat
+) {
 
     public void validation() {
         long now = System.currentTimeMillis();

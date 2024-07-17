@@ -30,8 +30,8 @@ public class ConcertController {
     public ResponseEntity<String> createConcert(@RequestBody CreateConcertCommand command) {
         //
         command.validation();
-        String userId = command.getUserId();
-        String title = command.getTitle();
+        String userId = command.userId();
+        String title = command.title();
         return ResponseEntity.ok(this.concertFlowFacade.createConcert(userId, title));
     }
 
@@ -40,13 +40,13 @@ public class ConcertController {
     public ResponseEntity<String> createSeries(@RequestBody CreateConcertSeriesCommand command) {
         //
         command.validation();
-        String concertId = command.getConcertId();
-        Long startAt = command.getStartAt();
-        Long endAt = command.getEndAt();
-        Long reserveStartAt = command.getReserveStartAt();
-        Long reserveEndAt = command.getReserveEndAt();
-        int maxRow = command.getMaxRow();
-        int maxSeat = command.getMaxSeat();
+        String concertId = command.concertId();
+        Long startAt = command.startAt();
+        Long endAt = command.endAt();
+        Long reserveStartAt = command.reserveStartAt();
+        Long reserveEndAt = command.reserveEndAt();
+        int maxRow = command.maxRow();
+        int maxSeat = command.maxSeat();
         return ResponseEntity.ok(this.concertFlowFacade.createConcertSeries(
                 concertId,
                 startAt,
