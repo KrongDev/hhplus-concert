@@ -32,14 +32,6 @@ public class TemporaryReservationRepositoryImpl implements TemporaryReservationR
     }
 
     @Override
-    public TemporaryReservation findByIdAndNotPaidWithThrow(String temporaryReservationId) {
-        Optional<TemporaryReservationJpo> jpo = this.temporaryReservationJpoRepository.findByTemporaryReservationIdAndPaid(temporaryReservationId, false);
-        if(jpo.isEmpty())
-            throw new CustomGlobalException(ErrorType.TEMPORARY_RESERVATION_NOT_FOUND);
-        return jpo.get().toDomain();
-    }
-
-    @Override
     public TemporaryReservation findByIdWithException(String temporaryReservationId) {
         Optional<TemporaryReservationJpo> jpo = this.temporaryReservationJpoRepository.findById(temporaryReservationId);
         if(jpo.isEmpty())

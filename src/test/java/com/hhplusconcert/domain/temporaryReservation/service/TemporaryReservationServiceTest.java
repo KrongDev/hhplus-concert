@@ -30,7 +30,7 @@ class TemporaryReservationServiceTest {
     public void temporaryReservationPaid() {
         //GIVEN
         String temporaryReservationId = "test_temporary_reservation_id";
-        when(temporaryReservationRepository.findByIdAndNotPaidWithThrow(temporaryReservationId)).thenReturn(TemporaryReservation.builder().paid(true).build());
+        when(temporaryReservationRepository.findByIdWithException(temporaryReservationId)).thenReturn(TemporaryReservation.builder().paid(true).build());
         //WHEN
         CustomGlobalException exception = assertThrows(CustomGlobalException.class, () -> temporaryReservationService.payReservation(temporaryReservationId));
         //THEN
@@ -45,7 +45,7 @@ class TemporaryReservationServiceTest {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, -1);
         Long deleteAt = calendar.getTimeInMillis();
-        when(temporaryReservationRepository.findByIdAndNotPaidWithThrow(temporaryReservationId)).thenReturn(TemporaryReservation.builder().deleteAt(deleteAt).build());
+        when(temporaryReservationRepository.findByIdWithException(temporaryReservationId)).thenReturn(TemporaryReservation.builder().deleteAt(deleteAt).build());
         //WHEN
         CustomGlobalException exception = assertThrows(CustomGlobalException.class, () -> temporaryReservationService.payReservation(temporaryReservationId));
         //THEN
