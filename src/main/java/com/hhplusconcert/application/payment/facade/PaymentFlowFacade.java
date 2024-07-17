@@ -33,6 +33,7 @@ public class PaymentFlowFacade {
             String userId
     ) {
         TemporaryReservation temporaryReservation = this.temporaryReservationService.loadTemporaryReservation(temporaryReservationId);
+        this.temporaryReservationService.payReservation(temporaryReservationId);
         int price = temporaryReservation.getPrice();
         // 예약 테이블로 옮김
         String reservationId = this.reservationService.create(
@@ -51,7 +52,6 @@ public class PaymentFlowFacade {
         this.pointService.use(userId, price);
         this.pointHistoryService.createPointHistory(userId, price, PointHistoryStatus.USE, paymentId);
         //결제 완료
-        this.temporaryReservationService.payReservation(temporaryReservationId);
         WaitingToken token = this.waitingTokenService.loadWaitingToken(userId, temporaryReservation.getSeriesId());
         // 대기열 토큰 만료 처리
         this.waitingTokenService.deleteWaitingToken(token.getTokenId());
