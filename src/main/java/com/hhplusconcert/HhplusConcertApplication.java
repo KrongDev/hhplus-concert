@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class HhplusConcertApplication {
 
     public static void main(String[] args) {
+        //
         SpringApplication.run(HhplusConcertApplication.class, args);
     }
 

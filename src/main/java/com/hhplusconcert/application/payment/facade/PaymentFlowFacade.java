@@ -1,5 +1,6 @@
 package com.hhplusconcert.application.payment.facade;
 
+import com.hhplusconcert.common.annotation.LoggingPoint;
 import com.hhplusconcert.domain.payment.service.PaymentService;
 import com.hhplusconcert.domain.point.model.vo.PointHistoryStatus;
 import com.hhplusconcert.domain.point.service.PointHistoryService;
@@ -27,6 +28,7 @@ public class PaymentFlowFacade {
     private final WaitingTokenService waitingTokenService;
     private final WaitingQueueService waitingQueueService;
 
+    @LoggingPoint
     @Transactional
     public String processTemporaryReservationPayment(
             String temporaryReservationId,

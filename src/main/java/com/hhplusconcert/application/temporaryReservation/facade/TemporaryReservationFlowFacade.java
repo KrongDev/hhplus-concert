@@ -1,5 +1,6 @@
 package com.hhplusconcert.application.temporaryReservation.facade;
 
+import com.hhplusconcert.common.annotation.LoggingPoint;
 import com.hhplusconcert.domain.concert.model.Concert;
 import com.hhplusconcert.domain.concert.model.ConcertSeat;
 import com.hhplusconcert.domain.concert.model.ConcertSeries;
@@ -25,6 +26,7 @@ public class TemporaryReservationFlowFacade {
     private final ConcertSeatService concertSeatService;
     private final TemporaryReservationService temporaryReservationService;
 
+    @LoggingPoint
     @Transactional
     public String createTemporaryReservation(
             String userId,

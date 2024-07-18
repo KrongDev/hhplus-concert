@@ -12,10 +12,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    //의도된 에러들을 캐치
     @ExceptionHandler(CustomGlobalException.class)
-    public ResponseEntity<String> handleRuntimeException(CustomGlobalException ex) {
+    public ResponseEntity<String> handleCustomException(CustomGlobalException ex) {
         ErrorType errorType = ex.getErrorType();
-        log.error(ex.getErrorType().getReasonPhrase(), ex);
+        log.warn(ex.getErrorType().getReasonPhrase(), ex);
         return ResponseEntity.status(errorType.getValue()).body(errorType.getReasonPhrase());
+    }
+
+    //진짜 에러들을 캐치
+    @ExceptionHandler(RuntimeException.class)
+    public void handleRuntimeException(RuntimeException ex) {
+        log.error(ex.getMessage(), ex);
     }
 }

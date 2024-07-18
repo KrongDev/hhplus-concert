@@ -1,4 +1,4 @@
-package com.hhplusconcert.config;
+package com.hhplusconcert.common.config;
 
 import com.hhplusconcert.interfaces.interceptor.QueueTokenCheckInterceptor;
 import org.springframework.context.annotation.Configuration;

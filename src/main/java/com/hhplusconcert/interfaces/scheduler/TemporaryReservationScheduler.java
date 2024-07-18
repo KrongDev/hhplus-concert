@@ -1,4 +1,4 @@
-package com.hhplusconcert.scheduler;
+package com.hhplusconcert.interfaces.scheduler;
 
 import com.hhplusconcert.application.temporaryReservation.facade.TemporaryReservationFlowFacade;
 import lombok.RequiredArgsConstructor;
