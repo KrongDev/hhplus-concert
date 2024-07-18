@@ -27,7 +27,7 @@ public class ApiIOLoggerFilter implements Filter {
 
         long now = System.currentTimeMillis();
         performRequestAudit(requestWrapper);
-        chain.doFilter(requestWrapper, responseWrapper);
+        chain.doFilter(request, response);
         performResponseAudit(responseWrapper, now);
     }
 

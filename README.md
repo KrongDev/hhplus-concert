@@ -213,5 +213,37 @@ Reservation: 예약 테이블
     <summary>Swagger</summary>
 
 ### [Swagger 바로가기](http://localhost:8080/swagger-ui/index.html#/)
-![swagger.png](./images/swagger.png)
+### Waiting Token
+![swagger_waiting_token.png](./images/swagger_waiting_token.png)
+### Waiting Queue
+![swagger_waiting_queue.png](./images/swagger_waiting_queue.png)
+### Concert
+![swagger_concert.png](./images/swagger_concert.png)
+### Point
+![swagger_point.png](./images/swagger_point.png)
+### Temporary Reservation
+![swagger_temporary_reservation.png](./images/swagger_temporary_reservation.png)
+### Reservation
+![swagger_reservation.png](./images/swagger_reservation.png)
+### Payment
+![swagger_payment.png](./images/swagger_payment.png)
+</details>
+
+## 서버구축 챕터 마무리 회고록 작성
+<details>
+    <summary>서버구축 챕터 마무리 회고록 작성 </summary>
+
+서버를 분석하고, 이를 통해 설계를 해보는 좋은 경험이였다 생각합니다.   
+인생이 그렇듯 한번 설계한 것이 끝까지 그대로 가는 것은 쉽지 않았고, 상황에 맞춰 수정을 해주며 구현을 하였습니다.   
+
+생소한 대기열이라는 기능을 만나 대기열이 필요한 이유에 대해 이해를 하며,   
+서버 설계시 유지보수 및 확장성 위해 도메인 설계 및 레이어 분리등을 통해 충족을 하려 노력하였으며,   
+최대한 간단한 로직을 위해 반정규화를 진행한 경험도 좋은것 같습니다.
+
+마지막으로 Logging과 Error를 핸들링 해보며 서버를 운영을 할 때 필요한 로그들이란 무엇인가,   
+왜 로그가 필요하고 에러를 핸들링 하는 것이 중요한가에 대해 고민을 해볼 수 있는 좋은 시간이였습니다.
+
+이 서버구축 챕터를 통해 레이어 분리와, 테스트 코드 작성, 왜 실패 케이스를 중요하게 관리해야하는지 알 수 있었습니다.
+
+실패케이스를 다룬다는 것은 해당 상황을 인지하고, 해당 실패 케이스들에 대해서는 대비가 되어있다는 것을 검증하는 것이라 생각합니다.
 </details>
