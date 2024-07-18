@@ -27,4 +27,9 @@ public class WaitingQueueSeekFacade {
         if(Objects.isNull(prevQueue)) return 1L;
         return thisQueue.getWaitingQueueId() - prevQueue.getWaitingQueueId();
     }
+
+    public WaitingQueue loadNowWaitingQueue(String tokenId) {
+        //
+        return this.waitingQueueService.loadWaitingQueue(tokenId);
+    }
 }

@@ -1,10 +1,10 @@
 package com.hhplusconcert.common.annotation;
 
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.TYPE;
-
-@Target({METHOD, TYPE})
+@Documented
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface QueueCheckAnnotation {
+    // 추후 상세 체크 권한 추가 가능
 }

@@ -26,7 +26,6 @@ public class ConcertController {
 
     @PostMapping
     @Description("콘서트 생성")
-    @QueueCheckAnnotation
     public ResponseEntity<String> createConcert(@RequestBody CreateConcertCommand command) {
         //
         command.validation();
@@ -73,8 +72,9 @@ public class ConcertController {
     }
 
     @GetMapping("/seat/{seriesId}")
+    @QueueCheckAnnotation
     @Description("콘서트 자리 조회")
-    public ResponseEntity<ConcertDetail> loadConcertSheets(@PathVariable String seriesId) {
+    public ResponseEntity<ConcertDetail> loadConcertSheets(@RequestHeader String tokenId, @PathVariable String seriesId) {
         //
         return ResponseEntity.ok(this.concertSeekFacade.loadConcertSeats(seriesId));
     }

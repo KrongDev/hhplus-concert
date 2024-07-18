@@ -3,6 +3,7 @@ package com.hhplusconcert.interfaces.controller.temporaryReservation.rest;
 import com.hhplusconcert.application.temporaryReservation.dto.TemporaryReservationInfo;
 import com.hhplusconcert.application.temporaryReservation.facade.TemporaryReservationFlowFacade;
 import com.hhplusconcert.application.temporaryReservation.facade.TemporaryReservationSeekFacade;
+import com.hhplusconcert.common.annotation.QueueCheckAnnotation;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.interfaces.controller.temporaryReservation.command.CreateTemporaryReservationCommand;
 import jdk.jfr.Description;
@@ -21,8 +22,9 @@ public class TemporaryReservationController {
     private final TemporaryReservationSeekFacade temporaryReservationSeekFacade;
 
     @PostMapping()
+    @QueueCheckAnnotation
     @Description("임시 콘서트 좌석 예약")
-    public ResponseEntity<String> createTemporaryReservation(@RequestBody CreateTemporaryReservationCommand command) throws IllegalAccessException {
+    public ResponseEntity<String> createTemporaryReservation(@RequestHeader String tokenId, @RequestBody CreateTemporaryReservationCommand command) {
         //
         command.validation();
         String userId = command.userId();

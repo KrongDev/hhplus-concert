@@ -2,6 +2,7 @@ package com.hhplusconcert.interfaces.controller.payment.rest;
 
 import com.hhplusconcert.application.payment.facade.PaymentFlowFacade;
 import com.hhplusconcert.application.payment.facade.PaymentSeekFacade;
+import com.hhplusconcert.common.annotation.QueueCheckAnnotation;
 import com.hhplusconcert.domain.payment.model.Payment;
 import com.hhplusconcert.interfaces.controller.payment.command.SubmitPaymentCommand;
 import jdk.jfr.Description;
@@ -20,8 +21,9 @@ public class PaymentController {
     private final PaymentSeekFacade paymentSeekFacade;
 
     @PostMapping
+    @QueueCheckAnnotation
     @Description("결제 요청")
-    public ResponseEntity<String> submitPayment(@RequestBody SubmitPaymentCommand command) {
+    public ResponseEntity<String> submitPayment(@RequestHeader String tokenId, @RequestBody SubmitPaymentCommand command) {
         //
         command.validation();
         String temporaryReservationId = command.temporaryReservationId();
