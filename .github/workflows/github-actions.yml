@@ -23,9 +23,9 @@ jobs:
           --health-retries=3
         env:
           MYSQL_ROOT_PASSWORD: 1234
-          MYSQL_DATABASE: concert-test
-          MYSQL_USER: concert-test
-          MYSQL_PASSWORD: concert-test1234
+          MYSQL_DATABASE: concert_test
+          MYSQL_USER: concert_test
+          MYSQL_PASSWORD: concert_test1234
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 17
