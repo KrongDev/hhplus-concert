@@ -2,7 +2,7 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "main", "feature/step10" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -11,6 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    services:
+      mysql:
+        image: mysql:latest
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+        env:
+          MYSQL_ROOT_PASSWORD: 1234
+          MYSQL_DATABASE: concert
+          MYSQL_USER: concert
+          MYSQL_PASSWORD: concert1234
+
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 17
