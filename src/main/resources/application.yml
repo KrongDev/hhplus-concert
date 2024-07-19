@@ -38,3 +38,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+concert:
+  limit:
+    processCount: 50
+
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.hhplusconcert: info
