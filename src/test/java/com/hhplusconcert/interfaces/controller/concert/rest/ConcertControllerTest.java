@@ -1,6 +1,8 @@
 package com.hhplusconcert.interfaces.controller.concert.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hhplusconcert.domain.waitingQueue.service.WaitingQueueService;
+import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
 import com.hhplusconcert.interfaces.controller.concert.command.CreateConcertCommand;
 import com.hhplusconcert.interfaces.controller.concert.command.CreateConcertSeriesCommand;
 import org.junit.jupiter.api.*;
@@ -30,6 +32,10 @@ class ConcertControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private WaitingTokenService waitingTokenService;
+    @Autowired
+    private WaitingQueueService waitingQueueService;
 
     private String concertId = "test_concertId";
     private String seriesId = "test_seriesId";
@@ -41,6 +47,7 @@ class ConcertControllerTest {
 
     @BeforeEach
     public void setUp() {
+        //
         ob = new ObjectMapper();
     }
 
@@ -127,8 +134,15 @@ class ConcertControllerTest {
     @Order(5)
     @DisplayName("좌석 조회시 콘서트나 날짜가 없을 경우 - 에러 발생")
     void loadConcertSheets() throws Exception {
+        //Given
+        String tokenId = this.waitingTokenService.create("test_userId", "empty_seriesId");
+        this.waitingQueueService.create(tokenId);
+        Thread.sleep(3000);
         //WHEN-THEN
-        mockMvc.perform(get(basicUrl + "/seat/" + "empty_seriesId"))
+        mockMvc.perform(
+                get(basicUrl + "/seat/" + "empty_seriesId")
+                        .header("tokenId", tokenId)
+                )
                 .andDo(print())
                 .andExpect(status().isNotFound())
         ;

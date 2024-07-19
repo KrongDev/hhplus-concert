@@ -1,6 +1,8 @@
 package com.hhplusconcert.interfaces.controller.temporaryReservation.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hhplusconcert.domain.waitingQueue.service.WaitingQueueService;
+import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
 import com.hhplusconcert.interfaces.controller.temporaryReservation.command.CreateTemporaryReservationCommand;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,10 @@ class TemporaryReservationControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private WaitingTokenService waitingTokenService;
+    @Autowired
+    private WaitingQueueService waitingQueueService;
 
     private final String concertId = "test_concertId";
     private final String seriesId = "test_seriesId";
@@ -35,6 +41,9 @@ class TemporaryReservationControllerTest {
     @DisplayName("임시예약하려는 정보가 존재하지 않을 때")
     void createTemporaryReservation() throws Exception {
         //GIVEN
+        String tokenId = this.waitingTokenService.create(userId, seriesId);
+        this.waitingQueueService.create(tokenId);
+        Thread.sleep(3000);
         CreateTemporaryReservationCommand command = new CreateTemporaryReservationCommand(
                 userId,
                 concertId,
@@ -46,6 +55,7 @@ class TemporaryReservationControllerTest {
             post(basicUrl)
                 .content(ob.writeValueAsString(command))
                 .contentType(MediaType.APPLICATION_JSON)
+                    .header("tokenId", tokenId)
             )
             .andDo(print())
             .andExpect(status().isNotFound());
