@@ -26,7 +26,6 @@ jobs:
           MYSQL_DATABASE: concert
           MYSQL_USER: concert
           MYSQL_PASSWORD: concert1234
-
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 17
@@ -36,6 +35,10 @@ jobs:
           distribution: 'temurin'
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+      - name: mysql 확인
+        run: mysql -u concert -p
+          - concert1234
+          - show databases
       - name: Build with Gradle Wrapper
         run: ./gradlew build
 
