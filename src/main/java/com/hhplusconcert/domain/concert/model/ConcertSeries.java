@@ -2,9 +2,10 @@ package com.hhplusconcert.domain.concert.model;
 
 import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
 import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
-import com.hhplusconcert.domain.concert.model.vo.ConcertSeriesStatus;
-import lombok.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
@@ -19,7 +20,6 @@ public class ConcertSeries {
     private Long endAt;
     private Long reserveStartAt;
     private Long reserveEndAt;
-    private ConcertSeriesStatus status;
     private Long createAt;
 
     public static ConcertSeries newInstance(
@@ -31,8 +31,6 @@ public class ConcertSeries {
     ) {
         String newId = UUID.randomUUID().toString();
         Long now = System.currentTimeMillis();
-        ConcertSeriesStatus status = ConcertSeriesStatus.READY;
-        if(now > reserveStartAt) status = ConcertSeriesStatus.PROCESSING;
 
         return ConcertSeries.builder()
                 .seriesId(newId)
@@ -41,7 +39,6 @@ public class ConcertSeries {
                 .endAt(endAt)
                 .reserveStartAt(reserveStartAt)
                 .reserveEndAt(reserveEndAt)
-                .status(status)
                 .createAt(now)
                 .build();
     }

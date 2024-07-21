@@ -1,9 +1,10 @@
 package com.hhplusconcert.infra.concert.orm.jpo;
 
 import com.hhplusconcert.domain.concert.model.ConcertSeries;
-import com.hhplusconcert.domain.concert.model.vo.ConcertSeriesStatus;
 import com.hhplusconcert.infra.common.JpoEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,8 +27,6 @@ public class ConcertSeriesJpo implements JpoEntity<ConcertSeries> {
     private Long endAt;
     private Long reserveStartAt;
     private Long reserveEndAt;
-    @Enumerated(EnumType.STRING)
-    private ConcertSeriesStatus status;
 
     private Long createAt;
 
@@ -46,7 +45,6 @@ public class ConcertSeriesJpo implements JpoEntity<ConcertSeries> {
                 .endAt(endAt)
                 .reserveStartAt(reserveStartAt)
                 .reserveEndAt(reserveEndAt)
-                .status(status)
                 .createAt(createAt)
                 .build();
     }
