@@ -4,7 +4,7 @@ import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
 import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.watingToken.model.WaitingToken;
 import com.hhplusconcert.domain.watingToken.repository.WaitingTokenRepository;
-import com.hhplusconcert.infra.waitingToken.orm.WaitingTokenJpoRepository;
+import com.hhplusconcert.infra.waitingToken.orm.WaitingTokenJpaRepository;
 import com.hhplusconcert.infra.waitingToken.orm.jpo.WaitingTokenJpo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,24 +16,24 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class WaitingTokenRepositoryImpl implements WaitingTokenRepository {
     //
-    private final WaitingTokenJpoRepository waitingTokenJpoRepository;
+    private final WaitingTokenJpaRepository waitingTokenJpaRepository;
 
     @Override
     public void save(WaitingToken waitingToken) {
         //
-        this.waitingTokenJpoRepository.save(new WaitingTokenJpo(waitingToken));
+        this.waitingTokenJpaRepository.save(new WaitingTokenJpo(waitingToken));
     }
 
     @Override
     public WaitingToken findById(String tokenId) {
-        Optional<WaitingTokenJpo> jpo = this.waitingTokenJpoRepository.findById(tokenId);
+        Optional<WaitingTokenJpo> jpo = this.waitingTokenJpaRepository.findById(tokenId);
         return jpo.map(WaitingTokenJpo::toDomain).orElse(null);
     }
 
     @Override
     public WaitingToken findByUserIdAndSeriesId(String userId, String seriesId) {
         //
-        Optional<WaitingTokenJpo> jpo = this.waitingTokenJpoRepository.findByUserIdAndSeriesId(userId, seriesId);
+        Optional<WaitingTokenJpo> jpo = this.waitingTokenJpaRepository.findByUserIdAndSeriesId(userId, seriesId);
         if(jpo.isEmpty())
             throw new CustomGlobalException(ErrorType.TOKEN_NOT_FOUND);
         return jpo.get().toDomain();
@@ -41,26 +41,26 @@ public class WaitingTokenRepositoryImpl implements WaitingTokenRepository {
 
     @Override
     public List<WaitingToken> findAllByExpired(long expiredTime) {
-        List<WaitingTokenJpo> jpos = this.waitingTokenJpoRepository.findAllByExpiredAtLessThanEqual(expiredTime);
+        List<WaitingTokenJpo> jpos = this.waitingTokenJpaRepository.findAllByExpiredAtLessThanEqual(expiredTime);
         return jpos.stream().map(WaitingTokenJpo::toDomain).toList();
     }
 
     @Override
     public void deleteByUserIdAndSeriesId(String userId, String seriesId) {
         //
-        this.waitingTokenJpoRepository.deleteByUserIdAndSeriesId(userId, seriesId);
+        this.waitingTokenJpaRepository.deleteByUserIdAndSeriesId(userId, seriesId);
     }
 
     @Override
     public void deleteAllByIds(List<String> tokenIds) {
         //
-        this.waitingTokenJpoRepository.deleteAllById(tokenIds);
+        this.waitingTokenJpaRepository.deleteAllById(tokenIds);
     }
 
     @Override
     public boolean existsByUserIdAndSeriesId(String userId, String seriesId) {
         //
-        Optional<WaitingTokenJpo> jpo = this.waitingTokenJpoRepository.findFirstByUserIdAndSeriesId(userId, seriesId);
+        Optional<WaitingTokenJpo> jpo = this.waitingTokenJpaRepository.findFirstByUserIdAndSeriesId(userId, seriesId);
         return jpo.isPresent();
     }
 }

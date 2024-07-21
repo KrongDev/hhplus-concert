@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface WaitingQueueJpoRepository extends JpaRepository<WaitingQueueJpo, Long> {
+public interface WaitingQueueJpaRepository extends JpaRepository<WaitingQueueJpo, Long> {
     Optional<WaitingQueueJpo> findByTokenId(String tokenId);
     Optional<WaitingQueueJpo> findFirstByStatusOrderByCreateAt(WaitingQueueStatus status);
     List<WaitingQueueJpo> findAllByStatus(WaitingQueueStatus status, Pageable pageable);

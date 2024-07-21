@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ConcertSeriesJpoRepository extends JpaRepository<ConcertSeriesJpo, String> {
+public interface ConcertSeriesJpaRepository extends JpaRepository<ConcertSeriesJpo, String> {
     List<ConcertSeriesJpo> findByConcertIdAndReserveStartAtLessThanEqualAndReserveEndAtGreaterThanEqual(String concertId, Long reserveStartAt, Long reserveEndAt);
 }

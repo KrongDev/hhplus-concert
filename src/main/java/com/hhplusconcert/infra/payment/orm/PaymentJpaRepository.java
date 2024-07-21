@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface PaymentJpoRepository extends JpaRepository<PaymentJpo, String> {
+public interface PaymentJpaRepository extends JpaRepository<PaymentJpo, String> {
     //
     List<PaymentJpo> findAllByUserId(String userId);
 }
