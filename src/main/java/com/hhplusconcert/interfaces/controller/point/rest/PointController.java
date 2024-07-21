@@ -4,8 +4,8 @@ import com.hhplusconcert.application.point.facade.PointFlowFacade;
 import com.hhplusconcert.application.point.facade.PointSeekFacade;
 import com.hhplusconcert.domain.point.model.Point;
 import com.hhplusconcert.domain.point.model.PointHistory;
-import com.hhplusconcert.interfaces.controller.point.command.ChargePointCommand;
-import com.hhplusconcert.interfaces.controller.point.command.UsePointCommand;
+import com.hhplusconcert.interfaces.controller.point.dto.ChargePointRequest;
+import com.hhplusconcert.interfaces.controller.point.dto.UsePointRequest;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +37,7 @@ public class PointController {
 
     @PatchMapping("/charge")
     @Description("포인트 충전")
-    public void chargePoint (@RequestBody ChargePointCommand command) {
+    public void chargePoint (@RequestBody ChargePointRequest command) {
         //
         command.validate();
         String userId = command.userId();
@@ -47,7 +47,7 @@ public class PointController {
 
     @PatchMapping("/use")
     @Description("포인트 사용")
-    public void usePoint (@RequestBody UsePointCommand command) {
+    public void usePoint (@RequestBody UsePointRequest command) {
         //
         command.validate();
         String userId = command.userId();

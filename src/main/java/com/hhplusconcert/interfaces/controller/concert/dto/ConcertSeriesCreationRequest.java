@@ -1,10 +1,10 @@
-package com.hhplusconcert.interfaces.controller.concert.command;
+package com.hhplusconcert.interfaces.controller.concert.dto;
 
 import org.springframework.util.Assert;
 
 
 
-public record ConcertSeriesCreationCommand(
+public record ConcertSeriesCreationRequest(
         String concertId,
         Long startAt,
         Long endAt,

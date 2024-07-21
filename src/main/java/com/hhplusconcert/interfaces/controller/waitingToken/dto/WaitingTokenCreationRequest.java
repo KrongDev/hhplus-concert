@@ -1,8 +1,8 @@
-package com.hhplusconcert.interfaces.controller.waitingToken.command;
+package com.hhplusconcert.interfaces.controller.waitingToken.dto;
 
 import org.springframework.util.Assert;
 
-public record WaitingTokenCreationCommand(
+public record WaitingTokenCreationRequest(
         String userId,
         String seriesId
 ) {

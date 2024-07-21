@@ -3,8 +3,8 @@ package com.hhplusconcert.interfaces.controller.concert.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hhplusconcert.domain.waitingQueue.service.WaitingQueueService;
 import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
-import com.hhplusconcert.interfaces.controller.concert.command.ConcertCreationCommand;
-import com.hhplusconcert.interfaces.controller.concert.command.ConcertSeriesCreationCommand;
+import com.hhplusconcert.interfaces.controller.concert.dto.ConcertCreationRequest;
+import com.hhplusconcert.interfaces.controller.concert.dto.ConcertSeriesCreationRequest;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -57,7 +57,7 @@ class ConcertControllerTest {
     @DisplayName("콘서트 생성 테스트")
     void createConcert() throws Exception {
         //Given
-        ConcertCreationCommand command = new ConcertCreationCommand(userId, title);
+        ConcertCreationRequest command = new ConcertCreationRequest(userId, title);
 
         //When
         MvcResult res = mockMvc.perform(
@@ -86,7 +86,7 @@ class ConcertControllerTest {
         Long reserveEndAt = endTime;
         int maxRow = 5;
         int maxSeat = 50;
-        ConcertSeriesCreationCommand command = new ConcertSeriesCreationCommand(
+        ConcertSeriesCreationRequest command = new ConcertSeriesCreationRequest(
                 concertId,
                 startAt,
                 endAt,

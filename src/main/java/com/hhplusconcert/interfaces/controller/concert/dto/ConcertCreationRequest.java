@@ -1,9 +1,9 @@
-package com.hhplusconcert.interfaces.controller.concert.command;
+package com.hhplusconcert.interfaces.controller.concert.dto;
 
 import org.springframework.util.Assert;
 
 
-public record ConcertCreationCommand(
+public record ConcertCreationRequest(
         String userId,
         String title
 ) {

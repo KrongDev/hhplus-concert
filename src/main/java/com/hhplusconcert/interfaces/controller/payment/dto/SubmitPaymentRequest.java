@@ -1,8 +1,8 @@
-package com.hhplusconcert.interfaces.controller.payment.command;
+package com.hhplusconcert.interfaces.controller.payment.dto;
 
 import org.springframework.util.Assert;
 
-public record SubmitPaymentCommand (
+public record SubmitPaymentRequest(
         String temporaryReservationId,
         String userId
 ) {

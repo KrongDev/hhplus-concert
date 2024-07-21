@@ -6,8 +6,8 @@ import com.hhplusconcert.application.concert.facade.ConcertFlowFacade;
 import com.hhplusconcert.application.concert.facade.ConcertSeekFacade;
 import com.hhplusconcert.common.annotation.QueueCheckAnnotation;
 import com.hhplusconcert.domain.concert.model.Concert;
-import com.hhplusconcert.interfaces.controller.concert.command.ConcertCreationCommand;
-import com.hhplusconcert.interfaces.controller.concert.command.ConcertSeriesCreationCommand;
+import com.hhplusconcert.interfaces.controller.concert.dto.ConcertCreationRequest;
+import com.hhplusconcert.interfaces.controller.concert.dto.ConcertSeriesCreationRequest;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class ConcertController {
 
     @PostMapping
     @Description("콘서트 생성")
-    public ResponseEntity<String> createConcert(@RequestBody ConcertCreationCommand command) {
+    public ResponseEntity<String> createConcert(@RequestBody ConcertCreationRequest command) {
         //
         command.validate();
         String userId = command.userId();
@@ -36,7 +36,7 @@ public class ConcertController {
 
     @PostMapping("/series")
     @Description("콘서트 시리즈 생성")
-    public ResponseEntity<String> createSeries(@RequestBody ConcertSeriesCreationCommand command) {
+    public ResponseEntity<String> createSeries(@RequestBody ConcertSeriesCreationRequest command) {
         //
         command.validate();
         String concertId = command.concertId();

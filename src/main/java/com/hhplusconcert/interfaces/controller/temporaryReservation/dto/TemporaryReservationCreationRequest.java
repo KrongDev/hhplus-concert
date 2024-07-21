@@ -1,9 +1,9 @@
-package com.hhplusconcert.interfaces.controller.temporaryReservation.command;
+package com.hhplusconcert.interfaces.controller.temporaryReservation.dto;
 
 import org.springframework.util.Assert;
 
 
-public record TemporaryReservationCreationCommand(
+public record TemporaryReservationCreationRequest(
         String userId,
         String concertId,
         String seriesId,

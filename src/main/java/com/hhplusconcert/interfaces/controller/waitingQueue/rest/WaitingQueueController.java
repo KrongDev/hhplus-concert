@@ -2,7 +2,7 @@ package com.hhplusconcert.interfaces.controller.waitingQueue.rest;
 
 import com.hhplusconcert.application.waitingQueue.facade.WaitingQueueFlowFacade;
 import com.hhplusconcert.application.waitingQueue.facade.WaitingQueueSeekFacade;
-import com.hhplusconcert.interfaces.controller.waitingQueue.command.JoinWaitingQueueCommand;
+import com.hhplusconcert.interfaces.controller.waitingQueue.dto.JoinWaitingQueueRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ public class WaitingQueueController {
     private final WaitingQueueSeekFacade waitingQueueSeekFacade;
 
     @PostMapping("/join")
-    public ResponseEntity<Long> joinWaitingQueue(@RequestBody JoinWaitingQueueCommand command) {
+    public ResponseEntity<Long> joinWaitingQueue(@RequestBody JoinWaitingQueueRequest command) {
         //
         command.validate();
         String tokenId = command.tokenId();

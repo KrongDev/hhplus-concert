@@ -1,8 +1,8 @@
-package com.hhplusconcert.interfaces.controller.waitingQueue.command;
+package com.hhplusconcert.interfaces.controller.waitingQueue.dto;
 
 import org.springframework.util.Assert;
 
-public record JoinWaitingQueueCommand(String tokenId) {
+public record JoinWaitingQueueRequest(String tokenId) {
     //
     public void validate() {
         //

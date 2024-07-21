@@ -1,8 +1,8 @@
 package com.hhplusconcert.interfaces.controller.point.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hhplusconcert.interfaces.controller.point.command.ChargePointCommand;
-import com.hhplusconcert.interfaces.controller.point.command.UsePointCommand;
+import com.hhplusconcert.interfaces.controller.point.dto.ChargePointRequest;
+import com.hhplusconcert.interfaces.controller.point.dto.UsePointRequest;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -36,7 +36,7 @@ class PointControllerTest {
     @DisplayName("포인트 충전")
     void chargePoint() throws Exception {
         mockMvc.perform(patch(baseUrl + "/charge")
-                .content(objectMapper.writeValueAsString(new ChargePointCommand(userId, amount)))
+                .content(objectMapper.writeValueAsString(new ChargePointRequest(userId, amount)))
                 .contentType(MediaType.APPLICATION_JSON)
         )
             .andDo(print())
@@ -48,7 +48,7 @@ class PointControllerTest {
     @DisplayName("포인트 사용")
     void usePoint() throws Exception {
         mockMvc.perform(patch(baseUrl + "/use")
-                        .content(objectMapper.writeValueAsString(new UsePointCommand(userId, "test_paymentId", amount)))
+                        .content(objectMapper.writeValueAsString(new UsePointRequest(userId, "test_paymentId", amount)))
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())

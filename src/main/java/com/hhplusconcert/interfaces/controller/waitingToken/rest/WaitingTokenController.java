@@ -3,7 +3,7 @@ package com.hhplusconcert.interfaces.controller.waitingToken.rest;
 import com.hhplusconcert.application.waitingToken.facade.WaitingTokenFlowFacade;
 import com.hhplusconcert.application.waitingToken.facade.WaitingTokenSeekFacade;
 import com.hhplusconcert.domain.watingToken.model.WaitingToken;
-import com.hhplusconcert.interfaces.controller.waitingToken.command.WaitingTokenCreationCommand;
+import com.hhplusconcert.interfaces.controller.waitingToken.dto.WaitingTokenCreationRequest;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class WaitingTokenController {
 
     @PostMapping
     @Description("콘서트 예약 대기열 토큰 발급")
-    public ResponseEntity<String> genToken(@RequestBody WaitingTokenCreationCommand command) {
+    public ResponseEntity<String> genToken(@RequestBody WaitingTokenCreationRequest command) {
         //
         command.validate();
         String userId = command.userId();

@@ -4,7 +4,7 @@ import com.hhplusconcert.application.payment.facade.PaymentFlowFacade;
 import com.hhplusconcert.application.payment.facade.PaymentSeekFacade;
 import com.hhplusconcert.common.annotation.QueueCheckAnnotation;
 import com.hhplusconcert.domain.payment.model.Payment;
-import com.hhplusconcert.interfaces.controller.payment.command.SubmitPaymentCommand;
+import com.hhplusconcert.interfaces.controller.payment.dto.SubmitPaymentRequest;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class PaymentController {
     @PostMapping
     @QueueCheckAnnotation
     @Description("결제 요청")
-    public ResponseEntity<String> submitPayment(@RequestHeader String tokenId, @RequestBody SubmitPaymentCommand command) {
+    public ResponseEntity<String> submitPayment(@RequestHeader String tokenId, @RequestBody SubmitPaymentRequest command) {
         //
         command.validate();
         String temporaryReservationId = command.temporaryReservationId();

@@ -5,7 +5,7 @@ import com.hhplusconcert.application.temporaryReservation.facade.TemporaryReserv
 import com.hhplusconcert.application.temporaryReservation.facade.TemporaryReservationSeekFacade;
 import com.hhplusconcert.common.annotation.QueueCheckAnnotation;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
-import com.hhplusconcert.interfaces.controller.temporaryReservation.command.TemporaryReservationCreationCommand;
+import com.hhplusconcert.interfaces.controller.temporaryReservation.dto.TemporaryReservationCreationRequest;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class TemporaryReservationController {
     @PostMapping()
     @QueueCheckAnnotation
     @Description("임시 콘서트 좌석 예약")
-    public ResponseEntity<String> createTemporaryReservation(@RequestHeader String tokenId, @RequestBody TemporaryReservationCreationCommand command) {
+    public ResponseEntity<String> createTemporaryReservation(@RequestHeader String tokenId, @RequestBody TemporaryReservationCreationRequest command) {
         //
         command.validate();
         String userId = command.userId();
