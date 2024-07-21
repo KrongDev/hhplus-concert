@@ -26,26 +26,26 @@ public class ConcertController {
 
     @PostMapping
     @Description("콘서트 생성")
-    public ResponseEntity<String> createConcert(@RequestBody ConcertCreationRequest command) {
+    public ResponseEntity<String> createConcert(@RequestBody ConcertCreationRequest request) {
         //
-        command.validate();
-        String userId = command.userId();
-        String title = command.title();
+        request.validate();
+        String userId = request.userId();
+        String title = request.title();
         return ResponseEntity.ok(this.concertFlowFacade.createConcert(userId, title));
     }
 
     @PostMapping("/series")
     @Description("콘서트 시리즈 생성")
-    public ResponseEntity<String> createSeries(@RequestBody ConcertSeriesCreationRequest command) {
+    public ResponseEntity<String> createSeries(@RequestBody ConcertSeriesCreationRequest request) {
         //
-        command.validate();
-        String concertId = command.concertId();
-        Long startAt = command.startAt();
-        Long endAt = command.endAt();
-        Long reserveStartAt = command.reserveStartAt();
-        Long reserveEndAt = command.reserveEndAt();
-        int maxRow = command.maxRow();
-        int maxSeat = command.maxSeat();
+        request.validate();
+        String concertId = request.concertId();
+        Long startAt = request.startAt();
+        Long endAt = request.endAt();
+        Long reserveStartAt = request.reserveStartAt();
+        Long reserveEndAt = request.reserveEndAt();
+        int maxRow = request.maxRow();
+        int maxSeat = request.maxSeat();
         return ResponseEntity.ok(this.concertFlowFacade.createConcertSeries(
                 concertId,
                 startAt,

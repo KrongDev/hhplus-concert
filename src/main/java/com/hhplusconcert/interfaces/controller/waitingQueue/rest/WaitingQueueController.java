@@ -16,10 +16,10 @@ public class WaitingQueueController {
     private final WaitingQueueSeekFacade waitingQueueSeekFacade;
 
     @PostMapping("/join")
-    public ResponseEntity<Long> joinWaitingQueue(@RequestBody JoinWaitingQueueRequest command) {
+    public ResponseEntity<Long> joinWaitingQueue(@RequestBody JoinWaitingQueueRequest request) {
         //
-        command.validate();
-        String tokenId = command.tokenId();
+        request.validate();
+        String tokenId = request.tokenId();
         return ResponseEntity.ok(this.waitingQueueFlowFacade.joinQueue(tokenId));
     }
 

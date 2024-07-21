@@ -37,22 +37,22 @@ public class PointController {
 
     @PatchMapping("/charge")
     @Description("포인트 충전")
-    public void chargePoint (@RequestBody ChargePointRequest command) {
+    public void chargePoint (@RequestBody ChargePointRequest request) {
         //
-        command.validate();
-        String userId = command.userId();
-        int amount = command.amount();
+        request.validate();
+        String userId = request.userId();
+        int amount = request.amount();
         this.pointFlowFacade.chargePoint(userId, amount);
     }
 
     @PatchMapping("/use")
     @Description("포인트 사용")
-    public void usePoint (@RequestBody UsePointRequest command) {
+    public void usePoint (@RequestBody UsePointRequest request) {
         //
-        command.validate();
-        String userId = command.userId();
-        String paymentId = command.paymentId();
-        int amount = command.amount();
+        request.validate();
+        String userId = request.userId();
+        String paymentId = request.paymentId();
+        int amount = request.amount();
         this.pointFlowFacade.usePoint(userId, amount, paymentId);
     }
 }

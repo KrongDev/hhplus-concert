@@ -21,11 +21,11 @@ public class WaitingTokenController {
 
     @PostMapping
     @Description("콘서트 예약 대기열 토큰 발급")
-    public ResponseEntity<String> genToken(@RequestBody WaitingTokenCreationRequest command) {
+    public ResponseEntity<String> genToken(@RequestBody WaitingTokenCreationRequest request) {
         //
-        command.validate();
-        String userId = command.userId();
-        String seriesId = command.seriesId();
+        request.validate();
+        String userId = request.userId();
+        String seriesId = request.seriesId();
         return ResponseEntity.ok(this.waitingTokenFlowFacade.createWaitingToken(userId, seriesId));
     }
 

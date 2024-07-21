@@ -23,11 +23,11 @@ public class PaymentController {
     @PostMapping
     @QueueCheckAnnotation
     @Description("결제 요청")
-    public ResponseEntity<String> submitPayment(@RequestHeader String tokenId, @RequestBody SubmitPaymentRequest command) {
+    public ResponseEntity<String> submitPayment(@RequestHeader String tokenId, @RequestBody SubmitPaymentRequest request) {
         //
-        command.validate();
-        String temporaryReservationId = command.temporaryReservationId();
-        String userId = command.userId();
+        request.validate();
+        String temporaryReservationId = request.temporaryReservationId();
+        String userId = request.userId();
         return ResponseEntity.ok(this.paymentFlowFacade.processTemporaryReservationPayment(temporaryReservationId, userId));
     }
 

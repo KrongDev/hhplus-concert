@@ -24,13 +24,13 @@ public class TemporaryReservationController {
     @PostMapping()
     @QueueCheckAnnotation
     @Description("임시 콘서트 좌석 예약")
-    public ResponseEntity<String> createTemporaryReservation(@RequestHeader String tokenId, @RequestBody TemporaryReservationCreationRequest command) {
+    public ResponseEntity<String> createTemporaryReservation(@RequestHeader String tokenId, @RequestBody TemporaryReservationCreationRequest request) {
         //
-        command.validate();
-        String userId = command.userId();
-        String concertId = command.concertId();
-        String seriesId = command.seriesId();
-        String seatId = command.seatId();
+        request.validate();
+        String userId = request.userId();
+        String concertId = request.concertId();
+        String seriesId = request.seriesId();
+        String seatId = request.seatId();
 
         return ResponseEntity.ok(this.temporaryReservationFlowFacade.createTemporaryReservation(
                 userId,
