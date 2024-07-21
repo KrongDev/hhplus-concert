@@ -25,7 +25,7 @@ public class PaymentController {
     @Description("결제 요청")
     public ResponseEntity<String> submitPayment(@RequestHeader String tokenId, @RequestBody SubmitPaymentCommand command) {
         //
-        command.validation();
+        command.validate();
         String temporaryReservationId = command.temporaryReservationId();
         String userId = command.userId();
         return ResponseEntity.ok(this.paymentFlowFacade.processTemporaryReservationPayment(temporaryReservationId, userId));

@@ -4,7 +4,7 @@ import org.springframework.util.Assert;
 
 
 
-public record CreateConcertSeriesCommand (
+public record ConcertSeriesCreationCommand(
         String concertId,
         Long startAt,
         Long endAt,
@@ -14,7 +14,7 @@ public record CreateConcertSeriesCommand (
         int maxSeat
 ) {
 
-    public void validation() {
+    public void validate() {
         long now = System.currentTimeMillis();
         Assert.hasText(concertId, "concertId is required");
         Assert.isTrue(now < reserveEndAt, "reserveEndAt is invalid");

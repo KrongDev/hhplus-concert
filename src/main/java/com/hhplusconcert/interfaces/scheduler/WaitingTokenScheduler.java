@@ -19,7 +19,7 @@ public class WaitingTokenScheduler {
     @Transactional
     public void searchAndJoiningQueue () {
         //
-        this.waitingQueueFlowFacade.expiredToken();
+        this.waitingQueueFlowFacade.processExpiredTokens();
     }
 
 }

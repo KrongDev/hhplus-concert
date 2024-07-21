@@ -4,5 +4,5 @@ import com.hhplusconcert.domain.point.model.Point;
 
 public interface PointRepository {
     void save(Point point);
-    Point findByIdWithThrow(String userId);
+    Point findById(String userId);
 }

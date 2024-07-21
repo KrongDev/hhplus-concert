@@ -1,7 +1,7 @@
 package com.hhplusconcert.domain.watingToken.service;
 
-import com.hhplusconcert.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.watingToken.model.WaitingToken;
 import com.hhplusconcert.domain.watingToken.repository.WaitingTokenRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +29,17 @@ public class WaitingTokenService {
 
     public WaitingToken loadWaitingToken(String tokenId) {
         //
-        return this.waitingTokenRepository.findByIdWithThrow(tokenId);
+        WaitingToken token = this.waitingTokenRepository.findById(tokenId);
+        if(Objects.isNull(token))
+            throw new CustomGlobalException(ErrorType.TOKEN_NOT_FOUND);
+        return token;
+    }
+
+    public WaitingToken loadNotExpiredWaitingToken(String tokenId) {
+        //
+        WaitingToken token =  this.loadWaitingToken(tokenId);
+        token.validateExpired();
+        return token;
     }
 
     public WaitingToken loadWaitingToken(String userId, String seriesId) {
@@ -44,15 +55,25 @@ public class WaitingTokenService {
     @Transactional
     public void healthCheck(String tokenId) {
         //
-        WaitingToken waitingQueue = this.waitingTokenRepository.findByIdWithThrow(tokenId);
+        WaitingToken waitingQueue = this.loadWaitingToken(tokenId);
         waitingQueue.healthCheck();
         this.waitingTokenRepository.save(waitingQueue);
     }
 
     @Transactional
-    public void deleteWaitingToken(String tokenId) {
+    public List<String> processExpiredTokens() {
+        List<WaitingToken> tokens = this.loadWaitingTokensByExpired();
+        List<String> tokenIds = tokens.stream().map(WaitingToken::getTokenId).toList();
+        this.deleteWaitingTokens(tokenIds);
+        return tokenIds;
+    }
+
+    @Transactional
+    public String deleteByUserIdAndSeriesId(String userId, String seriesId) {
         //
-        this.waitingTokenRepository.deleteById(tokenId);
+        WaitingToken waitingToken = this.loadWaitingToken(userId, seriesId);
+        this.waitingTokenRepository.deleteByUserIdAndSeriesId(userId, seriesId);
+        return waitingToken.getTokenId();
     }
 
     @Transactional

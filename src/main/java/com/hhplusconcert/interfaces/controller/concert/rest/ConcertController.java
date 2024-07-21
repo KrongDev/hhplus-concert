@@ -6,8 +6,8 @@ import com.hhplusconcert.application.concert.facade.ConcertFlowFacade;
 import com.hhplusconcert.application.concert.facade.ConcertSeekFacade;
 import com.hhplusconcert.common.annotation.QueueCheckAnnotation;
 import com.hhplusconcert.domain.concert.model.Concert;
-import com.hhplusconcert.interfaces.controller.concert.command.CreateConcertCommand;
-import com.hhplusconcert.interfaces.controller.concert.command.CreateConcertSeriesCommand;
+import com.hhplusconcert.interfaces.controller.concert.command.ConcertCreationCommand;
+import com.hhplusconcert.interfaces.controller.concert.command.ConcertSeriesCreationCommand;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +26,9 @@ public class ConcertController {
 
     @PostMapping
     @Description("콘서트 생성")
-    public ResponseEntity<String> createConcert(@RequestBody CreateConcertCommand command) {
+    public ResponseEntity<String> createConcert(@RequestBody ConcertCreationCommand command) {
         //
-        command.validation();
+        command.validate();
         String userId = command.userId();
         String title = command.title();
         return ResponseEntity.ok(this.concertFlowFacade.createConcert(userId, title));
@@ -36,9 +36,9 @@ public class ConcertController {
 
     @PostMapping("/series")
     @Description("콘서트 시리즈 생성")
-    public ResponseEntity<String> createSeries(@RequestBody CreateConcertSeriesCommand command) {
+    public ResponseEntity<String> createSeries(@RequestBody ConcertSeriesCreationCommand command) {
         //
-        command.validation();
+        command.validate();
         String concertId = command.concertId();
         Long startAt = command.startAt();
         Long endAt = command.endAt();

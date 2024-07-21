@@ -1,7 +1,5 @@
 package com.hhplusconcert.infra.waitingQueue.impl;
 
-import com.hhplusconcert.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.waitingQueue.model.WaitingQueue;
 import com.hhplusconcert.domain.waitingQueue.model.vo.WaitingQueueStatus;
 import com.hhplusconcert.domain.waitingQueue.repository.WaitingQueueRepository;
@@ -39,20 +37,18 @@ public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
     }
 
     @Override
-    public WaitingQueue findByTokenIdWithThrow(String tokenId) {
+    public WaitingQueue findByTokenId(String tokenId) {
         //
         Optional<WaitingQueueJpo> jpo = this.waitingQueueJpoRepository.findByTokenId(tokenId);
-        if(jpo.isEmpty())
-            throw new CustomGlobalException(ErrorType.WAITING_QUEUE_NOT_FOUND);
-        return jpo.get().toDomain();
+        return jpo.map(WaitingQueueJpo::toDomain).orElse(null);
     }
 
     // 이전 대기열 토큰 조회
     @Override
-    public Optional<WaitingQueue> findPrevQueue(WaitingQueueStatus status) {
+    public WaitingQueue findPrevQueue(WaitingQueueStatus status) {
         //
         Optional<WaitingQueueJpo> jpo = this.waitingQueueJpoRepository.findFirstByStatusOrderByCreateAt(status);
-        return jpo.map(WaitingQueueJpo::toDomain);
+        return jpo.map(WaitingQueueJpo::toDomain).orElse(null);
     }
 
     @Override

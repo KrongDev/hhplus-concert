@@ -1,8 +1,8 @@
-package com.hhplusconcert.common.exception;
+package com.hhplusconcert.interfaces.exception;
 
 
-import com.hhplusconcert.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,5 +1,7 @@
 package com.hhplusconcert.domain.concert.service;
 
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.concert.model.ConcertSeries;
 import com.hhplusconcert.domain.concert.repository.ConcertSeriesRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -37,12 +40,15 @@ public class ConcertSeriesService {
 
     public ConcertSeries loadConcertSeries(String seriesId) {
         //
-        return this.concertSeriesRepository.findByIdWithThrow(seriesId);
+        ConcertSeries series =  this.concertSeriesRepository.findById(seriesId);
+        if(Objects.isNull(series))
+            throw new CustomGlobalException(ErrorType.CONCERT_SERIES_NOT_FOUND);
+        return series;
     }
 
     public ConcertSeries loadConcertSeriesReservationAvailable(String seriesId) {
         //
-        ConcertSeries concertSeries = this.concertSeriesRepository.findByIdWithThrow(seriesId);
+        ConcertSeries concertSeries = this.loadConcertSeries(seriesId);
         concertSeries.validateReservationAvailable();
         return concertSeries;
     }

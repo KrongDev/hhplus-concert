@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ReservationRepository {
     void save(Reservation reservation);
-    Reservation findByIdWithThrow(String id);
+    Reservation findById(String id);
     List<Reservation> findAllByUserId(String userId);
 }

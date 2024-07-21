@@ -1,7 +1,7 @@
 package com.hhplusconcert.application.point.facade;
 
-import com.hhplusconcert.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.point.service.PointService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

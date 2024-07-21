@@ -1,11 +1,9 @@
 package com.hhplusconcert.application.temporaryReservation.facade;
 
-import com.hhplusconcert.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.concert.model.ConcertSeat;
-import com.hhplusconcert.domain.concert.repository.ConcertRepository;
 import com.hhplusconcert.domain.concert.repository.ConcertSeatRepository;
-import com.hhplusconcert.domain.concert.service.ConcertSeatService;
 import com.hhplusconcert.domain.concert.service.ConcertSeriesService;
 import com.hhplusconcert.domain.concert.service.ConcertService;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;

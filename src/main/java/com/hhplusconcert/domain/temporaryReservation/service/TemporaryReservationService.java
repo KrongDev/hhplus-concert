@@ -1,5 +1,7 @@
 package com.hhplusconcert.domain.temporaryReservation.service;
 
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.domain.temporaryReservation.repository.TemporaryReservationRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -43,14 +46,35 @@ public class TemporaryReservationService {
 
     public TemporaryReservation loadTemporaryReservation(String temporaryReservationId) {
         //
-        return this.temporaryReservationRepository.findByIdWithException(temporaryReservationId);
+        TemporaryReservation temporaryReservation = this.temporaryReservationRepository.findById(temporaryReservationId);
+        if(Objects.isNull(temporaryReservation))
+            throw new CustomGlobalException(ErrorType.TEMPORARY_RESERVATION_NOT_FOUND);
+        return temporaryReservation;
     }
 
     @Transactional
-    public void payReservation(String temporaryReservationId) {
+    public TemporaryReservation payReservation(String temporaryReservationId) {
         //
-        TemporaryReservation temporaryReservation = this.temporaryReservationRepository.findByIdWithException(temporaryReservationId);
+        TemporaryReservation temporaryReservation = this.loadTemporaryReservation(temporaryReservationId);
         temporaryReservation.finalizeConcertReservation();
+        this.update(temporaryReservation);
+        return temporaryReservation;
+    }
+
+    @Transactional
+    public List<String> expireReservationsAndReturnSeatIds() {
+        // 시간 지난 임시 예약정보들 조회
+        List<TemporaryReservation> temporaryReservations = this.loadExpiredTemporaryReservations();
+        List<String> temporaryReservationIds = temporaryReservations.stream().map(TemporaryReservation::getTemporaryReservationId).toList();
+        // 시간 지난 임시 예약 정보들 삭제
+        this.deleteIds(temporaryReservationIds);
+        // 취소한 시트 아이디들 반환
+        return temporaryReservations.stream().map(TemporaryReservation::getSeatId).toList();
+    }
+
+    @Transactional
+    public void update(TemporaryReservation temporaryReservation) {
+        //
         this.temporaryReservationRepository.save(temporaryReservation);
     }
 

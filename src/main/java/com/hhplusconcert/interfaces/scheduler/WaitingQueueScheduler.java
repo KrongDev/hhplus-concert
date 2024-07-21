@@ -17,9 +17,9 @@ public class WaitingQueueScheduler {
      */
     @Scheduled(fixedDelay = 3000)
     @Transactional
-    public void searchAndJoiningQueue () {
+    public void activateWaitingQueueItems () {
         //
-        this.waitingQueueFlowFacade.searchAndJoiningQueue();
+        this.waitingQueueFlowFacade.activateWaitingQueueItems();
     }
 
     /**

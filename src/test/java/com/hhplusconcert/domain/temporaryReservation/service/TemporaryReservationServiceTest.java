@@ -1,7 +1,7 @@
 package com.hhplusconcert.domain.temporaryReservation.service;
 
-import com.hhplusconcert.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.domain.temporaryReservation.repository.TemporaryReservationRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +30,7 @@ class TemporaryReservationServiceTest {
     public void temporaryReservationPaid() {
         //GIVEN
         String temporaryReservationId = "test_temporary_reservation_id";
-        when(temporaryReservationRepository.findByIdWithException(temporaryReservationId)).thenReturn(TemporaryReservation.builder().paid(true).build());
+        when(temporaryReservationRepository.findById(temporaryReservationId)).thenReturn(TemporaryReservation.builder().paid(true).build());
         //WHEN
         CustomGlobalException exception = assertThrows(CustomGlobalException.class, () -> temporaryReservationService.payReservation(temporaryReservationId));
         //THEN
@@ -45,7 +45,7 @@ class TemporaryReservationServiceTest {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, -1);
         Long deleteAt = calendar.getTimeInMillis();
-        when(temporaryReservationRepository.findByIdWithException(temporaryReservationId)).thenReturn(TemporaryReservation.builder().deleteAt(deleteAt).build());
+        when(temporaryReservationRepository.findById(temporaryReservationId)).thenReturn(TemporaryReservation.builder().deleteAt(deleteAt).build());
         //WHEN
         CustomGlobalException exception = assertThrows(CustomGlobalException.class, () -> temporaryReservationService.payReservation(temporaryReservationId));
         //THEN

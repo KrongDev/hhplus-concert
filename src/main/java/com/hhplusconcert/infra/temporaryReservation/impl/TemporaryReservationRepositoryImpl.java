@@ -1,7 +1,5 @@
 package com.hhplusconcert.infra.temporaryReservation.impl;
 
-import com.hhplusconcert.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.domain.temporaryReservation.repository.TemporaryReservationRepository;
 import com.hhplusconcert.infra.temporaryReservation.orm.TemporaryReservationJpoRepository;
@@ -32,11 +30,9 @@ public class TemporaryReservationRepositoryImpl implements TemporaryReservationR
     }
 
     @Override
-    public TemporaryReservation findByIdWithException(String temporaryReservationId) {
+    public TemporaryReservation findById(String temporaryReservationId) {
         Optional<TemporaryReservationJpo> jpo = this.temporaryReservationJpoRepository.findById(temporaryReservationId);
-        if(jpo.isEmpty())
-            throw new CustomGlobalException(ErrorType.TEMPORARY_RESERVATION_NOT_FOUND);
-        return jpo.get().toDomain();
+        return jpo.map(TemporaryReservationJpo::toDomain).orElse(null);
     }
 
     @Override

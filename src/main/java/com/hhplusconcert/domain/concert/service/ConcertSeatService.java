@@ -69,6 +69,13 @@ public class ConcertSeatService {
     }
 
     @Transactional
+    public void unReserveSeat(List<String> seatIds) {
+        List<ConcertSeat> seats = this.loadConcertSeatsBySeries(seatIds);
+        seats.forEach(ConcertSeat::unReserve);
+        this.updateAll(seats);
+    }
+
+    @Transactional
     public void updateAll(List<ConcertSeat> seatList) {
         //
         this.concertSeatRepository.saveAll(seatList);

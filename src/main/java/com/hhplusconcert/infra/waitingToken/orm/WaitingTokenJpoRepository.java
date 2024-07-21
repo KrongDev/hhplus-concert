@@ -10,4 +10,6 @@ public interface WaitingTokenJpoRepository extends JpaRepository<WaitingTokenJpo
     Optional<WaitingTokenJpo> findByUserIdAndSeriesId(String userId, String seriesId);
     Optional<WaitingTokenJpo> findFirstByUserIdAndSeriesId(String userId, String seriesId);
     List<WaitingTokenJpo> findAllByExpiredAtLessThanEqual(Long expiredAt);
+
+    void deleteByUserIdAndSeriesId(String userId, String seriesId);
 }

@@ -1,7 +1,7 @@
 package com.hhplusconcert.infra.waitingToken.impl;
 
-import com.hhplusconcert.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.watingToken.model.WaitingToken;
 import com.hhplusconcert.domain.watingToken.repository.WaitingTokenRepository;
 import com.hhplusconcert.infra.waitingToken.orm.WaitingTokenJpoRepository;
@@ -25,11 +25,9 @@ public class WaitingTokenRepositoryImpl implements WaitingTokenRepository {
     }
 
     @Override
-    public WaitingToken findByIdWithThrow(String tokenId) {
+    public WaitingToken findById(String tokenId) {
         Optional<WaitingTokenJpo> jpo = this.waitingTokenJpoRepository.findById(tokenId);
-        if(jpo.isEmpty())
-            throw new CustomGlobalException(ErrorType.TOKEN_NOT_FOUND);
-        return jpo.get().toDomain();
+        return jpo.map(WaitingTokenJpo::toDomain).orElse(null);
     }
 
     @Override
@@ -48,9 +46,9 @@ public class WaitingTokenRepositoryImpl implements WaitingTokenRepository {
     }
 
     @Override
-    public void deleteById(String tokenId) {
+    public void deleteByUserIdAndSeriesId(String userId, String seriesId) {
         //
-        this.waitingTokenJpoRepository.deleteById(tokenId);
+        this.waitingTokenJpoRepository.deleteByUserIdAndSeriesId(userId, seriesId);
     }
 
     @Override

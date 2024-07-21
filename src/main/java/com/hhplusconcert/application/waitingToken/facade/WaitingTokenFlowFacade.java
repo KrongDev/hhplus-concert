@@ -1,7 +1,6 @@
 package com.hhplusconcert.application.waitingToken.facade;
 
 import com.hhplusconcert.domain.waitingQueue.service.WaitingQueueService;
-import com.hhplusconcert.domain.watingToken.model.WaitingToken;
 import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,10 +21,8 @@ public class WaitingTokenFlowFacade {
     }
 
     @Transactional
-    public void expiredToken() {
-        List<WaitingToken> tokens = this.waitingTokenService.loadWaitingTokensByExpired();
-        List<String> tokenIds = tokens.stream().map(WaitingToken::getTokenId).toList();
-        this.waitingTokenService.deleteWaitingTokens(tokenIds);
+    public void processExpiredTokens() {
+        List<String> tokenIds = this.waitingTokenService.processExpiredTokens();
         this.waitingQueueService.queuesExpiredByTokens(tokenIds);
     }
 

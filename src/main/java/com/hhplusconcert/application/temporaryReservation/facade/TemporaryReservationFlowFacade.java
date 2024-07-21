@@ -7,7 +7,6 @@ import com.hhplusconcert.domain.concert.model.ConcertSeries;
 import com.hhplusconcert.domain.concert.service.ConcertSeatService;
 import com.hhplusconcert.domain.concert.service.ConcertSeriesService;
 import com.hhplusconcert.domain.concert.service.ConcertService;
-import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.domain.temporaryReservation.service.TemporaryReservationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -57,12 +56,7 @@ public class TemporaryReservationFlowFacade {
     @Transactional
     public void timeLimitTemporaryReservation() {
         //
-        List<TemporaryReservation> temporaryReservations = this.temporaryReservationService.loadExpiredTemporaryReservations();
-        List<String> temporaryReservationIds = temporaryReservations.stream().map(TemporaryReservation::getTemporaryReservationId).toList();
-        this.temporaryReservationService.deleteIds(temporaryReservationIds);
-        List<String> concertSeatIds = temporaryReservations.stream().map(TemporaryReservation::getSeatId).toList();
-        List<ConcertSeat> seats = this.concertSeatService.loadConcertSeatsBySeries(concertSeatIds);
-        seats.forEach(ConcertSeat::unReserve);
-        this.concertSeatService.updateAll(seats);
+        List<String> concertSeatIds = this.temporaryReservationService.expireReservationsAndReturnSeatIds();
+        this.concertSeatService.unReserveSeat(concertSeatIds);
     }
 }

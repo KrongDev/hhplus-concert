@@ -1,7 +1,5 @@
 package com.hhplusconcert.infra.point.impl;
 
-import com.hhplusconcert.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.point.model.Point;
 import com.hhplusconcert.domain.point.repository.PointRepository;
 import com.hhplusconcert.infra.point.orm.PointJpoRepository;
@@ -25,10 +23,8 @@ public class PointRepositoryImpl implements PointRepository {
     }
 
     @Override
-    public Point findByIdWithThrow(String userId) {
+    public Point findById(String userId) {
         Optional<PointJpo> jpo = this.pointJpoRepository.findById(userId);
-        if(jpo.isEmpty())
-            throw new CustomGlobalException(ErrorType.POINT_NOT_FOUND);
-        return jpo.get().toDomain();
+        return jpo.map(PointJpo::toDomain).orElse(null);
     }
 }

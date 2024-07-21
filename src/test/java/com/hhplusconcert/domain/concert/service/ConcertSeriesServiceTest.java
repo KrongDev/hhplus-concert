@@ -1,7 +1,7 @@
 package com.hhplusconcert.domain.concert.service;
 
-import com.hhplusconcert.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.concert.model.ConcertSeries;
 import com.hhplusconcert.domain.concert.repository.ConcertSeriesRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -36,7 +36,7 @@ class ConcertSeriesServiceTest {
         Long start = calendar.getTimeInMillis();
         calendar.add(Calendar.DATE, -1);
         Long end = calendar.getTimeInMillis();
-        when(concertSeriesRepository.findByIdWithThrow(seriesId)).thenReturn(ConcertSeries.builder().reserveStartAt(start).reserveEndAt(end).build());
+        when(concertSeriesRepository.findById(seriesId)).thenReturn(ConcertSeries.builder().reserveStartAt(start).reserveEndAt(end).build());
         //WHEN
         CustomGlobalException exception = assertThrows(CustomGlobalException.class, () -> concertSeriesService.loadConcertSeriesReservationAvailable(seriesId));
         //THEN

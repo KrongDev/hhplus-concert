@@ -1,7 +1,5 @@
 package com.hhplusconcert.infra.reservation.impl;
 
-import com.hhplusconcert.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.reservation.model.Reservation;
 import com.hhplusconcert.domain.reservation.repository.ReservationRepository;
 import com.hhplusconcert.infra.reservation.orm.ReservationJpoRepository;
@@ -25,12 +23,10 @@ public class ReservationRepositoryImpl implements ReservationRepository {
     }
 
     @Override
-    public Reservation findByIdWithThrow(String id) {
+    public Reservation findById(String id) {
         //
         Optional<ReservationJpo> jpo = this.reservationJpoRepository.findById(id);
-        if(jpo.isEmpty())
-            throw new CustomGlobalException(ErrorType.RESERVATION_NOT_FOUND);
-        return jpo.get().toDomain();
+        return jpo.map(ReservationJpo::toDomain).orElse(null);
     }
 
     @Override

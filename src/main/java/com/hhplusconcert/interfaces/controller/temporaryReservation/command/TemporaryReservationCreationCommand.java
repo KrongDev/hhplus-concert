@@ -3,14 +3,14 @@ package com.hhplusconcert.interfaces.controller.temporaryReservation.command;
 import org.springframework.util.Assert;
 
 
-public record CreateTemporaryReservationCommand(
+public record TemporaryReservationCreationCommand(
         String userId,
         String concertId,
         String seriesId,
         String seatId
 ) {
 
-    public void validation() {
+    public void validate() {
         Assert.hasText(userId, "userId is required");
         Assert.hasText(concertId, "concertId is required");
         Assert.hasText(seriesId, "seriesId is required");

@@ -7,7 +7,7 @@ public record SubmitPaymentCommand (
         String userId
 ) {
 
-    public void validation() {
+    public void validate() {
         //
         Assert.hasText(temporaryReservationId, "temporaryReservationId is required");
         Assert.hasText(userId, "userId is required");

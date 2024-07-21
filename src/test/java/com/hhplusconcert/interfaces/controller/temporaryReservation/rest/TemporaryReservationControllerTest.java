@@ -3,7 +3,7 @@ package com.hhplusconcert.interfaces.controller.temporaryReservation.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hhplusconcert.domain.waitingQueue.service.WaitingQueueService;
 import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
-import com.hhplusconcert.interfaces.controller.temporaryReservation.command.CreateTemporaryReservationCommand;
+import com.hhplusconcert.interfaces.controller.temporaryReservation.command.TemporaryReservationCreationCommand;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ class TemporaryReservationControllerTest {
         String tokenId = this.waitingTokenService.create(userId, seriesId);
         this.waitingQueueService.create(tokenId);
         Thread.sleep(3000);
-        CreateTemporaryReservationCommand command = new CreateTemporaryReservationCommand(
+        TemporaryReservationCreationCommand command = new TemporaryReservationCreationCommand(
                 userId,
                 concertId,
                 seriesId,

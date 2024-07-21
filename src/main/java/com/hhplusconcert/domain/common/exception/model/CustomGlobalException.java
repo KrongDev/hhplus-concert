@@ -1,6 +1,6 @@
-package com.hhplusconcert.common.exception.model;
+package com.hhplusconcert.domain.common.exception.model;
 
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import lombok.Getter;
 
 @Getter

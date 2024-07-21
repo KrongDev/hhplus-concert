@@ -1,7 +1,7 @@
 package com.hhplusconcert.domain.concert.model;
 
-import com.hhplusconcert.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.concert.model.vo.ConcertSeriesStatus;
 import lombok.*;
 

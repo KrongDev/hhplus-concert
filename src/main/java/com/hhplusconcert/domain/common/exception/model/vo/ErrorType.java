@@ -1,4 +1,4 @@
-package com.hhplusconcert.common.exception.model.vo;
+package com.hhplusconcert.domain.common.exception.model.vo;
 
 
 import lombok.AllArgsConstructor;

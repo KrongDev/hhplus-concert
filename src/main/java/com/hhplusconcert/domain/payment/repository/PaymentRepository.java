@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface PaymentRepository {
     void save(Payment payment);
-    Payment loadPaymentWithThrow(String paymentId);
+    Payment loadPaymentById(String paymentId);
     List<Payment> loadPaymentsByUserId(String userId);
 }

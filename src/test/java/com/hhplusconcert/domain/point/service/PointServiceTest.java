@@ -1,7 +1,7 @@
 package com.hhplusconcert.domain.point.service;
 
-import com.hhplusconcert.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.common.exception.model.vo.ErrorType;
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.point.model.Point;
 import com.hhplusconcert.domain.point.repository.PointRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +29,7 @@ class PointServiceTest {
     public void invalidPointCharge() {
         //GIVEN
         String userId = "test_userId";
-        when(pointRepository.findByIdWithThrow(userId)).thenReturn(Point.builder().userId(userId).build());
+        when(pointRepository.findById(userId)).thenReturn(Point.builder().userId(userId).build());
         //WHEN
         CustomGlobalException exception = assertThrows(CustomGlobalException.class, () -> pointService.charge(userId, 0));
         //THEN
@@ -41,7 +41,7 @@ class PointServiceTest {
     public void invalidPointUse() {
         //GIVEN
         String userId = "test_userId";
-        when(pointRepository.findByIdWithThrow(userId)).thenReturn(Point.builder().userId(userId).build());
+        when(pointRepository.findById(userId)).thenReturn(Point.builder().userId(userId).build());
         //WHEN
         CustomGlobalException exception = assertThrows(CustomGlobalException.class, () -> pointService.use(userId, 0));
         //THEN
@@ -53,7 +53,7 @@ class PointServiceTest {
     public void insufficientPointUse() {
         //GIVEN
         String userId = "test_userId";
-        when(pointRepository.findByIdWithThrow(userId)).thenReturn(Point.builder().userId(userId).build());
+        when(pointRepository.findById(userId)).thenReturn(Point.builder().userId(userId).build());
         //WHEN
         CustomGlobalException exception = assertThrows(CustomGlobalException.class, () -> pointService.use(userId, 100));
         //THEN
