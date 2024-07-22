@@ -3,11 +3,11 @@ package com.hhplusconcert.application.payment.facade;
 import com.hhplusconcert.domain.payment.model.Payment;
 import com.hhplusconcert.domain.payment.service.PaymentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class PaymentSeekFacade {
     //

@@ -3,9 +3,9 @@ package com.hhplusconcert.application.waitingToken.facade;
 import com.hhplusconcert.domain.watingToken.model.WaitingToken;
 import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class WaitingTokenSeekFacade {
     //

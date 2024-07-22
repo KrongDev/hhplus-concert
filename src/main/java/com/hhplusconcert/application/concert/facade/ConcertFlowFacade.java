@@ -5,11 +5,11 @@ import com.hhplusconcert.domain.concert.service.ConcertSeatService;
 import com.hhplusconcert.domain.concert.service.ConcertSeriesService;
 import com.hhplusconcert.domain.concert.service.ConcertService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class ConcertFlowFacade {
     //

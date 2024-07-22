@@ -9,11 +9,11 @@ import com.hhplusconcert.domain.concert.service.ConcertSeatService;
 import com.hhplusconcert.domain.concert.service.ConcertSeriesService;
 import com.hhplusconcert.domain.concert.service.ConcertService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class ConcertSeekFacade {
     //

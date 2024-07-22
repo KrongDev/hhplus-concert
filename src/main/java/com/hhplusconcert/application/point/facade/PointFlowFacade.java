@@ -4,10 +4,10 @@ import com.hhplusconcert.domain.point.model.vo.PointHistoryStatus;
 import com.hhplusconcert.domain.point.service.PointHistoryService;
 import com.hhplusconcert.domain.point.service.PointService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class PointFlowFacade {
 

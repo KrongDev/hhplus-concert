@@ -11,10 +11,10 @@ import com.hhplusconcert.domain.temporaryReservation.service.TemporaryReservatio
 import com.hhplusconcert.domain.waitingQueue.service.WaitingQueueService;
 import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class PaymentFlowFacade {
     //

@@ -5,11 +5,11 @@ import com.hhplusconcert.domain.point.model.PointHistory;
 import com.hhplusconcert.domain.point.service.PointHistoryService;
 import com.hhplusconcert.domain.point.service.PointService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class PointSeekFacade {
     //

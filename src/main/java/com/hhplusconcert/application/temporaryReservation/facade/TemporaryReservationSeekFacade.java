@@ -8,11 +8,11 @@ import com.hhplusconcert.domain.concert.service.ConcertService;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.domain.temporaryReservation.service.TemporaryReservationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class TemporaryReservationSeekFacade {
     //

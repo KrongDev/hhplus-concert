@@ -9,14 +9,12 @@ import com.hhplusconcert.domain.concert.service.ConcertSeriesService;
 import com.hhplusconcert.domain.concert.service.ConcertService;
 import com.hhplusconcert.domain.temporaryReservation.service.TemporaryReservationService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Slf4j
-@Service
+@Component
 @RequiredArgsConstructor
 public class TemporaryReservationFlowFacade {
     //
