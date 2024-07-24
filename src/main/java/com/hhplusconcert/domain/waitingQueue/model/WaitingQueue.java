@@ -1,5 +1,7 @@
 package com.hhplusconcert.domain.waitingQueue.model;
 
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.waitingQueue.model.vo.WaitingQueueStatus;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,5 +60,12 @@ public class WaitingQueue {
     public boolean isProcess() {
         //
         return this.status == WaitingQueueStatus.PROCESS;
+    }
+
+    public void verifyQueueStatusReady() {
+        if(this.isEnded())
+            throw new CustomGlobalException(ErrorType.WAITING_QUEUE_EXPIRED);
+        if(this.isProcess())
+            throw new CustomGlobalException(ErrorType.WAITING_QUEUE_PROCESSING);
     }
 }

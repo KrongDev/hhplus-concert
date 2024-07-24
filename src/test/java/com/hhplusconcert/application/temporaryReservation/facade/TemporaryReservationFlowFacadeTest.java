@@ -112,7 +112,7 @@ class TemporaryReservationFlowFacadeTest {
         //WHEN
         temporaryReservationFlowFacade.timeLimitTemporaryReservation();
         //THEN
-        ConcertSeat nowSeat = concertSeatRepository.findByIdWithThrow(seat.getSeatId());
+        ConcertSeat nowSeat = concertSeatRepository.findById(seat.getSeatId());
         assertFalse(nowSeat.isReserved());
     }
 }

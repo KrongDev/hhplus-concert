@@ -40,10 +40,7 @@ public class WaitingQueueService {
     public Long loadNowWaitingCount(String tokenId) {
         // 현재 대기 조회
         WaitingQueue queue = this.loadWaitingQueueByTokenId(tokenId);
-        if(queue.isEnded())
-            throw new CustomGlobalException(ErrorType.WAITING_QUEUE_EXPIRED);
-        if(queue.isProcess())
-            throw new CustomGlobalException(ErrorType.WAITING_QUEUE_PROCESSING);
+        queue.verifyQueueStatusReady();
         //이전 대기 조회
         WaitingQueue prevQueue = this.loadPrevWaitingQueue(WaitingQueueStatus.READY);
 

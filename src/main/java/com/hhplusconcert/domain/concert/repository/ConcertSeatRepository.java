@@ -7,7 +7,7 @@ import java.util.List;
 public interface ConcertSeatRepository {
     void save(ConcertSeat concertSeat);
     void saveAll(List<ConcertSeat> concertSeatList);
+    ConcertSeat findById(String seatId);
     List<ConcertSeat> findAllBySeriesId(String seriesId);
     List<ConcertSeat> findAllBySeriesIds(List<String> seriesIds);
-    ConcertSeat findByIdWithThrow(String seatId);
 }

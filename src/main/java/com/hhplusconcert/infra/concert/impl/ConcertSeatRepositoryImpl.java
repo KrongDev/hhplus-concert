@@ -1,7 +1,5 @@
 package com.hhplusconcert.infra.concert.impl;
 
-import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.concert.model.ConcertSeat;
 import com.hhplusconcert.domain.concert.repository.ConcertSeatRepository;
 import com.hhplusconcert.infra.concert.orm.ConcertSeatJpaRepository;
@@ -32,6 +30,12 @@ public class ConcertSeatRepositoryImpl implements ConcertSeatRepository {
     }
 
     @Override
+    public ConcertSeat findById(String seatId) {
+        Optional<ConcertSeatJpo> jpo = this.concertSeatJpaRepository.findById(seatId);
+        return jpo.map(ConcertSeatJpo::toDomain).orElse(null);
+    }
+
+    @Override
     public List<ConcertSeat> findAllBySeriesId(String seriesId) {
         List<ConcertSeatJpo> jpos = this.concertSeatJpaRepository.findAllBySeriesId(seriesId);
         return jpos.stream().map(ConcertSeatJpo::toDomain).toList();
@@ -41,13 +45,5 @@ public class ConcertSeatRepositoryImpl implements ConcertSeatRepository {
     public List<ConcertSeat> findAllBySeriesIds(List<String> seriesIds) {
         List<ConcertSeatJpo> jpos = this.concertSeatJpaRepository.findAllBySeatIdIn(seriesIds);
         return jpos.stream().map(ConcertSeatJpo::toDomain).toList();
-    }
-
-    @Override
-    public ConcertSeat findByIdWithThrow(String seatId) {
-        Optional<ConcertSeatJpo> jpo = this.concertSeatJpaRepository.findById(seatId);
-        if(jpo.isEmpty())
-            throw new CustomGlobalException(ErrorType.CONCERT_SEAT_NOT_FOUND);
-        return jpo.get().toDomain();
     }
 }

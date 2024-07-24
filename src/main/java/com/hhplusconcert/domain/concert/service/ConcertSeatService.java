@@ -1,5 +1,7 @@
 package com.hhplusconcert.domain.concert.service;
 
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.concert.model.ConcertSeat;
 import com.hhplusconcert.domain.concert.repository.ConcertSeatRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -57,7 +60,10 @@ public class ConcertSeatService {
 
     public ConcertSeat loadConcertSeatById(String seatId) {
         //
-        return this.concertSeatRepository.findByIdWithThrow(seatId);
+        ConcertSeat seat = this.concertSeatRepository.findById(seatId);
+        if(Objects.isNull(seat))
+            throw new CustomGlobalException(ErrorType.CONCERT_SEAT_NOT_FOUND);
+        return seat;
     }
 
     @Transactional

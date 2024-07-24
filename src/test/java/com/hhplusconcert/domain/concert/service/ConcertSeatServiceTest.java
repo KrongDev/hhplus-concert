@@ -47,7 +47,7 @@ class ConcertSeatServiceTest {
     public void reserveSeat() {
         //GIVEN
         String seriesId = "test_seriesId";
-        when(concertSeatRepository.findByIdWithThrow(seriesId)).thenReturn(ConcertSeat.builder().reserved(true).build());
+        when(concertSeatRepository.findById(seriesId)).thenReturn(ConcertSeat.builder().reserved(true).build());
         //WHEN
         CustomGlobalException exception = assertThrows(CustomGlobalException.class, () -> concertSeatService.reserveSeat(seriesId));
         //THEN
