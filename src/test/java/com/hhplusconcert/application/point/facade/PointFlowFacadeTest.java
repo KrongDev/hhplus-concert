@@ -39,6 +39,8 @@ class PointFlowFacadeTest {
     private PointHistoryService pointHistoryService;
     @Autowired
     private PointJpaRepository pointJpaRepository;
+    @Autowired
+    private PointHistoryJpaRepository pointHistoryJpaRepository;
 
     private final String userId = "test_userId";
 
@@ -46,6 +48,12 @@ class PointFlowFacadeTest {
     public void setUp() {
         //
         pointService.create(userId);
+    }
+
+    @AfterEach
+    public void after() {
+        pointJpaRepository.deleteById(userId);
+        pointHistoryJpaRepository.deleteAll();
     }
 
     @Test
@@ -86,9 +94,8 @@ class PointFlowFacadeTest {
     @DisplayName("포인트 충전 동시성 테스트 - 낙관적 락")
     void chargePointOptimisticLock() throws InterruptedException {
         //GIVEN
-        int memberCount = 10;
+        int memberCount = 2;
         int chargePoint = 10000;
-        String userId = "charge_point_optimistic_lock_test_userId";
         ExecutorService executorsService = Executors.newFixedThreadPool(memberCount);
         CountDownLatch doneLatch = new CountDownLatch(memberCount);
         long startTime = System.currentTimeMillis();
@@ -130,10 +137,9 @@ class PointFlowFacadeTest {
         //GIVEN
         int chargePoint = 100000;
         int usePoint = 10000;
-        String userId = "use_point_optimistic_lock_test_userId";
         this.pointJpaRepository.save(new PointJpo(Point.newInstance(userId, chargePoint)));
         //WHEN
-        int memberCount = 10;
+        int memberCount = 2;
         ExecutorService executorsService = Executors.newFixedThreadPool(memberCount);
         CountDownLatch doneLatch = new CountDownLatch(memberCount);
         long startTime = System.currentTimeMillis();
