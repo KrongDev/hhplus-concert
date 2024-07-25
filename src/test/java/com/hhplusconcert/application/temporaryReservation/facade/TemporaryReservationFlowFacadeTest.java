@@ -140,9 +140,9 @@ class TemporaryReservationFlowFacadeTest {
         String seriesId = this.concertSeriesService.create(concertId, now, end, now, end);
         ConcertSeat seat = ConcertSeat.newInstance(seriesId, 0, 0, 0, 10000);
         this.concertSeatRepository.save(seat);
-
+        this.temporaryReservationJpaRepository.deleteAll();
         //WHEN
-        int memberCount = 100;
+        int memberCount = 1000;
         ExecutorService executorsService = Executors.newFixedThreadPool(memberCount);
         CountDownLatch doneLatch = new CountDownLatch(memberCount);
         long startTime = System.currentTimeMillis();
