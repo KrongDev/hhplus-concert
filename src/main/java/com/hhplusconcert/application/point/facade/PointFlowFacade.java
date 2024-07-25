@@ -14,6 +14,7 @@ public class PointFlowFacade {
     private final PointService pointService;
     private final PointHistoryService pointHistoryService;
 
+//    @RedissonLock("chargePoint")
     @Transactional
     public void chargePoint(String userId, int amount) {
         //
