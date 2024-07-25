@@ -39,8 +39,6 @@ class PointFlowFacadeTest {
     private PointHistoryService pointHistoryService;
     @Autowired
     private PointJpaRepository pointJpaRepository;
-    @Autowired
-    private PointHistoryJpaRepository pointHistoryJpaRepository;
 
     private final String userId = "test_userId";
 
@@ -48,12 +46,6 @@ class PointFlowFacadeTest {
     public void setUp() {
         //
         pointService.create(userId);
-    }
-
-    @AfterEach
-    public void after() {
-        pointJpaRepository.deleteById(userId);
-        pointHistoryJpaRepository.deleteAll();
     }
 
     @Test
