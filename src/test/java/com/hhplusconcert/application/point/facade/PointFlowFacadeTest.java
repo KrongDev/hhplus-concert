@@ -96,6 +96,7 @@ class PointFlowFacadeTest {
         //GIVEN
         int memberCount = 10;
         int chargePoint = 10000;
+        String userId = "charge_point_optimistic_lock_test_userId";
         ExecutorService executorsService = Executors.newFixedThreadPool(memberCount);
         CountDownLatch doneLatch = new CountDownLatch(memberCount);
         long startTime = System.currentTimeMillis();
@@ -137,6 +138,7 @@ class PointFlowFacadeTest {
         //GIVEN
         int chargePoint = 100000;
         int usePoint = 10000;
+        String userId = "use_point_optimistic_lock_test_userId";
         this.pointJpaRepository.save(new PointJpo(Point.newInstance(userId, chargePoint)));
         //WHEN
         int memberCount = 10;
