@@ -44,7 +44,10 @@ public class WaitingTokenService {
 
     public WaitingToken loadWaitingToken(String userId, String seriesId) {
         //
-        return this.waitingTokenRepository.findByUserIdAndSeriesId(userId, seriesId);
+        WaitingToken waitingToken = this.waitingTokenRepository.findByUserIdAndSeriesId(userId, seriesId);
+        if(Objects.isNull(waitingToken))
+            throw new CustomGlobalException(ErrorType.TOKEN_NOT_FOUND);
+        return waitingToken;
     }
 
     public List<WaitingToken> loadWaitingTokensByExpired() {
@@ -68,7 +71,6 @@ public class WaitingTokenService {
         return tokenIds;
     }
 
-    @Transactional
     public String deleteByUserIdAndSeriesId(String userId, String seriesId) {
         //
         WaitingToken waitingToken = this.loadWaitingToken(userId, seriesId);
