@@ -27,15 +27,14 @@ jobs:
           MYSQL_USER: concert_test
           MYSQL_PASSWORD: concert_test1234
       redis:
-        image: redis
+        image: redis:latest
+        ports:
+          - 6379:6379
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 5
-        env:
-          host: localhost
-          port: 6379
+          --health-retries 3
 
     steps:
       - uses: actions/checkout@v4
