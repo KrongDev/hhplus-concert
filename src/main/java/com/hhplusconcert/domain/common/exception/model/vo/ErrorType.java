@@ -16,6 +16,7 @@ public enum ErrorType {
     WAITING_QUEUE_NOT_FOUND(404, "Queue not found"),
     WAITING_QUEUE_PROCESSING(409, "Queue is processing"),
     WAITING_QUEUE_IS_NOT_PROCESSING(500, "Queue is not processing"),
+    WAITING_QUEUE_ALREADY_EXIST(409, "Queue already exist"),
     // CONCERT
     CONCERT_NOT_FOUND(404, "Concert Not Found"),
     // CONCERT_SERIES

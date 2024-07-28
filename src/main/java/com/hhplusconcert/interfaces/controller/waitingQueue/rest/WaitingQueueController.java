@@ -19,13 +19,14 @@ public class WaitingQueueController {
     public ResponseEntity<Long> joinWaitingQueue(@RequestBody JoinWaitingQueueRequest request) {
         //
         request.validate();
-        String tokenId = request.tokenId();
-        return ResponseEntity.ok(this.waitingQueueFlowFacade.joinQueue(tokenId));
+        String userId = request.userId();
+        String seriesId = request.seriesId();
+        return ResponseEntity.ok(this.waitingQueueFlowFacade.joinQueue(userId, seriesId));
     }
 
     @GetMapping("/waiting-count")
-    public ResponseEntity<Long> loadNowWaitingCount(@RequestParam String tokenId) {
+    public ResponseEntity<Long> loadNowWaitingCount(@RequestParam String userId, @RequestParam String seriesId) {
         //
-        return ResponseEntity.ok(this.waitingQueueSeekFacade.loadNowWaitingCount(tokenId));
+        return ResponseEntity.ok(this.waitingQueueSeekFacade.loadNowWaitingCount(userId, seriesId));
     }
 }

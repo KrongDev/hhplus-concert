@@ -15,4 +15,9 @@ public class WaitingTokenSeekFacade {
         //
         return waitingTokenService.loadWaitingToken(tokenId);
     }
+
+    public WaitingToken loadWaitingTokenByUserIdAndSeriesId(String userId, String seriesId) {
+        //
+        return waitingTokenService.loadWaitingToken(userId, seriesId);
+    }
 }

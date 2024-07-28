@@ -36,7 +36,14 @@ public class WaitingTokenRepositoryImpl implements WaitingTokenRepository {
     }
 
     @Override
+    public Long countTokens() {
+        //
+        return this.waitingTokenJpaRepository.count();
+    }
+
+    @Override
     public List<WaitingToken> findAllByExpired(long expiredTime) {
+        //
         List<WaitingTokenJpo> jpos = this.waitingTokenJpaRepository.findAllByExpiredAtLessThanEqual(expiredTime);
         return jpos.stream().map(WaitingTokenJpo::toDomain).toList();
     }

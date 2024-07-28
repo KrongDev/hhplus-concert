@@ -21,13 +21,4 @@ public class WaitingQueueScheduler {
         //
         this.waitingQueueFlowFacade.activateWaitingQueueItems();
     }
-
-    /**
-     * 대기열 만료시 종료후 토큰 삭제
-     */
-    @Scheduled(fixedDelay = 3000)
-    public void expiredQueue () {
-        //
-        this.waitingQueueFlowFacade.expiredQueue();
-    }
 }

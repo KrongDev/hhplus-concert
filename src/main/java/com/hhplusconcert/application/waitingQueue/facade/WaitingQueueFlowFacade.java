@@ -1,16 +1,13 @@
 package com.hhplusconcert.application.waitingQueue.facade;
 
+import com.hhplusconcert.common.dto.IdName;
 import com.hhplusconcert.domain.waitingQueue.model.WaitingQueue;
-import com.hhplusconcert.domain.waitingQueue.model.vo.WaitingQueueStatus;
 import com.hhplusconcert.domain.waitingQueue.service.WaitingQueueService;
-import com.hhplusconcert.domain.watingToken.model.WaitingToken;
 import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Component
 @RequiredArgsConstructor
@@ -20,28 +17,21 @@ public class WaitingQueueFlowFacade {
     private final WaitingTokenService waitingTokenService;
 
 
-    public Long joinQueue(String tokenId) {
+    public Long joinQueue(String userId, String seriesId) {
         //토큰 조회 없으면 에러
-        WaitingToken token = this.waitingTokenService.loadNotExpiredWaitingToken(tokenId);
-        long res;
-        Long nowSequence = this.waitingQueueService.create(token.getTokenId());
-        try {
-            WaitingQueue prev = this.waitingQueueService.loadPrevWaitingQueue(WaitingQueueStatus.READY);
-            res = nowSequence - prev.getWaitingQueueId();
-        } catch (NoSuchElementException e) {
-            res = 1L;
-        }
-        return res;
+        this.waitingQueueService.create(userId, seriesId);
+        return this.waitingQueueService.loadWaitingQueueCount(userId, seriesId);
     }
 
     public void activateWaitingQueueItems() {
-        //
-        this.waitingQueueService.activateWaitingQueueItems();
-    }
-
-    @Transactional
-    public void expiredQueue() {
-        List<String> tokenIds = this.waitingQueueService.expireStaleWaitingQueueItems();
-        this.waitingTokenService.deleteWaitingTokens(tokenIds);
+        // WaitingToken 현재 활성화 갯수 체크
+        Long joinCount = this.waitingTokenService.addTokensCount();
+        List<WaitingQueue.WaitingQueueKey> keys = this.waitingQueueService.loadActiveWaitingQueues(joinCount);
+        if(keys.isEmpty())
+            return;
+        List<IdName> idNames = keys.stream().map(key->new IdName(key.getUserId(), key.getSeriesId())).toList();
+        //  WaitingToken 활성화 ( 생성하기 )
+        this.waitingTokenService.createAll(idNames);
+        this.waitingQueueService.deleteWaitingQueues(keys);
     }
 }

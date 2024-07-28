@@ -9,6 +9,7 @@ public interface WaitingTokenRepository {
     void save(WaitingToken waitingToken);
     WaitingToken findById(String tokenId);
     WaitingToken findByUserIdAndSeriesId(String userId, String seriesId);
+    Long countTokens();
     List<WaitingToken> findAllByExpired(long expiredTime);
     void deleteByUserIdAndSeriesId(String userId, String seriesId);
     void deleteAllByIds(List<String> tokenIds);
