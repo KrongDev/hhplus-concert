@@ -1,7 +1,5 @@
 package com.hhplusconcert.infra.waitingToken.impl;
 
-import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
-import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.watingToken.model.WaitingToken;
 import com.hhplusconcert.domain.watingToken.repository.WaitingTokenRepository;
 import com.hhplusconcert.infra.waitingToken.orm.WaitingTokenJpaRepository;
@@ -34,9 +32,7 @@ public class WaitingTokenRepositoryImpl implements WaitingTokenRepository {
     public WaitingToken findByUserIdAndSeriesId(String userId, String seriesId) {
         //
         Optional<WaitingTokenJpo> jpo = this.waitingTokenJpaRepository.findByUserIdAndSeriesId(userId, seriesId);
-        if(jpo.isEmpty())
-            throw new CustomGlobalException(ErrorType.TOKEN_NOT_FOUND);
-        return jpo.get().toDomain();
+        return jpo.map(WaitingTokenJpo::toDomain).orElse(null);
     }
 
     @Override

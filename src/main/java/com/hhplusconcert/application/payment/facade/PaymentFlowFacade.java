@@ -1,6 +1,8 @@
 package com.hhplusconcert.application.payment.facade;
 
 import com.hhplusconcert.common.annotation.LoggingPoint;
+import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
+import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.payment.service.PaymentService;
 import com.hhplusconcert.domain.point.model.vo.PointHistoryStatus;
 import com.hhplusconcert.domain.point.service.PointHistoryService;
@@ -11,9 +13,11 @@ import com.hhplusconcert.domain.temporaryReservation.service.TemporaryReservatio
 import com.hhplusconcert.domain.waitingQueue.service.WaitingQueueService;
 import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class PaymentFlowFacade {
@@ -50,10 +54,17 @@ public class PaymentFlowFacade {
         //포인트 사용
         this.pointService.use(userId, price);
         this.pointHistoryService.createPointHistory(userId, price, PointHistoryStatus.USE, paymentId);
-        // 대기열 토큰 만료 처리
-        String waitingTokenId = this.waitingTokenService.deleteByUserIdAndSeriesId(userId, temporaryReservation.getSeriesId());
-        this.waitingQueueService.queuesExpiredByToken(waitingTokenId);
-
+        // FIXME Kafka 사용시 분리예정 대기열 토큰 만료 처리 - waitingToken이 없을경우에도 정상 결제 처리
+        try {
+            String waitingTokenId = this.waitingTokenService.deleteByUserIdAndSeriesId(userId, temporaryReservation.getSeriesId());
+            this.waitingQueueService.queuesExpiredByToken(waitingTokenId);
+        } catch (CustomGlobalException e) {
+            if (!ErrorType.TOKEN_NOT_FOUND.equals(e.getErrorType())) {
+                throw e;
+            } else {
+                log.error(e.getErrorType().getReasonPhrase(), e);
+            }
+        }
         return paymentId;
     }
 }

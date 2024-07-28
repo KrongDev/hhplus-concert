@@ -1,4 +1,4 @@
-package com.hhplusconcert.interfaces.logging;
+package com.hhplusconcert.interfaces.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

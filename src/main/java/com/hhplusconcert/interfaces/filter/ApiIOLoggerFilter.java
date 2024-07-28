@@ -1,4 +1,4 @@
-package com.hhplusconcert.interfaces.logging;
+package com.hhplusconcert.interfaces.filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
