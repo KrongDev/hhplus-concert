@@ -3,7 +3,7 @@ package com.hhplusconcert.common.annotation;
 import java.lang.annotation.*;
 
 @Documented
-@Target({ElementType.METHOD, ElementType.TYPE, ElementType.PARAMETER})
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RedissonLock {
     String value(); // Lock의 이름 ( 메소드 명 )

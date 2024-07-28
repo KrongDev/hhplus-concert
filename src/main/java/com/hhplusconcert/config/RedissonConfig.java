@@ -26,7 +26,6 @@ public class RedissonConfig {
         return Redisson.create(config);
     }
 
-
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
         return new LettuceConnectionFactory(redisHost, redisPort);

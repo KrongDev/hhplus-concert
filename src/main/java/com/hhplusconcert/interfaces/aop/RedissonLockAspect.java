@@ -62,17 +62,17 @@ public class RedissonLockAspect {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         RedissonLock annotation = method.getAnnotation(RedissonLock.class);
-        String userId = "";
+        String referanceId = "";
         Object[] args = joinPoint.getArgs();
         String[] parameterNames = signature.getParameterNames();
         for (int i = 0; i < parameterNames.length; i++) {
             if (parameterNames[i].equals(annotation.referenceKey())) {
-                userId = String.valueOf(args[i]);
+                referanceId = String.valueOf(args[i]);
                 break;
             }
         }
 
-        String lockKey = method.getName() + userId;
+        String lockKey = method.getName() + referanceId;
         RLock lock = redissonClient.getLock(lockKey);
         try {
             boolean lockable = lock.tryLock(annotation.waitTime(), annotation.leaseTime(), TimeUnit.MILLISECONDS);
