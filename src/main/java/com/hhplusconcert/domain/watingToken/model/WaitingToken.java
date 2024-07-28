@@ -2,6 +2,7 @@ package com.hhplusconcert.domain.watingToken.model;
 
 import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
 import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
+import com.hhplusconcert.domain.watingToken.model.vo.WaitingTokenStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,6 +15,7 @@ public class WaitingToken {
     private String tokenId;
     private String userId;
     private String seriesId;
+    private WaitingTokenStatus status;
     private Long createAt;
     private Long expiredAt;
 
@@ -27,6 +29,7 @@ public class WaitingToken {
                 .tokenId(newId)
                 .userId(userId)
                 .seriesId(seriesId)
+                .status(WaitingTokenStatus.READY)
                 .createAt(now)
                 .expiredAt(calendar.getTimeInMillis())
                 .build();
@@ -42,7 +45,7 @@ public class WaitingToken {
     public void validateExpired() {
         //
         long now = System.currentTimeMillis();
-        if(now > expiredAt)
+        if(WaitingTokenStatus.EXPIRED == status || now > expiredAt)
             throw new CustomGlobalException(ErrorType.TOKEN_EXPIRED);
     }
 }

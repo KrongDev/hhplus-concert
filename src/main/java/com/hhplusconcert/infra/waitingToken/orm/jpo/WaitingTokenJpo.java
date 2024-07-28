@@ -1,10 +1,9 @@
 package com.hhplusconcert.infra.waitingToken.orm.jpo;
 
 import com.hhplusconcert.domain.watingToken.model.WaitingToken;
+import com.hhplusconcert.domain.watingToken.model.vo.WaitingTokenStatus;
 import com.hhplusconcert.infra.common.JpoEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +22,8 @@ public class WaitingTokenJpo implements JpoEntity<WaitingToken> {
     private String tokenId;
     private String userId;
     private String seriesId;
+    @Enumerated(EnumType.STRING)
+    private WaitingTokenStatus status;
     private Long createAt;
     private Long expiredAt; // 토큰 만료 -> 대기열에 해당 토큰 존재여부 확인( 여기서 풀스캔 ) -> 대기열 상태 변경
 
@@ -37,6 +38,7 @@ public class WaitingTokenJpo implements JpoEntity<WaitingToken> {
                 .tokenId(tokenId)
                 .userId(userId)
                 .seriesId(seriesId)
+                .status(status)
                 .createAt(createAt)
                 .expiredAt(expiredAt)
                 .build();

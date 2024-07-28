@@ -16,6 +16,16 @@ spring:
     redis:
       host: localhost
       port: 6379
+  kafka:
+    bootstrap-servers: localhost:9092
+    template:
+      default-topic: concert-topic
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: concert-group
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+
 concert:
   limit:
     processCount: 50
