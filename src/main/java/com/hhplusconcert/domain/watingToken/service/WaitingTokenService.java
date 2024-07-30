@@ -67,6 +67,11 @@ public class WaitingTokenService {
         return limitProcessCount - nowTokenCount;
     }
 
+    public boolean alreadyToken(String userId, String seriesId) {
+        //
+        return this.waitingTokenRepository.existsByUserIdAndSeriesId(userId, seriesId);
+    }
+
     @Transactional
     public void healthCheck(String tokenId) {
         //

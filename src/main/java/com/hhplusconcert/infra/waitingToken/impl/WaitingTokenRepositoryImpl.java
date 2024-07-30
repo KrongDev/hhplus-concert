@@ -49,6 +49,13 @@ public class WaitingTokenRepositoryImpl implements WaitingTokenRepository {
     }
 
     @Override
+    public boolean existsByUserIdAndSeriesId(String userId, String seriesId) {
+        //
+        Optional<WaitingTokenJpo> jpo = this.waitingTokenJpaRepository.findFirstByUserIdAndSeriesId(userId, seriesId);
+        return jpo.isPresent();
+    }
+
+    @Override
     public void deleteByUserIdAndSeriesId(String userId, String seriesId) {
         //
         this.waitingTokenJpaRepository.deleteByUserIdAndSeriesId(userId, seriesId);
@@ -58,12 +65,5 @@ public class WaitingTokenRepositoryImpl implements WaitingTokenRepository {
     public void deleteAllByIds(List<String> tokenIds) {
         //
         this.waitingTokenJpaRepository.deleteAllById(tokenIds);
-    }
-
-    @Override
-    public boolean existsByUserIdAndSeriesId(String userId, String seriesId) {
-        //
-        Optional<WaitingTokenJpo> jpo = this.waitingTokenJpaRepository.findFirstByUserIdAndSeriesId(userId, seriesId);
-        return jpo.isPresent();
     }
 }

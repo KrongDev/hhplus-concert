@@ -42,8 +42,8 @@ public class WaitingQueueService {
         return this.waitingQueueRepository.existWaitingQueue(new WaitingQueue.WaitingQueueKey(userId, seriesId));
     }
 
-    public void deleteWaitingQueues(List<WaitingQueue.WaitingQueueKey> waitingQueueKeys) {
+    public void deleteWaitingQueuesByRange(long endRange) {
         //
-        this.waitingQueueRepository.deleteWaitingQueues(waitingQueueKeys);
+        this.waitingQueueRepository.deleteWaitingQueuesByRange(endRange);
     }
 }

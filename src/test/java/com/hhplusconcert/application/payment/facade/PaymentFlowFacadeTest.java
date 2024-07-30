@@ -1,5 +1,6 @@
 package com.hhplusconcert.application.payment.facade;
 
+import com.hhplusconcert.common.TruncateTableComponent;
 import com.hhplusconcert.domain.common.exception.model.CustomGlobalException;
 import com.hhplusconcert.domain.common.exception.model.vo.ErrorType;
 import com.hhplusconcert.domain.point.model.Point;
@@ -8,7 +9,6 @@ import com.hhplusconcert.domain.reservation.model.Reservation;
 import com.hhplusconcert.domain.reservation.service.ReservationService;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.domain.temporaryReservation.repository.TemporaryReservationRepository;
-import com.hhplusconcert.infra.temporaryReservation.orm.TemporaryReservationJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,9 +39,9 @@ class PaymentFlowFacadeTest {
     @Autowired
     private TemporaryReservationRepository temporaryReservationRepository;
     @Autowired
-    private TemporaryReservationJpaRepository temporaryReservationJpaRepository;
-    @Autowired
     private PointService pointService;
+    @Autowired
+    private TruncateTableComponent truncateTableComponent;
 
     private final String userId = "test_user_id";
     private final String concertId = "test_concert_id";
@@ -51,7 +51,7 @@ class PaymentFlowFacadeTest {
 
     @BeforeEach
     public void setUp() {
-        this.temporaryReservationJpaRepository.deleteAll();
+        truncateTableComponent.truncateTable(() -> {}, "temporary_reservation", "reservation", "payment", "point");
     }
 
     @Test

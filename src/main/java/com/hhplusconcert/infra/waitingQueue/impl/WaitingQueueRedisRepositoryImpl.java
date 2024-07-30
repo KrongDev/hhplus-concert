@@ -2,6 +2,7 @@ package com.hhplusconcert.infra.waitingQueue.impl;
 
 import com.hhplusconcert.domain.waitingQueue.model.WaitingQueue;
 import com.hhplusconcert.domain.waitingQueue.repository.WaitingQueueRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,8 @@ import java.util.Set;
 public class WaitingQueueRedisRepositoryImpl implements WaitingQueueRepository {
     //
     private final ZSetOperations<String, String> zSetOperations;
-    private final String waitingQueueKey = "concert-waiting-queue";
+    @Value("${concert.queueKey}")
+    private String waitingQueueKey;
 
     public WaitingQueueRedisRepositoryImpl(RedisTemplate<String, String> redisTemplate) {
         //
@@ -22,7 +24,7 @@ public class WaitingQueueRedisRepositoryImpl implements WaitingQueueRepository {
 
     @Override
     public boolean save(WaitingQueue waitingQueue) {
-        //
+        // FIXME TTL 적용
         return Boolean.TRUE.equals(zSetOperations.add(this.waitingQueueKey, waitingQueue.getKey().toString(), waitingQueue.getCreateAt()));
     }
 
@@ -34,7 +36,7 @@ public class WaitingQueueRedisRepositoryImpl implements WaitingQueueRepository {
     @Override
     public List<WaitingQueue.WaitingQueueKey> findWaitingQueuesByJoinCount(Long joinCount) {
         //
-        Set<String> keys = this.zSetOperations.range(waitingQueueKey, 0, joinCount);
+        Set<String> keys = this.zSetOperations.range(waitingQueueKey, 0, joinCount > 0 ? joinCount - 1 : joinCount);
         return keys != null ? keys.stream().map(WaitingQueue.WaitingQueueKey::new).toList() : List.of();
     }
 
@@ -45,8 +47,8 @@ public class WaitingQueueRedisRepositoryImpl implements WaitingQueueRepository {
     }
 
     @Override
-    public void deleteWaitingQueues(List<WaitingQueue.WaitingQueueKey> waitingQueueKeys) {
+    public void deleteWaitingQueuesByRange(long endRange) {
         //
-        this.zSetOperations.remove(waitingQueueKey, waitingQueueKeys.stream().map(WaitingQueue.WaitingQueueKey::toString));
+        this.zSetOperations.removeRange(waitingQueueKey, 0, endRange);
     }
 }

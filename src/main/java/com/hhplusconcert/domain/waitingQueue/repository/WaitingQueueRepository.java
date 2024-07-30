@@ -9,5 +9,5 @@ public interface WaitingQueueRepository {
     Long findWaitingQueueCount(WaitingQueue.WaitingQueueKey key);
     List<WaitingQueue.WaitingQueueKey> findWaitingQueuesByJoinCount(Long joinCount);
     boolean  existWaitingQueue (WaitingQueue.WaitingQueueKey key);
-    void deleteWaitingQueues(List<WaitingQueue.WaitingQueueKey> waitingQueueKeys);
+    void deleteWaitingQueuesByRange(long endRange);
 }
