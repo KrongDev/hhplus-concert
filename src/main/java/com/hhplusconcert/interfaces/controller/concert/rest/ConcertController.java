@@ -6,6 +6,7 @@ import com.hhplusconcert.application.concert.facade.ConcertFlowFacade;
 import com.hhplusconcert.application.concert.facade.ConcertSeekFacade;
 import com.hhplusconcert.common.annotation.QueueCheckAnnotation;
 import com.hhplusconcert.domain.concert.model.Concert;
+import com.hhplusconcert.infra.concert.impl.ConcertBatchInsert;
 import com.hhplusconcert.interfaces.controller.concert.dto.ConcertCreationRequest;
 import com.hhplusconcert.interfaces.controller.concert.dto.ConcertSeriesCreationRequest;
 import jdk.jfr.Description;
@@ -23,6 +24,7 @@ public class ConcertController {
     //
     private final ConcertFlowFacade concertFlowFacade;
     private final ConcertSeekFacade concertSeekFacade;
+    private final ConcertBatchInsert concertBatchInsert;
 
     @PostMapping
     @Description("콘서트 생성")
@@ -77,5 +79,12 @@ public class ConcertController {
     public ResponseEntity<ConcertDetail> loadConcertSheets(@RequestHeader String tokenId, @PathVariable String seriesId) {
         //
         return ResponseEntity.ok(this.concertSeekFacade.loadConcertSeats(seriesId));
+    }
+
+    @PostMapping("/gen-test-data")
+    @Description("콘서트 테스트 데이터 만들기")
+    public void genTestData(@RequestParam int maxCount, @RequestParam int cutCount) {
+        //
+        this.concertBatchInsert.genConcertTestData(maxCount, cutCount);
     }
 }

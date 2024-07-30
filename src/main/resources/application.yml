@@ -12,6 +12,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 1000
+        order_inserts: true
+        order_updates: true
   data:
     redis:
       host: localhost
@@ -45,7 +51,7 @@ spring:
       ddl-auto: update
   data:
     redis:
-      host: localhost
+      host: redis
       port: 6379
 concert:
   limit:
