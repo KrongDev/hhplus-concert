@@ -12,5 +12,4 @@ public class HhplusConcertApplication {
         //
         SpringApplication.run(HhplusConcertApplication.class, args);
     }
-
 }

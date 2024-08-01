@@ -3,13 +3,14 @@ package com.hhplusconcert.domain.concert.model;
 import lombok.*;
 
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Concert {
+public class Concert implements Serializable {
     //
     private String concertId;
     private String title;

@@ -41,7 +41,7 @@ class WaitingQueueFlowFacadeTest {
     public void joinQueue() throws InterruptedException {
         String userId = "test_userId";
         String seriesId = "test_seriesId";
-        for(int i = 0; i < 55; i++) {
+        for(int i = 0; i < 100; i++) {
             try {
                 waitingQueueFlowFacade.joinQueue(userId + i, seriesId);
             }catch (CustomGlobalException e) {

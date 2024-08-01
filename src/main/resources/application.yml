@@ -18,10 +18,13 @@ spring:
           batch_size: 1000
         order_inserts: true
         order_updates: true
+    show-sql: true
   data:
     redis:
       host: localhost
       port: 6379
+  cache:
+    type: redis
 concert:
   limit:
     processCount: 50
