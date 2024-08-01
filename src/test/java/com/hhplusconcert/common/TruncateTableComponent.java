@@ -25,6 +25,7 @@ public class TruncateTableComponent {
                 runnable.run();
             }
 
+            //FIXME 고도화 필요 -> 사유: 특정 데이터 베이스에 종속적 !
             // Truncate table within the transaction
             for (String tableName : tableNames) {
                 String sql = String.format("TRUNCATE TABLE %s", tableName);
