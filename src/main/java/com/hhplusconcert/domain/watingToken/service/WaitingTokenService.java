@@ -32,14 +32,6 @@ public class WaitingTokenService {
         return token.getTokenId();
     }
 
-    @Transactional
-    public void createAll(List<IdName> idNames) {
-        //
-        idNames.forEach(idName ->
-                this.create(idName.getId(), idName.getName())
-        );
-    }
-
     public WaitingToken loadWaitingToken(String tokenId) {
         //
         WaitingToken token = this.waitingTokenRepository.findById(tokenId);

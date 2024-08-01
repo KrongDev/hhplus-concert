@@ -7,10 +7,12 @@ import com.hhplusconcert.domain.waitingQueue.model.WaitingQueue;
 import com.hhplusconcert.domain.waitingQueue.service.WaitingQueueService;
 import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class WaitingQueueFlowFacade {
@@ -35,9 +37,14 @@ public class WaitingQueueFlowFacade {
         List<WaitingQueue.WaitingQueueKey> keys = this.waitingQueueService.loadActiveWaitingQueues(joinCount);
         if(keys.isEmpty())
             return;
-        List<IdName> idNames = keys.stream().map(key->new IdName(key.getUserId(), key.getSeriesId())).toList();
+        keys.forEach(key -> {
+            try {
+                this.waitingTokenService.create(key.getUserId(), key.getSeriesId());
+            } catch (CustomGlobalException e) {
+                log.warn(e.getMessage(), e);
+            }
+        });
         //  WaitingToken 활성화 ( 생성하기 )
-        this.waitingTokenService.createAll(idNames);
         this.waitingQueueService.deleteWaitingQueuesByRange(joinCount);
     }
 }
