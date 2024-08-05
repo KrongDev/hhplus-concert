@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ConcertSeriesTest {
 
     @Test
-    @DisplayName("예약 불가능한 콘서트 시리즈인 경우")
+    @DisplayName("예약 불가능한 콘서트 시리즈인 경우-BOOKING_NOT_AVAILABLE 에러 발생")
     public void validateReservationAvailable() {
         // GIVEN
         Calendar calendar = Calendar.getInstance();

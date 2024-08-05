@@ -49,7 +49,7 @@ class TemporaryReservationFlowFacadeTest {
 
     @Test
     @Order(1)
-    @DisplayName("콘서트가 없을 경우 에러")
+    @DisplayName("콘서트가 없을 경우-CONCERT_NOT_FOUND 에러 발생")
     public void createTemporaryReservationConcertNotFound() {
         //GIVEN
         String concertId = "test_concertId";
@@ -66,7 +66,7 @@ class TemporaryReservationFlowFacadeTest {
 
     @Test
     @Order(2)
-    @DisplayName("콘서트시리즈가 없을 경우 에러")
+    @DisplayName("콘서트시리즈가 없을 경우-CONCERT_SERIES_NOT_FOUND 에러 발생")
     public void createTemporaryReservationSeriesNotFound() {
         //GIVEN
         String concertId = concertService.create(userId, "test_title");
@@ -84,7 +84,7 @@ class TemporaryReservationFlowFacadeTest {
 
     @Test
     @Order(3)
-    @DisplayName("콘서트 시리즈 신청 기간이 지난경우")
+    @DisplayName("콘서트 시리즈 신청 기간이 지난경우-BOOKING_NOT_AVAILABLE 에러 발생")
     public void createTemporaryReservationSeatNotFound() {
         //GIVEN
         String concertId = concertService.create(userId, "test_title");

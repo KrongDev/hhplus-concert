@@ -25,7 +25,7 @@ class PointServiceTest {
     private PointRepository pointRepository;
 
     @Test
-    @DisplayName("포인트 충전시 사용불가 금액일경우")
+    @DisplayName("포인트 충전시 사용불가 금액일경우-INVALID_POINT 에러 발생")
     public void invalidPointCharge() {
         //GIVEN
         String userId = "test_userId";
@@ -37,7 +37,7 @@ class PointServiceTest {
     }
 
     @Test
-    @DisplayName("포인트 사용시 사용불가 금액일경우")
+    @DisplayName("포인트 사용시 사용불가 금액일경우-INVALID_POINT 에러 발생")
     public void invalidPointUse() {
         //GIVEN
         String userId = "test_userId";
@@ -49,7 +49,7 @@ class PointServiceTest {
     }
 
     @Test
-    @DisplayName("포인트 사용시 사용금액이 잔여금액보다 많을 경우")
+    @DisplayName("포인트 사용시 사용금액이 잔여금액보다 많을 경우-INSUFFICIENT_POINT 에러 발생")
     public void insufficientPointUse() {
         //GIVEN
         String userId = "test_userId";

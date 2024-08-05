@@ -55,7 +55,7 @@ class PaymentFlowFacadeTest {
     }
 
     @Test
-    @DisplayName("결제시 이미 결제된 경우")
+    @DisplayName("결제시 이미 결제된 경우-TEMPORARY_RESERVATION_ALREADY_PURCHASED 에러 발생")
     public void processTemporaryReservationPaymentPaid() {
         //GIVEN
         TemporaryReservation temporaryReservation = TemporaryReservation.builder()
@@ -79,7 +79,7 @@ class PaymentFlowFacadeTest {
     }
 
     @Test
-    @DisplayName("결제시 시간이 지나 예약이 삭제된 경우")
+    @DisplayName("결제시 시간이 지나 예약이 삭제된 경우-PAYMENT_NOT_ALLOWED_FOR_TEMPORARY_RESERVATION 에러 발생")
     public void processTemporaryReservationPaymentDeleted() {
         //GIVEN
         TemporaryReservation temporaryReservation = TemporaryReservation.builder()
@@ -102,7 +102,7 @@ class PaymentFlowFacadeTest {
     }
 
     @Test
-    @DisplayName("결제시 포인트가 요청 금액보다 적을 경우")
+    @DisplayName("결제시 포인트가 요청 금액보다 적을 경우-INSUFFICIENT_POINT 에러 발생")
     public void processTemporaryReservationPaymentNotPoint() {
         //GIVEN
         TemporaryReservation temporaryReservation = TemporaryReservation.builder()

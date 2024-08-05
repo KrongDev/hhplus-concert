@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class TemporaryReservationTest {
 
     @Test
-    @DisplayName("이미 결제된 경우")
+    @DisplayName("이미 결제된 경우-TEMPORARY_RESERVATION_ALREADY_PURCHASED 에러 발생")
     public void finalizeConcertReservationWithPaid() {
         // GIVEN
         TemporaryReservation temporaryReservation = TemporaryReservation.builder()
@@ -26,7 +26,7 @@ class TemporaryReservationTest {
     }
 
     @Test
-    @DisplayName("임시예약이 n분 지나 삭제처리 혹은 예정 된 경우")
+    @DisplayName("임시예약이 n분 지나 삭제처리 혹은 예정 된 경우-PAYMENT_NOT_ALLOWED_FOR_TEMPORARY_RESERVATION 에러 발생")
     public void finalizeConcertReservationWithDeleted() {
         // GIVEN
         Calendar calendar = Calendar.getInstance();

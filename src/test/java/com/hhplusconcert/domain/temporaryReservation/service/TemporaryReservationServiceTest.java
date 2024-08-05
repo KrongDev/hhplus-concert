@@ -26,7 +26,7 @@ class TemporaryReservationServiceTest {
     private TemporaryReservationRepository temporaryReservationRepository;
 
     @Test
-    @DisplayName("결제가 이미 된 경우")
+    @DisplayName("결제가 이미 된 경우-TEMPORARY_RESERVATION_ALREADY_PURCHASED 에러 발생")
     public void temporaryReservationPaid() {
         //GIVEN
         String temporaryReservationId = "test_temporary_reservation_id";
@@ -38,7 +38,7 @@ class TemporaryReservationServiceTest {
     }
 
     @Test
-    @DisplayName("결제가 안되었지만 시간지나 삭제된 경우")
+    @DisplayName("결제가 안되었지만 시간지나 삭제된 경우-PAYMENT_NOT_ALLOWED_FOR_TEMPORARY_RESERVATION 에러 발생")
     public void temporaryReservationDeleted() {
         //GIVEN
         String temporaryReservationId = "test_temporary_reservation_id";

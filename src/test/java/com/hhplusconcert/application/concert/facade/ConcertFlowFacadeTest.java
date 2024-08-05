@@ -20,7 +20,7 @@ class ConcertFlowFacadeTest {
     private ConcertFlowFacade concertFlowFacade;
 
     @Test
-    @DisplayName("콘서트 시리즈 생성시 콘서트 없는 경우")
+    @DisplayName("콘서트 시리즈 생성시 콘서트 없는 경우-CONCERT_NOT_FOUND 에러 발생")
     void createConcertSeries() {
         //GIVEN
         String concertId = "test_concertId";

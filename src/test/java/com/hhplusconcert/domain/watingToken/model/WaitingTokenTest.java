@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class WaitingTokenTest {
 
     @Test
-    @DisplayName("토큰 만료된 경우")
+    @DisplayName("토큰 만료된 경우-TOKEN_EXPIRED 에러 발생")
     public void validateExpired() {
         // GIVEN
         Calendar calendar = Calendar.getInstance();

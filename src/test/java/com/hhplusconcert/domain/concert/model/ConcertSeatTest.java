@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ConcertSeatTest {
 
     @Test
-    @DisplayName("콘서트 좌성이 이미 판매된 경우")
+    @DisplayName("콘서트 좌성이 이미 판매된 경우-SEAT_ALREADY_RESERVED 에러 발생")
     public void SeatIsReserved() {
         // GIVEN
         ConcertSeat seat = ConcertSeat.builder()

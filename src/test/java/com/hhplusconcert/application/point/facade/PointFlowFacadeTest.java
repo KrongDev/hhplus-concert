@@ -58,7 +58,7 @@ class PointFlowFacadeTest {
 
     @Test
     @Order(1)
-    @DisplayName("포인트 충전시 충전금액이 부적절한 경우")
+    @DisplayName("포인트 충전시 충전금액이 부적절한 경우-INVALID_POINT 에러 발생")
     void chargePoint() {
         //GIVEN
         //WHEN
@@ -69,7 +69,7 @@ class PointFlowFacadeTest {
 
     @Test
     @Order(2)
-    @DisplayName("포인트 사용시 사용금액이 부적절한 경우")
+    @DisplayName("포인트 사용시 사용금액이 부적절한 경우-INVALID_POINT 에러 발생")
     void usePointInvalidPoint() {
         //GIVEN
         //WHEN
@@ -80,7 +80,7 @@ class PointFlowFacadeTest {
 
     @Test
     @Order(3)
-    @DisplayName("포인트 사용시 잔여 포인트가 부족한 경우")
+    @DisplayName("포인트 사용시 잔여 포인트가 부족한 경우-INSUFFICIENT_POINT 에러 발생")
     void usePointInsufficientPoint() {
         //GIVEN
         //WHEN

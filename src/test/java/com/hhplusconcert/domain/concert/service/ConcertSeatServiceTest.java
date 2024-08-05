@@ -43,7 +43,7 @@ class ConcertSeatServiceTest {
     }
 
     @Test
-    @DisplayName("콘서트 좌석이 이미 판매된 경우")
+    @DisplayName("콘서트 좌석이 이미 판매된 경우-SEAT_ALREADY_RESERVED 에러 발생")
     public void reserveSeat() {
         //GIVEN
         String seriesId = "test_seriesId";
