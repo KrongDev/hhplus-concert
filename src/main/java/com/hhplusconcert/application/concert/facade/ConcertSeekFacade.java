@@ -9,6 +9,7 @@ import com.hhplusconcert.domain.concert.service.ConcertSeatService;
 import com.hhplusconcert.domain.concert.service.ConcertSeriesService;
 import com.hhplusconcert.domain.concert.service.ConcertService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,11 +22,13 @@ public class ConcertSeekFacade {
     private final ConcertSeriesService concertSeriesService;
     private final ConcertSeatService concertSeatService;
 
+    @Cacheable(cacheNames = "concert", cacheManager = "cacheManager")
     public List<Concert> loadConcerts() {
         //
         return this.concertService.loadConcerts();
     }
 
+    @Cacheable(cacheNames = "concertSeries", key = "#concertId", cacheManager = "cacheManager")
     public ConcertSchedule loadConcertSeries(String concertId) {
         //
         Concert concert = this.concertService.loadConcert(concertId);

@@ -7,13 +7,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ConcertSeries {
+public class ConcertSeries implements Serializable {
     private String seriesId;
     private String concertId;
     private Long startAt;

@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  concert-service:
+    build:
+#      context: ./
+      dockerfile: Dockerfile
+    container_name: concert-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/concert
+      SPRING_DATASOURCE_USERNAME: concert
+      SPRING_DATASOURCE_PASSWORD: concert1234
+      SPRING_DATA_REDIS_HOST: redis
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - concert-network
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: concert
+      MYSQL_USER: concert
+      MYSQL_PASSWORD: concert1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - concert-network
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - concert-network
+
+networks:
+  concert-network:
+
+volumes:
+  mysql-data:
+  redis-data:

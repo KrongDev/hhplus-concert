@@ -1,7 +1,8 @@
 package com.hhplusconcert.interfaces.controller.concert.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hhplusconcert.domain.waitingQueue.service.WaitingQueueService;
+import com.hhplusconcert.common.TruncateTableComponent;
+import com.hhplusconcert.domain.watingToken.model.WaitingToken;
 import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
 import com.hhplusconcert.interfaces.controller.concert.dto.ConcertCreationRequest;
 import com.hhplusconcert.interfaces.controller.concert.dto.ConcertSeriesCreationRequest;
@@ -13,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-
 
 import java.util.Calendar;
 
@@ -35,7 +35,7 @@ class ConcertControllerTest {
     @Autowired
     private WaitingTokenService waitingTokenService;
     @Autowired
-    private WaitingQueueService waitingQueueService;
+    private TruncateTableComponent truncateTableComponent;
 
     private String concertId = "test_concertId";
     private String seriesId = "test_seriesId";
@@ -47,7 +47,6 @@ class ConcertControllerTest {
 
     @BeforeEach
     public void setUp() {
-        //
         ob = new ObjectMapper();
     }
 
@@ -57,6 +56,7 @@ class ConcertControllerTest {
     @DisplayName("콘서트 생성 테스트")
     void createConcert() throws Exception {
         //Given
+        truncateTableComponent.truncateTable(() -> {}, "concert", "waiting_token");
         ConcertCreationRequest command = new ConcertCreationRequest(userId, title);
 
         //When
@@ -135,13 +135,15 @@ class ConcertControllerTest {
     @DisplayName("좌석 조회시 콘서트나 날짜가 없을 경우 - 에러 발생")
     void loadConcertSheets() throws Exception {
         //Given
-        String tokenId = this.waitingTokenService.create("test_userId", "empty_seriesId");
-        this.waitingQueueService.create(tokenId);
+        String userId = "test_userId";
+        String seriesId = "empty_seriesId";
+        this.waitingTokenService.create(userId, seriesId);
         Thread.sleep(3000);
+        WaitingToken token = this.waitingTokenService.loadWaitingToken(userId, seriesId);
         //WHEN-THEN
         mockMvc.perform(
-                get(basicUrl + "/seat/" + "empty_seriesId")
-                        .header("tokenId", tokenId)
+                get(basicUrl + "/seat/" + seriesId)
+                        .header("tokenId", token.getTokenId())
                 )
                 .andDo(print())
                 .andExpect(status().isNotFound())

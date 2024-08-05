@@ -12,13 +12,23 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 1000
+        order_inserts: true
+        order_updates: true
+    show-sql: true
   data:
     redis:
       host: localhost
       port: 6379
+  cache:
+    type: redis
 concert:
   limit:
     processCount: 50
+  queueKey: 'concert-waiting-queue'
 
 
 server:
@@ -41,7 +51,7 @@ spring:
     password: concert_test1234
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   data:
     redis:
       host: localhost
@@ -49,6 +59,7 @@ spring:
 concert:
   limit:
     processCount: 50
+  queueKey: 'concert-waiting-queue-test'
 
 
 server:

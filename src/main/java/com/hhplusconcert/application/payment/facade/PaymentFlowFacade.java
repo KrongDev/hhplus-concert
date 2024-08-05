@@ -10,7 +10,6 @@ import com.hhplusconcert.domain.point.service.PointService;
 import com.hhplusconcert.domain.reservation.service.ReservationService;
 import com.hhplusconcert.domain.temporaryReservation.model.TemporaryReservation;
 import com.hhplusconcert.domain.temporaryReservation.service.TemporaryReservationService;
-import com.hhplusconcert.domain.waitingQueue.service.WaitingQueueService;
 import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +27,6 @@ public class PaymentFlowFacade {
     private final PointService pointService;
     private final PointHistoryService pointHistoryService;
     private final WaitingTokenService waitingTokenService;
-    private final WaitingQueueService waitingQueueService;
 
     @LoggingPoint
     @Transactional
@@ -54,10 +52,9 @@ public class PaymentFlowFacade {
         //포인트 사용
         this.pointService.use(userId, price);
         this.pointHistoryService.createPointHistory(userId, price, PointHistoryStatus.USE, paymentId);
-        // FIXME Kafka 사용시 분리예정 대기열 토큰 만료 처리 - waitingToken이 없을경우에도 정상 결제 처리
+        //
         try {
-            String waitingTokenId = this.waitingTokenService.deleteByUserIdAndSeriesId(userId, temporaryReservation.getSeriesId());
-            this.waitingQueueService.queuesExpiredByToken(waitingTokenId);
+            this.waitingTokenService.deleteByUserIdAndSeriesId(userId, temporaryReservation.getSeriesId());
         } catch (CustomGlobalException e) {
             if (!ErrorType.TOKEN_NOT_FOUND.equals(e.getErrorType())) {
                 throw e;
