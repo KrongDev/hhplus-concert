@@ -50,7 +50,7 @@ public class PaymentFlowFacade {
         // 결제 처리
         String paymentId = this.paymentService.create(reservationId, userId, price);
         //포인트 사용
-        this.pointService.use(userId, price);
+        this.pointService.use(userId, paymentId, price);
         this.pointHistoryService.createPointHistory(userId, price, PointHistoryStatus.USE, paymentId);
         //
         try {
