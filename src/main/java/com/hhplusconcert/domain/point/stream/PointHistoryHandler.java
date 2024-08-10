@@ -5,8 +5,8 @@ import com.hhplusconcert.domain.point.event.UsedPoint;
 import com.hhplusconcert.domain.point.model.vo.PointHistoryStatus;
 import com.hhplusconcert.domain.point.service.PointHistoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 @Component
 @RequiredArgsConstructor
@@ -14,7 +14,7 @@ public class PointHistoryHandler {
     //
     private final PointHistoryService pointHistoryService;
 
-    @EventListener
+    @TransactionalEventListener
     public void on(ChargedPoint event) {
         //
         String requestUserId = event.requestUserId();
@@ -22,7 +22,7 @@ public class PointHistoryHandler {
         this.pointHistoryService.createPointHistory(requestUserId, amount, PointHistoryStatus.CHARGE);
     }
 
-    @EventListener
+    @TransactionalEventListener
     public void on(UsedPoint event) {
         //
         String requestUserId = event.requestUserId();
