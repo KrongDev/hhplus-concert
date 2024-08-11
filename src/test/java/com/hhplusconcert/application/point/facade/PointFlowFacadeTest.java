@@ -136,8 +136,6 @@ class PointFlowFacadeTest {
     @DisplayName("포인트 사용 동시성 테스트 - 낙관적 락")
     void usePointOptimisticLock() throws InterruptedException {
         //GIVEN
-        pointJpaRepository.deleteById(userId);
-        pointHistoryJpaRepository.deleteAll();
         int chargePoint = 100000;
         int usePoint = 10000;
         this.pointJpaRepository.save(new PointJpo(Point.newInstance(userId, chargePoint)));
