@@ -43,7 +43,7 @@ class PointServiceTest {
         String userId = "test_userId";
         when(pointRepository.findById(userId)).thenReturn(Point.builder().userId(userId).build());
         //WHEN
-        CustomGlobalException exception = assertThrows(CustomGlobalException.class, () -> pointService.use(userId, 0));
+        CustomGlobalException exception = assertThrows(CustomGlobalException.class, () -> pointService.use(userId, "", 0));
         //THEN
         assertEquals(ErrorType.INVALID_POINT, exception.getErrorType());
     }
@@ -55,7 +55,7 @@ class PointServiceTest {
         String userId = "test_userId";
         when(pointRepository.findById(userId)).thenReturn(Point.builder().userId(userId).build());
         //WHEN
-        CustomGlobalException exception = assertThrows(CustomGlobalException.class, () -> pointService.use(userId, 100));
+        CustomGlobalException exception = assertThrows(CustomGlobalException.class, () -> pointService.use(userId, "", 100));
         //THEN
         assertEquals(ErrorType.INSUFFICIENT_POINT, exception.getErrorType());
     }
