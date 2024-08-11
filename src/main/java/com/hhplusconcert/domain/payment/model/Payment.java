@@ -10,19 +10,16 @@ import java.util.UUID;
 public class Payment {
     private String paymentId;
     private String userId;
-    private String reservationId;
     private int price;
     private Long createAt;
 
     public static Payment newInstance(
-            String reservationId,
             String userId,
             int price
     ) {
         String newId = UUID.randomUUID().toString();
         return Payment.builder()
                 .paymentId(newId)
-                .reservationId(reservationId)
                 .userId(userId)
                 .price(price)
                 .createAt(System.currentTimeMillis())

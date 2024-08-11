@@ -19,7 +19,9 @@ public class ReservationService {
 
     @Transactional
     public String create(
+            String temporaryReservationId,
             String userId,
+            String paymentId,
             String concertId,
             String title,
             String seriesId,
@@ -29,7 +31,7 @@ public class ReservationService {
             int price
     ) {
         //
-        Reservation reservation = Reservation.newInstance(userId, concertId, title, seriesId, seatId, seatRow, seatCol, price);
+        Reservation reservation = Reservation.newInstance(temporaryReservationId, userId, paymentId, concertId, title, seriesId, seatId, seatRow, seatCol, price);
         reservationRepository.save(reservation);
         return reservation.getReservationId();
     }

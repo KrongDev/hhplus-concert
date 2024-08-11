@@ -21,7 +21,6 @@ public class PaymentJpo implements JpoEntity<Payment> {
     //
     @Id
     private String paymentId;
-    private String reservationId;
     private String userId;
     private int price;
     private Long createAt;
@@ -34,7 +33,6 @@ public class PaymentJpo implements JpoEntity<Payment> {
     public Payment toDomain() {
         return Payment.builder()
                 .paymentId(paymentId)
-                .reservationId(reservationId)
                 .userId(userId)
                 .price(price)
                 .createAt(createAt)

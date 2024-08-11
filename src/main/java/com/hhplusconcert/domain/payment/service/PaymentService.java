@@ -19,12 +19,11 @@ public class PaymentService {
 
     @Transactional
     public String create(
-            String reservationId,
             String userId,
             int price
     ) {
         //
-        Payment payment = Payment.newInstance(reservationId, userId, price);
+        Payment payment = Payment.newInstance(userId, price);
         this.paymentRepository.save(payment);
         return payment.getPaymentId();
     }

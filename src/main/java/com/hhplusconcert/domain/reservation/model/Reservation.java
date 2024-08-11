@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 @Getter
 @Builder
@@ -13,6 +12,7 @@ import java.util.UUID;
 public class Reservation implements Serializable {
     //
     private String reservationId;
+    private String paymentId;
     private String userId;
     private String concertId;
     private String title;
@@ -25,7 +25,9 @@ public class Reservation implements Serializable {
     private long createAt;
 
     public static Reservation newInstance(
+        String temporaryReservationId,
         String userId,
+        String paymentId,
         String concertId,
         String title,
         String seriesId,
@@ -34,9 +36,9 @@ public class Reservation implements Serializable {
         int seatCol,
         int price
     ) {
-        String newId = UUID.randomUUID().toString();
         return Reservation.builder()
-                .reservationId(newId)
+                .reservationId(temporaryReservationId)
+                .paymentId(paymentId)
                 .userId(userId)
                 .concertId(concertId)
                 .title(title)

@@ -53,12 +53,11 @@ public class TemporaryReservationService {
     }
 
     @Transactional
-    public TemporaryReservation payReservation(String temporaryReservationId) {
+    public void payReservation(String temporaryReservationId) {
         //
         TemporaryReservation temporaryReservation = this.loadTemporaryReservation(temporaryReservationId);
         temporaryReservation.finalizeConcertReservation();
         this.update(temporaryReservation);
-        return temporaryReservation;
     }
 
     @Transactional

@@ -21,6 +21,7 @@ public class ReservationJpo implements JpoEntity<Reservation> {
     @Id
     private String reservationId;
     private String userId;
+    private String paymentId;
     // 예약 정보에 저장해야하는 데이터들 관리
     private String concertId;
     private String title;
@@ -41,6 +42,7 @@ public class ReservationJpo implements JpoEntity<Reservation> {
         return Reservation.builder()
                 .reservationId(reservationId)
                 .userId(userId)
+                .paymentId(paymentId)
                 .concertId(concertId)
                 .title(title)
                 .seriesId(seriesId)
