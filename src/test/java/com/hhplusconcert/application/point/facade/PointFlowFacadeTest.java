@@ -47,7 +47,8 @@ class PointFlowFacadeTest {
     @BeforeEach
     public void setUp() {
         //
-        pointService.create(userId);
+        pointJpaRepository.deleteById(userId);
+        pointHistoryJpaRepository.deleteAll();
     }
 
     @AfterEach
