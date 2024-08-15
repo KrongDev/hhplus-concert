@@ -5,7 +5,7 @@ public record ChargedPoint(
         int amount
 ) {
 
-    public static ChargedPoint on (String requestUserId, int amount) {
+    public static ChargedPoint of(String requestUserId, int amount) {
         return new ChargedPoint(requestUserId, amount);
     }
 }
