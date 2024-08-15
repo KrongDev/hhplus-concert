@@ -1,21 +1,24 @@
 package com.hhplusconcert.domain.payment.event;
 
-import lombok.Builder;
+import com.hhplusconcert.domain.common.Event;
+import lombok.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public record PaymentConfirmed(
-        String temporaryReservationId,
-        String userId,
-        String concertId,
-        String title,
-        String seriesId,
-        String seatId,
-        int seatRow,
-        int seatCol,
-        int price,
-
-        String paymentId
-) {
+public class PaymentConfirmed extends Event {
+        private String temporaryReservationId;
+        private String userId;
+        private String concertId;
+        private String title;
+        private String seriesId;
+        private String seatId;
+        private int seatRow;
+        private int seatCol;
+        private int price;
+        private String paymentId;
 
     public static PaymentConfirmed of(
             String temporaryReservationId,
