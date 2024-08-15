@@ -7,8 +7,6 @@ import com.hhplusconcert.domain.point.event.UsedPoint;
 import com.hhplusconcert.domain.point.model.PointHistory;
 import com.hhplusconcert.domain.point.model.vo.PointHistoryStatus;
 import com.hhplusconcert.domain.point.service.PointHistoryService;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -44,13 +42,13 @@ class PointHistoryConsumerTest {
     void chargedPointConsume() throws InterruptedException {
         ChargedPoint data = ChargedPoint.of(userId, 10000);
 
-        producerCluster.sendMessage("charged-point", data);
+        producerCluster.sendMessage(data);
         Thread.sleep(500);
         List<PointHistory> histories = this.pointHistoryService.loadPointHistories(userId);
         assertEquals(1, histories.size());
-        assertEquals(data.requestUserId(), histories.get(0).getUserId());
+        assertEquals(data.getRequestUserId(), histories.get(0).getUserId());
         assertEquals(PointHistoryStatus.CHARGE, histories.get(0).getStatus());
-        assertEquals(data.amount(), histories.get(0).getAmount());
+        assertEquals(data.getAmount(), histories.get(0).getAmount());
     }
 
     @Test
@@ -59,13 +57,13 @@ class PointHistoryConsumerTest {
         String paymentId = "test_paymentId";
         UsedPoint data = UsedPoint.of(userId, paymentId,  10000);
 
-        producerCluster.sendMessage("used-point", data);
+        producerCluster.sendMessage(data);
         Thread.sleep(500);
         List<PointHistory> histories = this.pointHistoryService.loadPointHistories(userId);
         assertEquals(1, histories.size());
-        assertEquals(data.requestUserId(), histories.get(0).getUserId());
-        assertEquals(data.paymentId(), histories.get(0).getPaymentId());
+        assertEquals(data.getRequestUserId(), histories.get(0).getUserId());
+        assertEquals(data.getPaymentId(), histories.get(0).getPaymentId());
         assertEquals(PointHistoryStatus.USE, histories.get(0).getStatus());
-        assertEquals(data.amount(), histories.get(0).getAmount());
+        assertEquals(data.getAmount(), histories.get(0).getAmount());
     }
 }

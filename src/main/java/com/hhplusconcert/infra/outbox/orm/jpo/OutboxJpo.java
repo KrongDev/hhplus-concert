@@ -8,10 +8,12 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 
 @Getter
+@Setter
 @Entity
 @Table(name = "outbox")
 @AllArgsConstructor
@@ -19,7 +21,10 @@ import org.springframework.beans.BeanUtils;
 public class OutboxJpo implements JpoEntity<Outbox> {
     @Id
     private String id;
+    private String topic;
+    private String classPath;
     private String payload;
+    private int count;
     private boolean published;
     private boolean skipped;
     private long publishedAt;
@@ -29,7 +34,10 @@ public class OutboxJpo implements JpoEntity<Outbox> {
     public Outbox toDomain() {
         return Outbox.builder()
                 .id(id)
+                .topic(topic)
+                .classPath(classPath)
                 .payload(payload)
+                .count(count)
                 .published(published)
                 .skipped(skipped)
                 .publishedAt(publishedAt)

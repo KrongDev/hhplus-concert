@@ -5,6 +5,7 @@ import com.hhplusconcert.domain.outbox.domain.Outbox;
 import java.util.List;
 
 public interface OutboxRepository {
+    Outbox findOutbox (String id);
     List<Outbox> findUnPublishedEvents ();
     void save (Outbox outbox);
 }

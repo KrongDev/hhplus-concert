@@ -15,9 +15,15 @@ public class OutboxService {
     private final OutboxRepository outboxRepository;
 
     @Transactional
-    public void published(Outbox outbox) {
-        outbox.published();
+    public void published(String id) {
+        Outbox outbox = loadOutbox(id);
+        outbox.successPublish();
         this.outboxRepository.save(outbox);
+    }
+
+    public Outbox loadOutbox(String id) {
+        //
+        return this.outboxRepository.findOutbox(id);
     }
 
     public List<Outbox> loadUnPublishedEvents() {

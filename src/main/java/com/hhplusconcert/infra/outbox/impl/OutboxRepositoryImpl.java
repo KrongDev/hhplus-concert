@@ -8,12 +8,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
 public class OutboxRepositoryImpl implements OutboxRepository {
     //
     private final OutboxJpaRepository outboxJpaRepository;
+
+    @Override
+    public Outbox findOutbox(String id) {
+        Optional<OutboxJpo> jpo = this.outboxJpaRepository.findById(id);
+        return jpo.map(OutboxJpo::toDomain).orElse(null);
+    }
 
     @Override
     public List<Outbox> findUnPublishedEvents() {

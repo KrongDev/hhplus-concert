@@ -7,8 +7,6 @@ import com.hhplusconcert.domain.point.model.vo.PointHistoryStatus;
 import com.hhplusconcert.domain.point.service.PointHistoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -19,24 +17,24 @@ public class PointHistoryConsumer {
     //
     private final PointHistoryService pointHistoryService;
 
-    @KafkaListener(topics = {"charged-point"}, groupId = "${concert.topic_groups.point}")
+    @KafkaListener(topics = {"ChargedPoint"}, groupId = "${concert.topic_groups.point}")
     public void ChargedPointConsume(String message) {
         ChargedPoint event = JsonUtil.fromJson(message, ChargedPoint.class);
-        log.info("id {}, amount {}", event.requestUserId(), event.amount());
+        log.info("id {}, amount {}", event.getRequestUserId(), event.getAmount());
 
-        String requestUserId = event.requestUserId();
-        int amount = event.amount();
+        String requestUserId = event.getRequestUserId();
+        int amount = event.getAmount();
         this.pointHistoryService.createPointHistory(requestUserId, amount, PointHistoryStatus.CHARGE);
     }
 
-    @KafkaListener(topics = {"used-point"}, groupId = "point")
+    @KafkaListener(topics = {"UsedPoint"}, groupId = "${concert.topic_groups.point}")
     public void UsedPointConsume(String message) {
         UsedPoint event = JsonUtil.fromJson(message, UsedPoint.class);
-        log.info("id {}, amount {}", event.requestUserId(), event.amount());
+        log.info("id {}, amount {}", event.getRequestUserId(), event.getAmount());
 
-        String requestUserId = event.requestUserId();
-        String paymentId = event.paymentId();
-        int amount = event.amount();
+        String requestUserId = event.getRequestUserId();
+        String paymentId = event.getPaymentId();
+        int amount = event.getAmount();
         this.pointHistoryService.createPointHistory(requestUserId, amount, PointHistoryStatus.USE, paymentId);
     }
 }
