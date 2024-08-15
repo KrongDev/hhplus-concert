@@ -2,6 +2,7 @@ package com.hhplusconcert.infra.outbox.orm.jpo;
 
 import com.hhplusconcert.domain.outbox.domain.Outbox;
 import com.hhplusconcert.infra.common.JpoEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -23,6 +24,7 @@ public class OutboxJpo implements JpoEntity<Outbox> {
     private String id;
     private String topic;
     private String classPath;
+    @Column(columnDefinition="TEXT")
     private String payload;
     private int count;
     private boolean published;

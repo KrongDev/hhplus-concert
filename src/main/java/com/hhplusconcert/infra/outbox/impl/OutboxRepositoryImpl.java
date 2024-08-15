@@ -23,8 +23,8 @@ public class OutboxRepositoryImpl implements OutboxRepository {
     }
 
     @Override
-    public List<Outbox> findUnPublishedEvents() {
-        List<OutboxJpo> jpos = this.outboxJpaRepository.findAllByPublishedIsFalseAndSkippedIsFalse();
+    public List<Outbox> findUnPublishedEvents(long pointAt) {
+        List<OutboxJpo> jpos = this.outboxJpaRepository.findAllByPublishedIsFalseAndSkippedIsFalseAndPublishedAtLessThanEqual(pointAt);
         return jpos.stream().map(OutboxJpo::toDomain).toList();
     }
 

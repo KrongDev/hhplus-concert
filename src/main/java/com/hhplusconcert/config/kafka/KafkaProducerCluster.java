@@ -28,4 +28,15 @@ public class KafkaProducerCluster {
             }
         });
     }
+
+    public void sendMessage(String topic, String payload) {
+        CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, payload);
+        future.whenComplete((r, e) -> {
+            if (e == null) {
+                log.info("Producer: success >> message: {}, offset: {}", r.getProducerRecord().value(), r.getRecordMetadata().offset());
+            } else {
+                log.error("producer: failure >> message: {}", e.getMessage());
+            }
+        });
+    }
 }
