@@ -25,10 +25,21 @@ spring:
       port: 6379
   cache:
     type: redis
+  kafka:
+    bootstrap-servers: localhost:9092
+    template:
+      default-topic: dev-topic
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: dev-group
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
 concert:
   limit:
     processCount: 50
   queueKey: 'concert-waiting-queue'
+  topic_groups:
+    point: point
 
 
 server:
@@ -56,10 +67,19 @@ spring:
     redis:
       host: localhost
       port: 6379
+  kafka:
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: test-group
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      auto-offset-reset: earliest
 concert:
   limit:
     processCount: 50
   queueKey: 'concert-waiting-queue-test'
+  topic_groups:
+    point: test-point
 
 
 server:
