@@ -16,7 +16,7 @@ public class OutboxScheduler {
     private final OutboxService outboxService;
     private final KafkaProducerCluster kafkaProducerCluster;
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 1000)
     public void republishFailedMessages() {
         //
         List<Outbox> republishMessages = this.outboxService.loadUnPublishedEvents();
