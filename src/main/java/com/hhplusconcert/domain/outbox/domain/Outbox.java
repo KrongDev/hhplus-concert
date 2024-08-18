@@ -16,6 +16,7 @@ public class Outbox {
     private String classPath;
     private String payload;
     private int count;
+    // 발행요청 시각 - 마지막 발행 시도 시각을 의미
     private boolean published;
     private boolean skipped;
     private long publishedAt;
