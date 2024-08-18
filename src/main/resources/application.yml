@@ -40,7 +40,9 @@ concert:
   queueKey: 'concert-waiting-queue'
   topic_groups:
     point: point
-
+    waitingToken: waiting-token
+    reservation: reservation
+    outbox: outbox
 
 server:
   port: 8080
@@ -80,6 +82,9 @@ concert:
   queueKey: 'concert-waiting-queue-test'
   topic_groups:
     point: test-point
+    waitingToken: test-waiting-token
+    reservation: test-reservation
+    outbox: test-outbox
 
 
 server:
