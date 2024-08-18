@@ -1,8 +1,8 @@
-package com.hhplusconcert.domain.watingToken.stream;
+package com.hhplusconcert.interfaces.consumer.waitingToken;
 
+import com.hhplusconcert.application.waitingToken.facade.WaitingTokenFlowFacade;
 import com.hhplusconcert.common.util.JsonUtil;
 import com.hhplusconcert.domain.payment.event.PaymentConfirmed;
-import com.hhplusconcert.domain.watingToken.service.WaitingTokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class WaitingTokenConsumer {
     //
-    private final WaitingTokenService waitingTokenService;
+    private final WaitingTokenFlowFacade waitingTokenFlowFacade;
 
     @KafkaListener(topics = {"PaymentConfirmed"}, groupId = "${concert.topic_groups.waitingToken}")
     public void paymentConfirmedConsume(String message) {
@@ -21,6 +21,6 @@ public class WaitingTokenConsumer {
 
         String userId = event.getUserId();
         String seriesId = event.getSeriesId();
-        this.waitingTokenService.deleteByUserIdAndSeriesId(userId, seriesId);
+        this.waitingTokenFlowFacade.expiredToken(userId, seriesId);
     }
 }

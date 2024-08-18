@@ -1,7 +1,7 @@
-package com.hhplusconcert.domain.payment.stream;
+package com.hhplusconcert.interfaces.consumer.payment;
 
+import com.hhplusconcert.application.outbox.OutboxFlowFacade;
 import com.hhplusconcert.common.util.JsonUtil;
-import com.hhplusconcert.domain.outbox.service.OutboxService;
 import com.hhplusconcert.domain.payment.event.PaymentConfirmed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PaymentOutboxHandler {
     //
-    private final OutboxService outboxService;
+    private final OutboxFlowFacade outboxFlowFacade;
 
     @KafkaListener(topics = {"PaymentConfirmed"}, groupId = "${concert.topic_groups.outbox}")
     public void paymentConfirmed(String message) {
         PaymentConfirmed event = JsonUtil.fromJson(message, PaymentConfirmed.class);
-        this.outboxService.successPublish(event.getEventId());
+        this.outboxFlowFacade.successPublish(event.getEventId());
     }
 }

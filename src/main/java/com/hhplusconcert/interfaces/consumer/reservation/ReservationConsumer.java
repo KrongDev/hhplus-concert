@@ -1,8 +1,8 @@
-package com.hhplusconcert.domain.reservation.stream;
+package com.hhplusconcert.interfaces.consumer.reservation;
 
+import com.hhplusconcert.application.reservation.facade.ReservationFlowFacade;
 import com.hhplusconcert.common.util.JsonUtil;
 import com.hhplusconcert.domain.payment.event.PaymentConfirmed;
-import com.hhplusconcert.domain.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ReservationConsumer {
     //
-    private final ReservationService reservationService;
+    private final ReservationFlowFacade reservationFlowFacade;
 
     @KafkaListener(topics = {"PaymentConfirmed"}, groupId = "${concert.topic_groups.reservation}")
     public void paymentConfirmedConsume(String message) {
@@ -27,7 +27,7 @@ public class ReservationConsumer {
         int seatRow = event.getSeatRow();
         int seatCol = event.getSeatCol();
         int price = event.getPrice();
-        this.reservationService.create(
+        this.reservationFlowFacade.create(
                 temporaryReservationId,
                 userId,
                 paymentId,

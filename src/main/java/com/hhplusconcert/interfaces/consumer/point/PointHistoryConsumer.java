@@ -1,10 +1,9 @@
-package com.hhplusconcert.domain.point.stream;
+package com.hhplusconcert.interfaces.consumer.point;
 
+import com.hhplusconcert.application.point.facade.PointHistoryFlowFacade;
 import com.hhplusconcert.common.util.JsonUtil;
 import com.hhplusconcert.domain.point.event.ChargedPoint;
 import com.hhplusconcert.domain.point.event.UsedPoint;
-import com.hhplusconcert.domain.point.model.vo.PointHistoryStatus;
-import com.hhplusconcert.domain.point.service.PointHistoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PointHistoryConsumer {
     //
-    private final PointHistoryService pointHistoryService;
+    private final PointHistoryFlowFacade pointHistoryFlowFacade;
 
     @KafkaListener(topics = {"ChargedPoint"}, groupId = "${concert.topic_groups.point}")
     public void chargedPointConsume(String message) {
@@ -24,7 +23,7 @@ public class PointHistoryConsumer {
 
         String requestUserId = event.getRequestUserId();
         int amount = event.getAmount();
-        this.pointHistoryService.createPointHistory(requestUserId, amount, PointHistoryStatus.CHARGE);
+        this.pointHistoryFlowFacade.createPointChargedHistory(requestUserId, amount);
     }
 
     @KafkaListener(topics = {"UsedPoint"}, groupId = "${concert.topic_groups.point}")
@@ -35,6 +34,6 @@ public class PointHistoryConsumer {
         String requestUserId = event.getRequestUserId();
         String paymentId = event.getPaymentId();
         int amount = event.getAmount();
-        this.pointHistoryService.createPointHistory(requestUserId, amount, PointHistoryStatus.USE, paymentId);
+        this.pointHistoryFlowFacade.createPointUsedHistory(requestUserId, amount, paymentId);
     }
 }
