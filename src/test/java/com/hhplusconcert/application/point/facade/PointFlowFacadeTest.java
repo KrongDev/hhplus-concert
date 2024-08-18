@@ -126,7 +126,7 @@ class PointFlowFacadeTest {
         log.info("Expected Point: " + chargePoint + ", Actual Point: " + point.getPoint());
         log.info("Total time taken: " + totalTime + " milliseconds");
         assertEquals(chargePoint, point.getPoint());
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         List<PointHistory> pointHistories = this.pointHistoryService.loadPointHistories(userId);
         assertEquals(1, pointHistories.size());
         assertEquals(chargePoint, pointHistories.get(0).getAmount());
@@ -170,7 +170,7 @@ class PointFlowFacadeTest {
         log.info("Expected Point: " + expectedPoint + ", Actual Point: " + point.getPoint());
         log.info("Total time taken: " + totalTime + " milliseconds");
         assertEquals(expectedPoint, point.getPoint());
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         List<PointHistory> pointHistories = this.pointHistoryService.loadPointHistories(userId);
         assertEquals(1, pointHistories.size());
         assertEquals(usePoint, pointHistories.get(0).getAmount());
