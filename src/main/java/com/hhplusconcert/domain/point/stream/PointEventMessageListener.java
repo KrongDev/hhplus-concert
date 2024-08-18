@@ -17,12 +17,12 @@ public class PointEventMessageListener {
     @TransactionalEventListener
     public void sendMessageHandler(ChargedPoint event) {
         //
-        this.kafkaProducerCluster.sendMessage(event);
+        this.kafkaProducerCluster.sendMessage(ChargedPoint.topicId, event);
     }
 
     @TransactionalEventListener
     public void sendMessageHandler(UsedPoint event) {
         //
-        this.kafkaProducerCluster.sendMessage(event);
+        this.kafkaProducerCluster.sendMessage(UsedPoint.topicId, event);
     }
 }

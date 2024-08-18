@@ -13,7 +13,7 @@ public class PaymentOutboxHandler {
     //
     private final OutboxFlowFacade outboxFlowFacade;
 
-    @KafkaListener(topics = {"PaymentConfirmed"}, groupId = "${concert.topic_groups.outbox}")
+    @KafkaListener(topics = {PaymentConfirmed.topicId}, groupId = "${concert.topic_groups.outbox}")
     public void paymentConfirmed(String message) {
         PaymentConfirmed event = JsonUtil.fromJson(message, PaymentConfirmed.class);
         this.outboxFlowFacade.successPublish(event.getEventId());

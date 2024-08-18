@@ -17,6 +17,6 @@ public class PaymentEventMessageListener {
     @TransactionalEventListener
     public void sendMessageHandler(PaymentConfirmed event) {
         //
-        this.kafkaProducerCluster.sendMessage(event);
+        this.kafkaProducerCluster.sendMessage(PaymentConfirmed.topicId, event);
     }
 }

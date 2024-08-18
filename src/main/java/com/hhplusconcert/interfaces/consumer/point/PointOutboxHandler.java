@@ -15,13 +15,13 @@ public class PointOutboxHandler {
     //
     private final OutboxFlowFacade outboxFlowFacade;
 
-    @KafkaListener(topics = {"ChargedPoint"}, groupId = "${concert.topic_groups.outbox}")
+    @KafkaListener(topics = {ChargedPoint.topicId}, groupId = "${concert.topic_groups.outbox}")
     public void chargedPoint(String message) {
         ChargedPoint event = JsonUtil.fromJson(message, ChargedPoint.class);
         this.outboxFlowFacade.successPublish(event.getEventId());
     }
 
-    @KafkaListener(topics = {"UsedPoint"}, groupId = "${concert.topic_groups.outbox}")
+    @KafkaListener(topics = {UsedPoint.topicId}, groupId = "${concert.topic_groups.outbox}")
     public void usedPoint(String message) {
         UsedPoint event = JsonUtil.fromJson(message, UsedPoint.class);
         this.outboxFlowFacade.successPublish(event.getEventId());

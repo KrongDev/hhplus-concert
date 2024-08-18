@@ -16,12 +16,12 @@ public class PointEventRecordListener {
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void recordMessageHandler(ChargedPoint event) {
         //
-        this.outboxService.create(event);
+        this.outboxService.create(ChargedPoint.topicId, event);
     }
 
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void recordMessageHandler(UsedPoint event) {
         //
-        this.outboxService.create(event);
+        this.outboxService.create(UsedPoint.topicId, event);
     }
 }

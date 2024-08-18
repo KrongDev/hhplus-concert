@@ -16,7 +16,7 @@ public class PointHistoryConsumer {
     //
     private final PointHistoryFlowFacade pointHistoryFlowFacade;
 
-    @KafkaListener(topics = {"ChargedPoint"}, groupId = "${concert.topic_groups.point}")
+    @KafkaListener(topics = {ChargedPoint.topicId}, groupId = "${concert.topic_groups.point}")
     public void chargedPointConsume(String message) {
         ChargedPoint event = JsonUtil.fromJson(message, ChargedPoint.class);
         log.info("id {}, amount {}", event.getRequestUserId(), event.getAmount());
@@ -26,7 +26,7 @@ public class PointHistoryConsumer {
         this.pointHistoryFlowFacade.createPointChargedHistory(requestUserId, amount);
     }
 
-    @KafkaListener(topics = {"UsedPoint"}, groupId = "${concert.topic_groups.point}")
+    @KafkaListener(topics = {UsedPoint.topicId}, groupId = "${concert.topic_groups.point}")
     public void usedPointConsume(String message) {
         UsedPoint event = JsonUtil.fromJson(message, UsedPoint.class);
         log.info("id {}, amount {}", event.getRequestUserId(), event.getAmount());

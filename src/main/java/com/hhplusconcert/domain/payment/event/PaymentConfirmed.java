@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class PaymentConfirmed extends Event {
+    public static final String topicId = "payment_confirmed";
         private String temporaryReservationId;
         private String userId;
         private String concertId;

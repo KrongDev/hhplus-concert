@@ -52,7 +52,7 @@ class WaitingTokenConsumerTest {
                 0,
                 ""
         );
-        producerCluster.sendMessage(data);
+        producerCluster.sendMessage(PaymentConfirmed.topicId, data);
 
         Thread.sleep(1000);
 

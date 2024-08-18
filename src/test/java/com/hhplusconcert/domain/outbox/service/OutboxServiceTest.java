@@ -27,6 +27,7 @@ class OutboxServiceTest {
     @Autowired
     private KafkaProducerCluster producerCluster;
 
+    private final String topicId = ChargedPoint.topicId;
     private final Event event = ChargedPoint.of("test_userId", 10000);
 
     @BeforeEach
@@ -39,7 +40,7 @@ class OutboxServiceTest {
     @DisplayName("정상 발행 실패하였을 때 count++")
     void failPublish() {
         //GIVEN
-        outboxService.create(event);
+        outboxService.create(topicId, event);
         //WHEN
         outboxService.failPublish(event.getEventId());
         //THEN
@@ -51,7 +52,7 @@ class OutboxServiceTest {
     @DisplayName("특정 카운트 이상 되었을 때 skipped 활성화")
     void failPublishSkipped() {
         //GIVEN
-        outboxService.create(event);
+        outboxService.create(topicId, event);
         //WHEN
         outboxService.failPublish(event.getEventId());
         outboxService.failPublish(event.getEventId());
@@ -66,7 +67,7 @@ class OutboxServiceTest {
     @DisplayName("정상적으로 발행 완료되었을 때 outbox상태 변경 - published true")
     void successPublish() {
         //GIVEN
-        outboxService.create(event);
+        outboxService.create(topicId, event);
         //WHEN
         outboxService.successPublish(event.getEventId());
         //THEN
@@ -78,9 +79,9 @@ class OutboxServiceTest {
     @DisplayName("정상적으로 Message 가 발행되었을 때 publish가 true로 변경되는지")
     void successMessagePublish() throws InterruptedException {
         //GIVEN
-        outboxService.create(event);
+        outboxService.create(topicId, event);
         //WHEN
-        producerCluster.sendMessage(event);
+        producerCluster.sendMessage(topicId, event);
         Thread.sleep(1000);
         //THEN
         Outbox outbox = outboxService.loadOutbox(event.getEventId());

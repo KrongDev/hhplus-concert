@@ -16,6 +16,6 @@ public class PaymentEventRecordListener {
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void recordMessageHandler(PaymentConfirmed event) {
         //
-        this.outboxService.create(event);
+        this.outboxService.create(PaymentConfirmed.topicId, event);
     }
 }

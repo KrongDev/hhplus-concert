@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChargedPoint extends Event {
+    public static final String topicId = "charged_point";
     private String requestUserId;
     private int amount;
 

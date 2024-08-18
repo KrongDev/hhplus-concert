@@ -15,7 +15,7 @@ public class WaitingTokenConsumer {
     //
     private final WaitingTokenFlowFacade waitingTokenFlowFacade;
 
-    @KafkaListener(topics = {"PaymentConfirmed"}, groupId = "${concert.topic_groups.waitingToken}")
+    @KafkaListener(topics = {PaymentConfirmed.topicId}, groupId = "${concert.topic_groups.waitingToken}")
     public void paymentConfirmedConsume(String message) {
         PaymentConfirmed event = JsonUtil.fromJson(message, PaymentConfirmed.class);
 

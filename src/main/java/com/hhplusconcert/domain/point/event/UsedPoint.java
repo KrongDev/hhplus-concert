@@ -6,20 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class  UsedPoint extends Event {
-        private String eventId;
+    public static final String topicId = "used_point";
         private String requestUserId;
         private String  paymentId;
         private int amount;
 
     public static UsedPoint of(String requestUserId, String paymentId, int amount) {
-        String eventId = UUID.randomUUID().toString();
-        return new UsedPoint(eventId, requestUserId, paymentId, amount);
+        return new UsedPoint(requestUserId, paymentId, amount);
     }
 }

@@ -45,7 +45,7 @@ class PointHistoryConsumerTest {
     void chargedPointConsume() {
         ChargedPoint data = ChargedPoint.of(userId, 10000);
 
-        producerCluster.sendMessage(data);
+        producerCluster.sendMessage(ChargedPoint.topicId, data);
 
         await().atMost(1, SECONDS)
                 .untilAsserted(() -> {
@@ -63,7 +63,7 @@ class PointHistoryConsumerTest {
         String paymentId = "test_paymentId";
         UsedPoint data = UsedPoint.of(userId, paymentId,  10000);
 
-        producerCluster.sendMessage(data);
+        producerCluster.sendMessage(UsedPoint.topicId, data);
 
         await().atMost(1, SECONDS)
                 .untilAsserted(() -> {

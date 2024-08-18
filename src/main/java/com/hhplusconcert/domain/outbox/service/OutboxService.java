@@ -17,9 +17,9 @@ public class OutboxService {
     private final OutboxRepository outboxRepository;
 
     @Transactional
-    public void create(Event event) {
+    public void create(String topicId, Event event) {
         //
-        this.outboxRepository.save(Outbox.from(event));
+        this.outboxRepository.save(Outbox.from(topicId, event));
     }
 
     public Outbox loadOutbox(String id) {

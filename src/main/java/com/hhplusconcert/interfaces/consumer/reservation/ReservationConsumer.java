@@ -13,7 +13,7 @@ public class ReservationConsumer {
     //
     private final ReservationFlowFacade reservationFlowFacade;
 
-    @KafkaListener(topics = {"PaymentConfirmed"}, groupId = "${concert.topic_groups.reservation}")
+    @KafkaListener(topics = {PaymentConfirmed.topicId}, groupId = "${concert.topic_groups.reservation}")
     public void paymentConfirmedConsume(String message) {
         PaymentConfirmed event = JsonUtil.fromJson(message, PaymentConfirmed.class);
 

@@ -23,13 +23,14 @@ public class Outbox {
     private long createdAt;
 
     public static <T extends Event> Outbox from(
+            String topicId,
             T message
     ) {
         String payload = JsonUtil.toJson(message);
         long now = System.currentTimeMillis();
         return Outbox.builder()
                 .id(message.getEventId())
-                .topic(message.getClass().getSimpleName())
+                .topic(topicId)
                 .classPath(message.getClass().getName())
                 .payload(payload)
                 .createdAt(now)
