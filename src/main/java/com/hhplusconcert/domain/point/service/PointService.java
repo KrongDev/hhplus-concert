@@ -26,7 +26,6 @@ public class PointService {
 
     @Transactional
     public Point loadPoint(String userId) {
-        //
         Point point = this.pointRepository.findById(userId);
         if(Objects.isNull(point))
             this.create(userId);
