@@ -11,6 +11,11 @@ public class WaitingTokenFlowFacade {
     //
     private final WaitingTokenService waitingTokenService;
 
+    public void expiredToken(String userId, String seriesId) {
+        //
+        this.waitingTokenService.deleteByUserIdAndSeriesId(userId, seriesId);
+    }
+
     @Transactional
     public void processExpiredTokens() {
         //

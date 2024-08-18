@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -30,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9093", "port=9093" })
 class PaymentFlowFacadeTest {
     private static final Logger log = LoggerFactory.getLogger(PaymentFlowFacadeTest.class);
     @Autowired
@@ -167,6 +169,7 @@ class PaymentFlowFacadeTest {
         doneLatch.await();
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
+        Thread.sleep(1000);
         //then
         List<Reservation> reservations = this.reservationService.loadAllReservationsByUserId(userId);
         Point point = this.pointService.loadPoint(userId);
