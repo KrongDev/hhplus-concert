@@ -19,7 +19,7 @@ public class OutboxScheduler {
     @Scheduled(fixedDelay = 1000)
     public void republishFailedMessages() {
         //
-        List<Outbox> republishMessages = this.outboxService.loadUnPublishedEvents();
+        List<Outbox> republishMessages = this.outboxService.loadUnpublishedAndOlderThanOneMinute();
         republishMessages.parallelStream().forEach(outbox -> {
             try {
                 this.kafkaProducerCluster.sendMessage(outbox.getTopic(), outbox.getPayload());

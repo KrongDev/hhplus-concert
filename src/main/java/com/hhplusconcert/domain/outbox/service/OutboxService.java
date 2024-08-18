@@ -27,7 +27,7 @@ public class OutboxService {
         return this.outboxRepository.findOutbox(id);
     }
 
-    public List<Outbox> loadUnPublishedEvents() {
+    public List<Outbox> loadUnpublishedAndOlderThanOneMinute() {
         //
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, -1);
