@@ -1,11 +1,11 @@
 package com.hhplusconcert.domain.point.service;
 
+import com.hhplusconcert.config.kafka.KafkaProducerCluster;
 import com.hhplusconcert.domain.point.event.ChargedPoint;
 import com.hhplusconcert.domain.point.event.UsedPoint;
 import com.hhplusconcert.domain.point.model.Point;
 import com.hhplusconcert.domain.point.repository.PointRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +16,8 @@ import java.util.Objects;
 public class PointService {
     //
     private final PointRepository pointRepository;
-    private final ApplicationEventPublisher eventPublisher;
+//    private final ApplicationEventPublisher eventPublisher;
+    private final KafkaProducerCluster kafkaProducerCluster;
 
     @Transactional
     public void create(String userId) {
@@ -38,7 +39,8 @@ public class PointService {
         Point point = this.loadPoint(userId);
         point.charge(amount);
         this.pointRepository.save(point);
-        this.eventPublisher.publishEvent(ChargedPoint.on(userId, amount));
+        this.kafkaProducerCluster.sendMessage("charged-point", ChargedPoint.of(userId, amount));
+
     }
 
     @Transactional
@@ -46,6 +48,6 @@ public class PointService {
         Point point = this.loadPoint(userId);
         point.use(amount);
         this.pointRepository.save(point);
-        this.eventPublisher.publishEvent(UsedPoint.on(userId, paymentId, amount));
+        this.kafkaProducerCluster.sendMessage("used-point", UsedPoint.of(userId, paymentId, amount));
     }
 }
