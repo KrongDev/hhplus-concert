@@ -8,5 +8,5 @@ import java.util.List;
 public interface ConcertSeriesRepository {
     void save(ConcertSeries concertSeries);
     ConcertSeries findById(String seriesId);
-    List<ConcertSeries> findByConcertIdAndNowReserving(String concertId, Long now);
+    List<ConcertSeries> findByConcertIdAndNowReserving(String concertId, Long now, int page, int size);
 }

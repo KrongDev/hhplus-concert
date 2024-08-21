@@ -33,8 +33,8 @@ public class ConcertService {
         return concert;
     }
 
-    public List<Concert> loadConcerts() {
+    public List<Concert> loadConcerts(int page, int size) {
         //
-        return this.concertRepository.findAll();
+        return this.concertRepository.findAll(page, size);
     }
 }

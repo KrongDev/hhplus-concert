@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
 import java.util.Objects;
 
@@ -53,9 +52,9 @@ public class ConcertSeriesService {
         return concertSeries;
     }
 
-    public List<ConcertSeries> loadConcertSeriesByConcertIdAndNowReserving(String concertId) {
+    public List<ConcertSeries> loadConcertSeriesByConcertIdAndNowReserving(String concertId, int page, int size) {
         //
         Long now = System.currentTimeMillis();
-        return this.concertSeriesRepository.findByConcertIdAndNowReserving(concertId, now);
+        return this.concertSeriesRepository.findByConcertIdAndNowReserving(concertId, now, page, size);
     }
 }

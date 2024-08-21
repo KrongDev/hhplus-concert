@@ -5,10 +5,16 @@ import com.hhplusconcert.domain.concert.repository.ConcertRepository;
 import com.hhplusconcert.infra.concert.orm.ConcertJpaRepository;
 import com.hhplusconcert.infra.concert.orm.jpo.ConcertJpo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.domain.Sort.Direction.ASC;
 
 @Repository
 @RequiredArgsConstructor
@@ -29,9 +35,10 @@ public class ConcertRepositoryImpl implements ConcertRepository {
     }
 
     @Override
-    public List<Concert> findAll() {
+    public List<Concert> findAll(int page, int size) {
         //
-        List<ConcertJpo> jpos =  this.concertJpaRepository.findAll();
-        return jpos.stream().map(ConcertJpo::toDomain).toList();
+        Pageable pageable = PageRequest.of(page, size, Sort.by(ASC, "concertId"));
+        Page<ConcertJpo> jpos =  this.concertJpaRepository.findAll(pageable);
+        return jpos.getContent().stream().map(ConcertJpo::toDomain).toList();
     }
 }

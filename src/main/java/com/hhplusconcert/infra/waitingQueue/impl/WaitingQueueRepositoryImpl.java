@@ -58,8 +58,8 @@
 //    }
 //
 //    @Override
-//    public List<WaitingQueue> findAllByStatusAndOffsetLimit(WaitingQueueStatus status, int limit) {
-//        Pageable pageable = PageRequest.of(0, limit, Sort.by(ASC, "createAt"));
+//    public List<WaitingQueue> findAllByStatusAndOffsetLimit(WaitingQueueStatus status, int size) {
+//        Pageable pageable = PageRequest.of(0, size, Sort.by(ASC, "createAt"));
 //        List<WaitingQueueJpo> jpos = this.waitingQueueJpaRepository.findAllByStatus(status, pageable);
 //        return jpos.stream().map(WaitingQueueJpo::toDomain).collect(Collectors.toList());
 //    }

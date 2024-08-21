@@ -2,6 +2,8 @@ package com.hhplusconcert.interfaces.controller.concert.rest;
 
 import com.hhplusconcert.application.concert.dto.ConcertDetail;
 import com.hhplusconcert.application.concert.dto.ConcertSchedule;
+import com.hhplusconcert.application.concert.dto.query.ConcertListQuery;
+import com.hhplusconcert.application.concert.dto.query.ConcertSeriesListQuery;
 import com.hhplusconcert.application.concert.facade.ConcertFlowFacade;
 import com.hhplusconcert.application.concert.facade.ConcertSeekFacade;
 import com.hhplusconcert.common.annotation.QueueCheckAnnotation;
@@ -61,16 +63,23 @@ public class ConcertController {
 
     @GetMapping
     @Description("콘서트 목록 조회")
-    public ResponseEntity<List<Concert>> loadConcerts() {
+    public ResponseEntity<List<Concert>> loadConcerts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "30") int size
+    ) {
         //
-        return ResponseEntity.ok(this.concertSeekFacade.loadConcerts());
+        return ResponseEntity.ok(this.concertSeekFacade.loadConcerts(ConcertListQuery.of(page, size)));
     }
 
     @GetMapping("/series/{concertId}")
     @Description("예약가능한 콘서트 날짜 조회")
-    public ResponseEntity<ConcertSchedule> loadConcertSeries(@PathVariable String concertId) {
+    public ResponseEntity<ConcertSchedule> loadConcertSeries(
+            @PathVariable String concertId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "30") int size
+            ) {
         //
-        return ResponseEntity.ok(this.concertSeekFacade.loadConcertSeries(concertId));
+        return ResponseEntity.ok(this.concertSeekFacade.loadConcertSeries(ConcertSeriesListQuery.of(concertId, page, size)));
     }
 
     @GetMapping("/seat/{seriesId}")

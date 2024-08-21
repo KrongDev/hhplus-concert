@@ -2,6 +2,8 @@ package com.hhplusconcert.application.concert.facade;
 
 import com.hhplusconcert.application.concert.dto.ConcertDetail;
 import com.hhplusconcert.application.concert.dto.ConcertSchedule;
+import com.hhplusconcert.application.concert.dto.query.ConcertListQuery;
+import com.hhplusconcert.application.concert.dto.query.ConcertSeriesListQuery;
 import com.hhplusconcert.domain.concert.model.Concert;
 import com.hhplusconcert.domain.concert.model.ConcertSeat;
 import com.hhplusconcert.domain.concert.model.ConcertSeries;
@@ -23,16 +25,16 @@ public class ConcertSeekFacade {
     private final ConcertSeatService concertSeatService;
 
     @Cacheable(cacheNames = "concert", cacheManager = "cacheManager")
-    public List<Concert> loadConcerts() {
+    public List<Concert> loadConcerts(ConcertListQuery query) {
         //
-        return this.concertService.loadConcerts();
+        return this.concertService.loadConcerts(query.page(), query.size());
     }
 
-    @Cacheable(cacheNames = "concertSeries", key = "#concertId", cacheManager = "cacheManager")
-    public ConcertSchedule loadConcertSeries(String concertId) {
+    @Cacheable(cacheNames = "concertSeries", key = "#query", cacheManager = "cacheManager")
+    public ConcertSchedule loadConcertSeries(ConcertSeriesListQuery query) {
         //
-        Concert concert = this.concertService.loadConcert(concertId);
-        List<ConcertSeries> series = this.concertSeriesService.loadConcertSeriesByConcertIdAndNowReserving(concertId);
+        Concert concert = this.concertService.loadConcert(query.concertId());
+        List<ConcertSeries> series = this.concertSeriesService.loadConcertSeriesByConcertIdAndNowReserving(concert.getConcertId(), query.page(), query.size());
         return new ConcertSchedule(concert, series);
     }
 
