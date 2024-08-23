@@ -26,10 +26,7 @@ public class WaitingQueueService {
 
     public Long loadWaitingQueueCount(String userId, String seriesId) {
         //
-        Long count = this.waitingQueueRepository.findWaitingQueueCount(new WaitingQueue.WaitingQueueKey(userId, seriesId));
-        if(count == null)
-            throw new CustomGlobalException(ErrorType.WAITING_QUEUE_NOT_FOUND);
-        return count;
+        return this.waitingQueueRepository.findWaitingQueueCount(new WaitingQueue.WaitingQueueKey(userId, seriesId));
     }
 
     public List<WaitingQueue.WaitingQueueKey> loadActiveWaitingQueues(Long jointCount) {

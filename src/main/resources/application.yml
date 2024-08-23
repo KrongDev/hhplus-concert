@@ -18,7 +18,7 @@ spring:
           batch_size: 1000
         order_inserts: true
         order_updates: true
-    show-sql: true
+#    show-sql: true
   data:
     redis:
       host: localhost
@@ -36,7 +36,7 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
 concert:
   limit:
-    processCount: 50
+    processCount: 2000
   queueKey: 'concert-waiting-queue'
   topic_groups:
     point: point
@@ -47,9 +47,9 @@ concert:
 server:
   port: 8080
 
-logging:
-  level:
-    com.hhplusconcert: info
+#logging:
+#  level:
+#    com.hhplusconcert: info
 ---
 spring:
   application:

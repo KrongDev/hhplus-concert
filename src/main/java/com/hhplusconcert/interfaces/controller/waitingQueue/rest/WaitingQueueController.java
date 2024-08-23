@@ -1,5 +1,6 @@
 package com.hhplusconcert.interfaces.controller.waitingQueue.rest;
 
+import com.hhplusconcert.application.waitingQueue.dto.WaitingDto;
 import com.hhplusconcert.application.waitingQueue.facade.WaitingQueueFlowFacade;
 import com.hhplusconcert.application.waitingQueue.facade.WaitingQueueSeekFacade;
 import com.hhplusconcert.interfaces.controller.waitingQueue.dto.JoinWaitingQueueRequest;
@@ -25,7 +26,7 @@ public class WaitingQueueController {
     }
 
     @GetMapping("/waiting-count")
-    public ResponseEntity<Long> loadNowWaitingCount(@RequestParam String userId, @RequestParam String seriesId) {
+    public ResponseEntity<WaitingDto> loadNowWaitingCount(@RequestParam String userId, @RequestParam String seriesId) {
         //
         return ResponseEntity.ok(this.waitingQueueSeekFacade.loadNowWaitingCount(userId, seriesId));
     }
