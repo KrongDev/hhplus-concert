@@ -229,7 +229,6 @@ Reservation: 예약 테이블
 ![swagger_payment.png](./images/swagger_payment.png)
 </details>
 
-## <a href="https://lee-geon-exception.tistory.com/37" target="_blank">서비스 동시성 이슈 분석 및 조치</a>
 ## [서비스 동시성 이슈 분석 및 조치](https://lee-geon-exception.tistory.com/37)
 ## [서비스 성능향상을 위한 Cache 적용 및 성능테스트](https://lee-geon-exception.tistory.com/38)
 ## [Rdb대기열 성능 분석과 Redis를 활용한 리펙토링](https://lee-geon-exception.tistory.com/39)
