@@ -229,12 +229,13 @@ Reservation: 예약 테이블
 ![swagger_payment.png](./images/swagger_payment.png)
 </details>
 
-## [서비스 동시성 이슈 분석 및 조치](https://lee-geon-exception.tistory.com/37){: target="_blank"}
-## [서비스 성능향상을 위한 Cache 적용 및 성능테스트](https://lee-geon-exception.tistory.com/38){: target="_blank"}
-## [Rdb대기열 성능 분석과 Redis를 활용한 리펙토링](https://lee-geon-exception.tistory.com/39){: target="_blank"}
-## [Event를 활용한 서비스 관심사 분리](https://lee-geon-exception.tistory.com/40){: target="_blank"}
-## [쿼리 성능향상을 위한 Index 분석 및 생성](https://lee-geon-exception.tistory.com/41){: target="_blank"}
-## [Concert 운영시 발생할 장애 분석 및 대응](https://lee-geon-exception.tistory.com/43){: target="_blank"}
+## <a href="https://lee-geon-exception.tistory.com/37" target="_blank">서비스 동시성 이슈 분석 및 조치</a>
+## [서비스 동시성 이슈 분석 및 조치](https://lee-geon-exception.tistory.com/37)
+## [서비스 성능향상을 위한 Cache 적용 및 성능테스트](https://lee-geon-exception.tistory.com/38)
+## [Rdb대기열 성능 분석과 Redis를 활용한 리펙토링](https://lee-geon-exception.tistory.com/39)
+## [Event를 활용한 서비스 관심사 분리](https://lee-geon-exception.tistory.com/40)
+## [쿼리 성능향상을 위한 Index 분석 및 생성](https://lee-geon-exception.tistory.com/41)
+## [Concert 운영시 발생할 장애 분석 및 대응](https://lee-geon-exception.tistory.com/43)
 
 ## 서버구축 챕터 마무리 회고록 작성
 <details>
